@@ -41,7 +41,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/a_citizen_recyclerView"
+            android:id="@+id/a_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"

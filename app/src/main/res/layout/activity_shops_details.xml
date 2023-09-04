@@ -160,53 +160,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="التاريخ"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/shop_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="2021/7/15"
-                    android:textSize="@dimen/_12sdp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="نوع الرخصة"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/license_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="تجديد"
-                    android:textSize="@dimen/_12sdp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
 
         <LinearLayout
