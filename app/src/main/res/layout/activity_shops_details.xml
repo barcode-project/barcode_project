@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="رخص في 2023"
+                    android:text="15/7/2023"
                     android:fontFamily="@font/boldiphone"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/black" />
@@ -397,6 +397,46 @@
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_175sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:hint="المبلغ الأجمالي"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/all_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:enabled="false"
+                    android:text="15000"
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/boldiphone"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/printBtn"
+                android:layout_width="@dimen/_83sdp"
+                android:layout_height="@dimen/_44sdp"
+                android:background="@drawable/round_back_primary"
+                android:fontFamily="@font/boldiphone"
+                android:layout_marginVertical="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:text="طباعة"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
