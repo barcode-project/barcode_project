@@ -58,9 +58,6 @@
                 tools:text="صيدلية أبن حيان" />
 
 
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
