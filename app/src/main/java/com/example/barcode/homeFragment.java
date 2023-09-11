@@ -77,6 +77,7 @@ public class homeFragment extends Fragment {
         ereas.add(new ereas("البليبي"));
         ereas.add(new ereas("الزبيري"));
         ereas.add(new ereas("حده"));
+        ereas.add(new ereas("حده"));
         return ereas;
     }
 }
