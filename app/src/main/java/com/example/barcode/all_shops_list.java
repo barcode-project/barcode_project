@@ -29,15 +29,16 @@ public class all_shops_list extends AppCompatActivity {
     }
     private List<shops> test(){
         List shops=new ArrayList<>();
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
-        shops.add(new shops("الحي السياسي"));
+        shops.add(new shops("سوبر"));
+        shops.add(new shops("صيدلية "));
+        shops.add(new shops("كافيه"));
+        shops.add(new shops("سوبر"));
+        shops.add(new shops("صيدلية "));
+        shops.add(new shops("كافيه"));
+        shops.add(new shops("سوبر"));
+        shops.add(new shops("صيدلية "));
+        shops.add(new shops("كافيه"));
+
         return shops;
     }
 }

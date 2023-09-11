@@ -35,7 +35,7 @@ public class adapter_ereas extends RecyclerView.Adapter<adapter_ereas.eareasView
 
     @Override
     public int getItemCount() {
-        return 0;
+       return ereasList.size();
     }
 
     public class eareasViewHolder extends RecyclerView.ViewHolder {
