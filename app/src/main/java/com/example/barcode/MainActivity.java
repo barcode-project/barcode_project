@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
-                    case R.id.menuProfile:
+                    case R.id.menulogout:
                         fragment = new profileFragment();
                         break;
 
