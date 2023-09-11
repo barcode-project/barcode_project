@@ -22,7 +22,21 @@
         app:srcCompat="@drawable/login_bg"
         tools:ignore="ImageContrastCheck" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="تسجيل الدخول"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:fontFamily="@font/boldiphone"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <LinearLayout
         android:id="@+id/liginlayoutscreen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,79 +45,91 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".78"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+
+        android:background="@drawable/rounded_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintBottom_toTopOf="@+id/guideline3">
 
 
-        <EditText
-            android:id="@+id/usernamekey"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="40dp"
+            android:id="@+id/Passwordtex"
+            android:layout_height="65dp"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:background="@drawable/rounded_dark"
-            android:gravity="center_vertical"
-            android:hint="الرقم الوظيفي"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#616161"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/relativeLayout3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="الرقم الوطيفي"
+            android:textColorHint="#616161">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/rounded_dark"
+                android:inputType="number"
+                android:textColor="@color/black"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/relativeLayout3"
+            android:layoutDirection="rtl"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/rounded_dark"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:weightSum="6"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/usernamekey">
+            app:layout_constraintTop_toBottomOf="@id/guideline3">
 
-            <EditText
-                android:id="@+id/Passwordtext"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="right"
-                android:layout_marginStart="4dp"
-                android:layout_toEndOf="@+id/Passwordshowicon"
-                android:layout_weight="5"
-                android:background="@android:color/transparent"
-                android:gravity="right|center_vertical"
-                android:hint="كلمة المرور"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingEnd="20dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#616161"
-                android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/Passwordshowicon"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="left|center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:padding="10dp"
-                android:src="@drawable/hidepass" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:id="@+id/Passwordtext"
+                    android:layoutDirection="rtl"
+                    android:layout_height="65dp"
+                    android:layout_marginVertical="@dimen/_4sdp"
+                    android:background="@drawable/rounded_dark"
+                    android:hint=" كلمة المرور"
+                    android:textColorHint="#616161"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/rounded_dark"
+                        android:inputType="textPassword"
+                        android:layoutDirection="rtl"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
         </LinearLayout>
 
@@ -113,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginHorizontal="90dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/round_back_primary"
             android:fontFamily="@font/boldiphone"
             android:gravity="center"
@@ -136,47 +162,24 @@
             app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="297dp" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="تسجيل الدخول"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:fontFamily="@font/boldiphone"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="447dp" />
 
     <ImageView
         android:id="@+id/profileuser"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:src="@drawable/usericon"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:layout_marginTop="@dimen/_15sdp"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="568dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
