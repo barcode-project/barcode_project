@@ -41,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/result_text_view"
         android:layout_marginBottom="28dp"
-        android:text="start_scanning" />
+        android:text="start scanning" />
 
 </RelativeLayout>

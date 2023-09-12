@@ -22,16 +22,12 @@
             android:id="@+id/a_d_c_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="55dp"
+            android:layout_marginBottom="45dp"
             android:clipToPadding="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="jhb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
