@@ -3,24 +3,27 @@ package com.example.barcode;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link historyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class historyFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+public class historyFragment extends Fragment {
+private RecyclerView resview;
+private adapter_history adapter_history;
+private List<history> historyList;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
 
@@ -28,15 +31,7 @@ public class historyFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment historyFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static historyFragment newInstance(String param1, String param2) {
         historyFragment fragment = new historyFragment();
         Bundle args = new Bundle();
@@ -59,6 +54,19 @@ public class historyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        View view= inflater.inflate(R.layout.fragment_history, container, false);
+        resview=view.findViewById(R.id.history_recyclerView);
+        historyList=tisthistory();
+        adapter_history=new adapter_history(getContext(),historyList);
+        resview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        resview.setAdapter(adapter_history);
+
+        return view;
+    }
+
+    private List<history> tisthistory() {
+        List<history> history= new ArrayList<>();
+        history.add(new history(" قبل 5دقائق","شارع مجاهد","1"));
+        return history;
     }
 }
