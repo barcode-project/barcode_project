@@ -7,6 +7,29 @@
     android:layoutDirection="rtl"
     tools:context=".homeFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lin_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view_shops"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/search_view_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="بحث"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +45,7 @@
             android:id="@+id/a_d_c_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="43dp"
             android:layout_marginBottom="45dp"
             android:clipToPadding="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

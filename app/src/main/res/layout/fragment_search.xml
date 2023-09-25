@@ -45,7 +45,7 @@
             android:id="@+id/a_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="43dp"
             android:layout_marginBottom="@dimen/_35sdp"
             android:clipToPadding="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
