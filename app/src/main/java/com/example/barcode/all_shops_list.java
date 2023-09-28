@@ -29,15 +29,15 @@ public class all_shops_list extends AppCompatActivity {
     }
     private List<shops> test(){
         List shops=new ArrayList<>();
-        shops.add(new shops("سوبر"));
-        shops.add(new shops("صيدلية "));
-        shops.add(new shops("كافيه"));
-        shops.add(new shops("سوبر"));
-        shops.add(new shops("صيدلية "));
-        shops.add(new shops("كافيه"));
-        shops.add(new shops("سوبر"));
-        shops.add(new shops("صيدلية "));
-        shops.add(new shops("كافيه"));
+        shops.add(new shops("سوبر",1));
+        shops.add(new shops("صيدلية " ,1));
+        shops.add(new shops("كافيه",1));
+        shops.add(new shops("سوبر",1));
+        shops.add(new shops("صيدلية ",1));
+        shops.add(new shops("كافيه",1));
+        shops.add(new shops("سوبر",1));
+        shops.add(new shops("صيدلية ",1));
+        shops.add(new shops("كافيه",1));
 
         return shops;
     }

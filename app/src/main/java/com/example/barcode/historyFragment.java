@@ -66,14 +66,13 @@ private List<history> historyList;
 
     private List<history> tisthistory() {
         List<history> history= new ArrayList<>();
-        history.add(new history(" قبل 5دقائق","شارع مجاهد","1"));
-        history.add(new history(" قبل 10دقائق","شارع عمان","2"));
-        history.add(new history(" قبل 15دقائق","شارع صفر","3"));
-        history.add(new history(" قبل 17دقائق","شارع ايران","4"));
-        history.add(new history(" قبل 21دقائق","شارع مجاهد","5"));
-        history.add(new history(" قبل 55دقائق","شارع حدة","6"));
-        history.add(new history(" قبل 57دقائق","شارع عمان","7"));
-        history.add(new history(" قبل 59دقائق","شارع مجاهد","8"));
+        history.add(new history(" قبل 5دقائق","شارع مجاهد",1));
+        history.add(new history(" قبل 10دقائق","شارع عمان",1));
+        history.add(new history(" قبل 15دقائق","شارع صفر",1));
+        history.add(new history(" قبل 17دقائق","شارع ايران",1));
+        history.add(new history(" قبل 21دقائق","شارع مجاهد",1));
+        history.add(new history(" قبل 55دقائق","شارع حدة",1));
+       
         return history;
     }
 }

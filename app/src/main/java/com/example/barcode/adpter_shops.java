@@ -1,12 +1,14 @@
 package com.example.barcode;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -31,6 +33,14 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     public void onBindViewHolder(@NonNull shopsViewHolder holder, int position) {
         shops shop =shopsList.get(position);
         holder.name_shops.setText(shop.getName_shop());
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, shops_details.class) ;
+                intent.putExtra("id", shops.getId());
+                context.startActivity(intent);
+            }
+        });
 
 
     }
@@ -42,6 +52,7 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
 
     public class shopsViewHolder extends RecyclerView.ViewHolder {
         TextView name_shops;
+        CardView cv;
         public shopsViewHolder(@NonNull View itemView) {
             super(itemView);
             name_shops= itemView.findViewById(R.id.list_item1_title_name2);
