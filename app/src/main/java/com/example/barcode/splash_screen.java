@@ -36,7 +36,7 @@ public class splash_screen extends AppCompatActivity {
                     isFirstTime();
                 }
             }
-        }, 3000);
+        }, 2000);
 
     }
 
