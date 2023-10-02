@@ -406,11 +406,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_175sdp"
+                android:layout_width="@dimen/_83sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_6sdp"
                 android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="المبلغ الأجمالي"
+                android:hint="الأجمالي"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -419,12 +419,24 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="15000"
+                    android:text="150000"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/save_pdf_Btn"
+                android:layout_width="@dimen/_83sdp"
+                android:layout_height="@dimen/_44sdp"
+                android:background="@drawable/round_back_primary"
+                android:fontFamily="@font/boldiphone"
+                android:layout_marginVertical="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:text="حفظ pdf"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/printBtn"
