@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.example.barcode.R;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -32,8 +33,12 @@ public class TemplatePDF {
     //here you can change fonts,fonts size and fonts color
 
 
-    private Font fTitle=new Font(Font.FontFamily.TIMES_ROMAN,6,Font.NORMAL,BaseColor.BLACK);
-    private Font fSubTitle=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
+
+//    private Font fTitle=new Font(Font.FontFamily.HELVETICA,6,Font.NORMAL,BaseColor.BLACK);
+   private Font fTitle=new Font(Font.getFamily(String.valueOf(R.font.boldiphone)));
+    private Font fSubTitle=new Font(Font.getFamily(String.valueOf(R.font.boldiphone)),4, Font.BOLDITALIC,BaseColor.BLUE);
+
+//    private Font fSubTitle=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
     private Font fText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
     private Font fHighText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);
     private Font fRowText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);

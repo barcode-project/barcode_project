@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:layout_marginHorizontal="@dimen/_6sdp"
-                android:hint="رقم المنشأه"
+                android:hint="@string/insitiution_no"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText

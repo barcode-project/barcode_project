@@ -1,8 +1,7 @@
-package com.example.barcode;
+package com.example.barcode.utils;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 
-import android.app.LocaleManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -24,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context base) {
-      //  super.attachBaseContext(LocaleManager.setLocale(base));
+        super.attachBaseContext(LocaleManager.setLocale(base));
     }
 
     protected void resetTitles() {
@@ -43,10 +42,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     //for Android Android N
     @Override
     public void applyOverrideConfiguration(Configuration overrideConfiguration) {
-      //  Locale locale = new Locale(LocaleManager.getLanguagePref(this));
-      //  Locale.setDefault(locale);
-       // overrideConfiguration.setLocale(locale);
-        //super.applyOverrideConfiguration(overrideConfiguration);
+        Locale locale = new Locale(LocaleManager.getLanguagePref(this));
+        Locale.setDefault(locale);
+        overrideConfiguration.setLocale(locale);
+        super.applyOverrideConfiguration(overrideConfiguration);
     }
 
 

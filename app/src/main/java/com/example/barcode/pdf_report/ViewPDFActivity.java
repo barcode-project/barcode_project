@@ -20,10 +20,8 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-
-
-import com.example.barcode.BaseActivity;
 import com.example.barcode.R;
+import com.example.barcode.utils.BaseActivity;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
@@ -32,7 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Objects;
 
 public class ViewPDFActivity extends BaseActivity {
 
@@ -46,13 +43,13 @@ public class ViewPDFActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_p_d_f);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         pdfView = findViewById(R.id.pdfView);
 
-        getSupportActionBar().setHomeButtonEnabled(true); //for back button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
-        getSupportActionBar().setTitle("ايصال");
+//        getSupportActionBar().setHomeButtonEnabled(true); //for back button
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
+//        getSupportActionBar().setTitle("ايصال");
 
 
         Bundle bundle = getIntent().getExtras();
@@ -61,11 +58,7 @@ public class ViewPDFActivity extends BaseActivity {
 
         String dest = this.getExternalFilesDir(null) + "/";
 
-        if (bundle != null) {
-
-            file = new File(dest, "order_receipt.pdf");
-
-        }
+        file = new File(dest, "order_receipt.pdf");
 
         pdfView.fromFile(file)
                 .enableSwipe(true)

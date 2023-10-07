@@ -5,6 +5,8 @@
     <string name="todo">TODO</string>
     <string name="hellow">hellow</string>
 
+    <string name="admob_application_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_interstitial_ads_id" translatable="false">"ca-app-pub-3940256099942544/1033173712"</string>
 
     <string name="connect_fail">خطأ في توصيل الطابعة</string>
     <string name="connect_lost">انقطع الاتصال</string>
@@ -27,4 +29,5 @@
     <string name="open_pdf">افتح ملف PDF</string>
     <string name="open_with_external_pdf_reader">افتح بقارئ pdf خارجي</string>
     <string name="generate_pdf_receipt">إيصال PDF</string>
+    <string name="insitiution_no">رقم المنشأه</string>
 </resources>

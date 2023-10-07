@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,7 +20,7 @@
         <activity
             android:name=".splash_screen"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +34,21 @@
         </activity>
         <activity
             android:name=".BarcodeScanner"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity><activity
+            android:name=".DeviceListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".pdf_report.ViewPDFActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -68,6 +87,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_application_id" />
+
     </application>
 
 </manifest>
