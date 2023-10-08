@@ -26,9 +26,9 @@ public class shops_details extends AppCompatActivity {
      Button btnPdfReceipt, btnThermalPrinter;
      ContentLoadingProgressBar progressBar;
     private TemplatePDF templatePDF;
-     String currency, shopname, shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
+     String currency, shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
 
-     String insitiution_number="08967674490",order_time,order_date;
+     String insitiution_number="08967674490",order_time,order_date="احمد محمد";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"Description", "Price"};
@@ -59,7 +59,7 @@ public class shops_details extends AppCompatActivity {
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
 
 
-        shortText = "Customer Name: Mr/Mrs. " + "customer_name";
+        shortText = "Customer Name: Mr/Mrs. احمد" + "customer_name";
         longText = "Thanks for purchase. Visit again";
 
 

@@ -8,12 +8,14 @@ import android.util.Log;
 import com.example.barcode.R;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -21,6 +23,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TemplatePDF {
@@ -32,14 +35,24 @@ public class TemplatePDF {
     private Paragraph paragraph;
     //here you can change fonts,fonts size and fonts color
 
+    private Font fTitle;
 
+    {
+        try {
+            fTitle = new Font(BaseFont.createFont("/res/font/boldiphone.ttf",BaseFont.IDENTITY_H,BaseFont.EMBEDDED),12);
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-//    private Font fTitle=new Font(Font.FontFamily.HELVETICA,6,Font.NORMAL,BaseColor.BLACK);
-   private Font fTitle=new Font(Font.getFamily(String.valueOf(R.font.tajawal)));
-    private Font fSubTitle=new Font(Font.getFamily(String.valueOf(R.font.boldiphone)),4, Font.BOLDITALIC,BaseColor.BLUE);
+    //    private Font fTitle=new Font(Font.FontFamily.HELVETICA,6,Font.NORMAL,BaseColor.BLACK);
+//   private Font fTitle=new Font(Font.getFamily(String.valueOf(R.font.tajawal)));
+    private Font fSubTitle=new Font(Font.getFamily("/res/font/tajawal.ttf"),4, Font.getFamily(String.valueOf(R.font.tajawal)).ordinal(),BaseColor.BLACK);
 
 //    private Font fSubTitle=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
-    private Font fText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
+    private Font fText=new Font(Font.FontFamily.TIMES_ROMAN,4, Font.getFamily(String.valueOf(R.font.boldiphone)).ordinal(),BaseColor.BLACK);
     private Font fHighText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);
     private Font fRowText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);
     public TemplatePDF(Context context)
@@ -106,6 +119,7 @@ public class TemplatePDF {
             addChildP(new Paragraph("Order Date:" + date, fHighText));
            // paragraph.setSpacingAfter(30);
             document.add(paragraph);
+
         }
         catch (Exception e)
         {
@@ -165,6 +179,7 @@ public class TemplatePDF {
       //  paragraph.setSpacingAfter(1);
        // paragraph.setSpacingBefore(1);
         paragraph.setAlignment(Element.ALIGN_CENTER);
+
         document.add(paragraph);
         }
         catch (Exception e)

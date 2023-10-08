@@ -13,7 +13,9 @@
         android:layout_above="@+id/result_text_view"
         android:layout_alignBottom="@id/scan_button"
         android:layout_marginBottom="16dp"
-        android:background="#000000" />
+        android:background="#000000" >
+
+    </com.journeyapps.barcodescanner.CompoundBarcodeView>
 
     <View
         android:id="@+id/red_line_view"
@@ -42,5 +44,13 @@
         android:layout_above="@+id/result_text_view"
         android:layout_marginBottom="28dp"
         android:text="start scanning" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/scan_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
 
 </RelativeLayout>
