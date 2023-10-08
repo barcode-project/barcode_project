@@ -26,6 +26,7 @@
     <string name="print_error">خطأ في الطباعة</string>
     <string name="print">مطبعة</string>
     <string name="share">يشارك</string>
+    <string name="search_here">ابحث هنا. . . .</string>
     <string name="open_pdf">افتح ملف PDF</string>
     <string name="open_with_external_pdf_reader">افتح بقارئ pdf خارجي</string>
     <string name="generate_pdf_receipt">إيصال PDF</string>

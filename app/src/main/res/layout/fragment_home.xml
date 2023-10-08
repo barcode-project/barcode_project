@@ -7,28 +7,33 @@
     android:layoutDirection="rtl"
     tools:context=".homeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lin_up"
+    <LinearLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view_shops"
+        <EditText
+            android:id="@+id/etxt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
             android:background="@drawable/search_view_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="بحث"/>
+            android:drawableRight="@drawable/ic_search2"
+            android:ems="10"
+            android:fontFamily="@font/boldiphone"
+            android:hint="@string/search_here"
+            android:inputType="textPersonName"
+            android:padding="10dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/a_d_c_recyclerView"
