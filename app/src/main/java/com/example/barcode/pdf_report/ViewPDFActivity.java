@@ -13,9 +13,11 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
+import android.util.LayoutDirection;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
@@ -46,6 +48,7 @@ public class ViewPDFActivity extends BaseActivity {
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         pdfView = findViewById(R.id.pdfView);
+//        pdfView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
 //        getSupportActionBar().setHomeButtonEnabled(true); //for back button
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
