@@ -13,11 +13,9 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
-import android.util.LayoutDirection;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
@@ -37,6 +35,7 @@ public class ViewPDFActivity extends BaseActivity {
 
 
     private PDFView pdfView;
+    ImageView open_pdf, print_pdf,share_pdf;
     private File file;
     private Context primaryBaseActivity;
 
@@ -46,14 +45,32 @@ public class ViewPDFActivity extends BaseActivity {
         setContentView(R.layout.activity_view_p_d_f);
 
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
+        open_pdf = findViewById(R.id.open_pdf);
+        share_pdf = findViewById(R.id.share_pdf);
+        print_pdf = findViewById(R.id.print_pdf);
         pdfView = findViewById(R.id.pdfView);
-//        pdfView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+open_pdf.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
-//        getSupportActionBar().setHomeButtonEnabled(true); //for back button
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//for back button
-//        getSupportActionBar().setTitle("ايصال");
+        Toast.makeText(getApplicationContext(),R.string.open_with_external_pdf_reader,Toast.LENGTH_SHORT).show();
+        openWithExternalPdfApp();
 
+    }
+});
+share_pdf.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getApplicationContext(), R.string.share, Toast.LENGTH_SHORT).show();
+        sharePdfFile();
+    }
+});
+print_pdf.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        printPDf();
+    }
+});
 
         Bundle bundle = getIntent().getExtras();
 
@@ -74,45 +91,7 @@ public class ViewPDFActivity extends BaseActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_pdf, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_share) {
-            Toast.makeText(this, R.string.share, Toast.LENGTH_SHORT).show();
-            sharePdfFile();
-
-
-            return true;
-        } else if (id == R.id.action_open_pdf) {
-
-            Toast.makeText(this, R.string.open_with_external_pdf_reader, Toast.LENGTH_SHORT).show();
-            openWithExternalPdfApp();
-
-        } else if (id == R.id.action_print) {
-
-            printPDf();
-
-        } else if (id == android.R.id.home) {
-            // app icon in action bar clicked; goto parent activity.
-            this.finish();
-            return true;
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public void sharePdfFile() {
