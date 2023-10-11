@@ -70,13 +70,14 @@ public class TemplatePDF {
             //document=new Document(PageSize.A4);
             document=new Document(pageSize);
             pdfWriter=PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
+            pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+            document.addLanguage("ar");
             document.open();
         }catch (Exception e)
         {
             Log.e("createFile",e.toString());
         }
     }
-
     private void createFile()
     {
        // File folder = new File(Environment.getExternalStorageDirectory().toString(), "PDF");
@@ -89,8 +90,6 @@ public class TemplatePDF {
 
         //your file name
         pdfFile = new File(folder, "order_receipt.pdf");
-
-
     }
 
     public void closeDocument()
@@ -103,16 +102,11 @@ public class TemplatePDF {
         document.addTitle(title);
         document.addSubject(subject);
         document.addAuthor(author);
-        
-    }
 
+    }
     public void addTitle(String title, String subTitle, String date)
     {
-
-
         try {
-
-
             paragraph = new Paragraph();
             addChildP(new Paragraph(title, fTitle));
             addChildP(new Paragraph(subTitle, fSubTitle));
@@ -126,25 +120,17 @@ public class TemplatePDF {
             Log.e("addTitle",e.toString());
         }
     }
-
-
-
-
     public void addImage(Bitmap bm) {
 
         try {
 
             Bitmap bmp = bm;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
             bmp.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-
             byte[] byteArray = stream.toByteArray();
             // PdfImage img = new PdfImage(arg0, arg1, arg2)
-
             // Converting byte array into image Image
             Image img = Image.getInstance(byteArray);
-
             img.setAlignment(Image.ALIGN_BOTTOM);
             img.setAlignment(Image.ALIGN_CENTER);
             img.scaleAbsolute(80f, 20f);
@@ -154,18 +140,9 @@ public class TemplatePDF {
         } catch (Exception e) {
             Log.e("addParagraph", e.toString());
         }
-
-
     }
-
-
-
-
-
-
     public void addChildP(Paragraph childParagraph)
     {
-
         childParagraph.setAlignment(Element.ALIGN_CENTER);
         paragraph.add(childParagraph);
     }
@@ -176,8 +153,7 @@ public class TemplatePDF {
         try{
 
         paragraph=new Paragraph(text,fText);
-      //  paragraph.setSpacingAfter(1);
-       // paragraph.setSpacingBefore(1);
+
         paragraph.setAlignment(Element.ALIGN_CENTER);
 
         document.add(paragraph);
@@ -186,13 +162,7 @@ public class TemplatePDF {
         {
             Log.e("addParagraph",e.toString());
         }
-
-
-
     }
-
-
-
     public void addRightParagraph(String text)
     {
 
@@ -208,17 +178,11 @@ public class TemplatePDF {
         {
             Log.e("addParagraph",e.toString());
         }
-
-
-
     }
-
     public void createTable(String[] header, ArrayList<String[]> clients)
     {
 
         try {
-
-
             paragraph = new Paragraph();
             paragraph.setFont(fText);
             PdfPTable pdfPTable = new PdfPTable(header.length);
@@ -247,7 +211,6 @@ public class TemplatePDF {
                     pdfPTable.addCell(pdfPCell);
                 }
             }
-
             paragraph.add(pdfPTable);
             document.add(paragraph);
 
@@ -256,7 +219,6 @@ public class TemplatePDF {
             Log.e("createTable",e.toString());
         }
     }
-
     public void viewPDF()
     {
         Intent intent=new Intent(context,ViewPDFActivity.class);
@@ -266,10 +228,4 @@ public class TemplatePDF {
         context.startActivity(intent);
 
     }
-
-
-
-
-
-
 }

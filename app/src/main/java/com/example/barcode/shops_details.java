@@ -1,5 +1,6 @@
 package com.example.barcode;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,8 @@ import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.example.barcode.pdf_report.BarCodeEncoder;
 import com.example.barcode.pdf_report.TemplatePDF;
+import com.example.barcode.utils.PrefMng;
+import com.example.barcode.utils.Tools;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -88,15 +91,15 @@ public class shops_details extends AppCompatActivity {
 
         });
 
-//        btnThermalPrinter.setOnClickListener(v -> {
-//
-//            //Check if the Bluetooth is available and on.
-//            if (!Tools.isBlueToothOn(shops_details.this)) return;
-//            PrefMng.saveActivePrinter(shops_details.this, PrefMng.PRN_WOOSIM_SELECTED);
-//            //Pick a Bluetooth device
-//            Intent i = new Intent(shops_details.this, DeviceListActivity.class);
-//            startActivityForResult(i, REQUEST_CONNECT);
-//        });
+        btnThermalPrinter.setOnClickListener(v -> {
+
+            //Check if the Bluetooth is available and on.
+            if (!Tools.isBlueToothOn(shops_details.this)) return;
+            PrefMng.saveActivePrinter(shops_details.this, PrefMng.PRN_WOOSIM_SELECTED);
+            //Pick a Bluetooth device
+            Intent i = new Intent(shops_details.this, DeviceListActivity.class);
+            startActivityForResult(i, REQUEST_CONNECT);
+        });
 
         bt_exit.setOnClickListener(new View.OnClickListener() {
             @Override

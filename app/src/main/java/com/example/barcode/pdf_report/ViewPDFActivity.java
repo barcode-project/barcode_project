@@ -1,5 +1,6 @@
 package com.example.barcode.pdf_report;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -43,8 +44,6 @@ public class ViewPDFActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_p_d_f);
-
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         open_pdf = findViewById(R.id.open_pdf);
         share_pdf = findViewById(R.id.share_pdf);
         print_pdf = findViewById(R.id.print_pdf);
@@ -91,43 +90,31 @@ print_pdf.setOnClickListener(new View.OnClickListener() {
     }
 
 
-
-
-
     public void sharePdfFile() {
-
-        /*Please note If your targetSdkVersion is 24 or higher,
-          we have to use FileProvider class to give access to the particular
-         file or folder to make them accessible for other apps.
-
-         */
         Uri uri = FileProvider.getUriForFile(ViewPDFActivity.this, ViewPDFActivity.this.getPackageName() + ".provider", file);
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setDataAndType(uri, "application/pdf");
+        intent.setType("application/pdf");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(intent);
+        startActivity(Intent.createChooser(intent, "Share PDF"));
     }
 
-
     public void openWithExternalPdfApp() {
-
-        /*Please note If your targetSdkVersion is 24 or higher,
-          we have to use FileProvider class to give access to the particular
-         file or folder to make them accessible for other apps.
-
-         */
         Uri uri = FileProvider.getUriForFile(ViewPDFActivity.this, ViewPDFActivity.this.getPackageName() + ".provider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-
-
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        startActivity(intent);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "No PDF viewer app found", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
 
 
     public void printPDf() {

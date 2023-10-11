@@ -1,8 +1,5 @@
 package com.example.barcode;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,10 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CompoundBarcodeView;
+import com.journeyapps.barcodescanner.ScanOptions;
+
 import java.util.List;
 public class BarcodeScanner extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 200;
@@ -25,10 +30,9 @@ public class BarcodeScanner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
-        compoundBarcodeView = (CompoundBarcodeView) findViewById(R.id.barcode_view);
+        compoundBarcodeView= (CompoundBarcodeView) findViewById(R.id.barcode_view);
         scanButton = findViewById(R.id.scan_button);
         resultTextView = findViewById(R.id.result_text_view);
-        redLineView = findViewById(R.id.red_line_view);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,11 +43,37 @@ public class BarcodeScanner extends AppCompatActivity {
                 }
             }
         });
+
+
+//        SeekBar zoomSeekBar = findViewById(R.id.zoom_seek_bar);
+//
+//        zoomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                // حصول على كائن CameraZoom من CompoundBarcodeView
+//                CameraZoom cameraZoom = compoundBarcodeView.getCameraSettings().isAutoFocusEnabled();
+//
+//                // ضبط مستوى التكبير والتصغير
+//                cameraZoom.setZoom(progress);
+//                compoundBarcodeView.setCameraSettings(compoundBarcodeView.getCameraSettings());
+//            }
+//
+//            // الدوال التالية يمكنك تركها فارغة لأنها ليست ضرورية لهذا السياق
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//            }
+//        });
     }
     private void startScanner() {
         scanButton.setEnabled(false);
         resultTextView.setText("");
-        redLineView.setVisibility(View.VISIBLE);
+        ScanOptions options = new ScanOptions();
+        options.setBeepEnabled(false);
+        options.setCameraId(0);
         compoundBarcodeView.decodeContinuous(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
@@ -66,7 +96,7 @@ public class BarcodeScanner extends AppCompatActivity {
             }
         });
         // Animate the red line across the screen
-        redLineView.animate().translationXBy(1000).setDuration(3000).start();
+
 
         compoundBarcodeView.resume();
     }
