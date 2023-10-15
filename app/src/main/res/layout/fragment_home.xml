@@ -29,9 +29,10 @@
             android:ems="10"
             android:fontFamily="@font/boldiphone"
             android:hint="@string/search_here"
-            android:textSize="@dimen/_12ssp"
             android:inputType="textPersonName"
-            android:padding="10dp"/>
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textSize="@dimen/_12ssp" />
 
     </LinearLayout>
 
