@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.example.barcode.R;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
@@ -23,7 +21,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TemplatePDF {
@@ -33,28 +30,28 @@ public class TemplatePDF {
     private Document document;
     PdfWriter pdfWriter;
     private Paragraph paragraph;
-    //here you can change fonts,fonts size and fonts color
-
     private Font fTitle;
+    private Font fSubTitle;
+    private Font fText;
+    private Font fHighText;
+    private Font fRowText;
+    { try {
+        // تحميل الخطوط العربية من المسار الصحيح
+        BaseFont droidFont = BaseFont.createFont("/res/font/droid.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont tajawalFont = BaseFont.createFont("/res/font/tajawal.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-    {
-        try {
-            fTitle = new Font(BaseFont.createFont("/res/font/boldiphone.ttf",BaseFont.IDENTITY_H,BaseFont.EMBEDDED),12);
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // إنشاء الخطوط باستخدام الخطوط العربية
+        fTitle = new Font(droidFont, 12,Font.NORMAL, BaseColor.BLACK);
+        fSubTitle = new Font(tajawalFont, 4, Font.NORMAL, BaseColor.BLACK);
+        fText = new Font(tajawalFont, 4, Font.ITALIC, BaseColor.BLACK);
+        fHighText = new Font(tajawalFont, 4, Font.ITALIC, BaseColor.BLACK);
+        fRowText = new Font(tajawalFont, 4, Font.ITALIC, BaseColor.BLACK);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
     }
 
-    //    private Font fTitle=new Font(Font.FontFamily.HELVETICA,6,Font.NORMAL,BaseColor.BLACK);
-//   private Font fTitle=new Font(Font.getFamily(String.valueOf(R.font.tajawal)));
-    private Font fSubTitle=new Font(Font.getFamily("/res/font/tajawal.ttf"),4, Font.getFamily(String.valueOf(R.font.tajawal)).ordinal(),BaseColor.BLACK);
 
-//    private Font fSubTitle=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC,BaseColor.BLACK);
-    private Font fText=new Font(Font.FontFamily.TIMES_ROMAN,4, Font.getFamily(String.valueOf(R.font.boldiphone)).ordinal(),BaseColor.BLACK);
-    private Font fHighText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);
-    private Font fRowText=new Font(Font.FontFamily.TIMES_ROMAN,4,Font.ITALIC, BaseColor.BLACK);
     public TemplatePDF(Context context)
     {
         this.context=context;
@@ -65,13 +62,14 @@ public class TemplatePDF {
         createFile();
         try{
 
+
             //adjust your page size here
             Rectangle pageSize = new Rectangle(164.41f, 500.41f); //14400 //for 58 mm pos printer
             //document=new Document(PageSize.A4);
             document=new Document(pageSize);
             pdfWriter=PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
-            pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
-            document.addLanguage("ar");
+            pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_NO_BIDI );
+            pdfWriter.setLanguage("ar");
             document.open();
         }catch (Exception e)
         {
@@ -99,9 +97,11 @@ public class TemplatePDF {
 
     public void addMetaData(String title, String subject, String author)
     {
+
         document.addTitle(title);
         document.addSubject(subject);
         document.addAuthor(author);
+
 
     }
     public void addTitle(String title, String subTitle, String date)
@@ -112,6 +112,7 @@ public class TemplatePDF {
             addChildP(new Paragraph(subTitle, fSubTitle));
             addChildP(new Paragraph("Order Date:" + date, fHighText));
            // paragraph.setSpacingAfter(30);
+
             document.add(paragraph);
 
         }
@@ -153,7 +154,6 @@ public class TemplatePDF {
         try{
 
         paragraph=new Paragraph(text,fText);
-
         paragraph.setAlignment(Element.ALIGN_CENTER);
 
         document.add(paragraph);
@@ -188,6 +188,7 @@ public class TemplatePDF {
             PdfPTable pdfPTable = new PdfPTable(header.length);
             pdfPTable.setWidthPercentage(100);
             pdfPTable.setSpacingBefore(5);
+            pdfPTable.setRunDirection(Element.ALIGN_RIGHT);
 
             PdfPCell pdfPCell;
 
@@ -195,6 +196,7 @@ public class TemplatePDF {
             while (indexC < header.length) {
                 pdfPCell = new PdfPCell(new Phrase(header[indexC++], fSubTitle));
                 pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
 //                pdfPCell.setBackgroundColor(BaseColor.WHITE);
                 pdfPCell.setBorderColor(BaseColor.GRAY);
                 pdfPTable.addCell(pdfPCell);

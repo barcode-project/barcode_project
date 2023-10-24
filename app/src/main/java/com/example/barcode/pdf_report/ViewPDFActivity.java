@@ -73,6 +73,7 @@ print_pdf.setOnClickListener(new View.OnClickListener() {
 
         Bundle bundle = getIntent().getExtras();
 
+        assert bundle != null;
         Log.d("location", bundle.toString());
 
         String dest = this.getExternalFilesDir(null) + "/";
@@ -97,15 +98,16 @@ print_pdf.setOnClickListener(new View.OnClickListener() {
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        startActivity(Intent.createChooser(intent, "Share PDF"));
+        startActivity(intent);
     }
 
     public void openWithExternalPdfApp() {
         Uri uri = FileProvider.getUriForFile(ViewPDFActivity.this, ViewPDFActivity.this.getPackageName() + ".provider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
         try {
             startActivity(intent);

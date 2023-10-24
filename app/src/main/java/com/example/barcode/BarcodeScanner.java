@@ -33,6 +33,7 @@ public class BarcodeScanner extends AppCompatActivity {
         compoundBarcodeView= (CompoundBarcodeView) findViewById(R.id.barcode_view);
         scanButton = findViewById(R.id.scan_button);
         resultTextView = findViewById(R.id.result_text_view);
+        redLineView = findViewById(R.id.red_line_view);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +75,7 @@ public class BarcodeScanner extends AppCompatActivity {
         ScanOptions options = new ScanOptions();
         options.setBeepEnabled(false);
         options.setCameraId(0);
+        redLineView.setVisibility(View.VISIBLE);
         compoundBarcodeView.decodeContinuous(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {

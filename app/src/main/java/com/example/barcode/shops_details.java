@@ -29,7 +29,7 @@ public class shops_details extends AppCompatActivity {
      Button btnPdfReceipt, btnThermalPrinter;
      ContentLoadingProgressBar progressBar;
     private TemplatePDF templatePDF;
-     String currency, shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
+     String currency="ral", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
 
      String insitiution_number="08967674490",order_time,order_date="احمد محمد";
     //how many headers or column you need, add here by using ,
@@ -117,8 +117,8 @@ public class shops_details extends AppCompatActivity {
         ArrayList<String[]> rows = new ArrayList<>();
         rows.add(new String[]{"الجوبي" + "\n" + "مفروشات" + "\n" + "(" + "qty" + "x" + currency + "price" + ")", currency + "cost_total"});
         rows.add(new String[]{"..........................................", ".................................."});
-        rows.add(new String[]{"Sub Total: ", currency + "40000"});
-        rows.add(new String[]{"Total Tax: ", currency + "اربعين الف ريال"});
+        rows.add(new String[]{"الاجمالي رقم: ", currency + "40000"});
+        rows.add(new String[]{"الاجمالي كتابة: ", currency + "اربعين الف ريال"});
         rows.add(new String[]{"Discount: ", currency + "getDiscount"});
         rows.add(new String[]{"..........................................", ".................................."});
         rows.add(new String[]{"Total Price: ", currency + "price"});
