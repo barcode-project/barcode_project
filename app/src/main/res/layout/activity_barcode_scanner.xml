@@ -6,25 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".BarcodeScanner">
 
-    <com.journeyapps.barcodescanner.CompoundBarcodeView
-        android:id="@+id/barcode_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/result_text_view"
-        android:layout_alignBottom="@id/scan_button"
-        android:layout_marginBottom="16dp"
-        android:background="#000000" >
+  <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      android:layout_marginBottom="20dp"
+      android:gravity="center"
+      android:orientation="horizontal">
 
-    </com.journeyapps.barcodescanner.CompoundBarcodeView>
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_zoom_in_24"
+        app:tint="@android:color/white" />
 
-    <View
-        android:id="@+id/red_line_view"
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:background="#FF0000"
-        android:visibility="gone" />
+    <SeekBar
+        android:id="@+id/zoom_seek_bar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:max="100" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_zoom_out_24"
+        app:tint="@android:color/white" />
+  </LinearLayout>
+
+
+
+        <com.journeyapps.barcodescanner.CompoundBarcodeView
+            android:id="@+id/barcode_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/result_text_view"
+            android:layout_alignBottom="@id/scan_button"
+            android:layout_marginBottom="16dp"
+            android:background="#000000" />
+
+
+
+
 
 
     <TextView

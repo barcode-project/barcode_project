@@ -51,7 +51,9 @@
         app:layout_constraintRight_toLeftOf="@+id/exit"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/shop_details_linear"
@@ -86,7 +88,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="68547"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +110,7 @@
                     android:enabled="false"
                     android:text="15/7/2023"
                     android:fontFamily="@font/boldiphone"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -130,7 +132,7 @@
                 android:textColor="@color/black"
                 android:enabled="false"
                 android:text="محمد أحمد  سعيد الفتح"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/boldiphone"/>
 
 
@@ -152,7 +154,7 @@
                 android:background="@drawable/rounded_dark"
                 android:textColor="@color/black"
                 android:text="الفتح للتجارة والتوزيع"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/boldiphone"
                 android:enabled="false"/>
 
@@ -184,7 +186,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="775486828"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -205,7 +207,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="تجارة عامة"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -232,7 +234,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="411"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -253,7 +255,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="الحي السياسي"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -280,7 +282,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="3"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -301,7 +303,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="5"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -322,7 +324,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="2"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -350,7 +352,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="3"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -371,7 +373,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="5"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -392,7 +394,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="2"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -420,7 +422,7 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:text="150000"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
 
@@ -453,5 +455,5 @@
 
 
     </LinearLayout>
-
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

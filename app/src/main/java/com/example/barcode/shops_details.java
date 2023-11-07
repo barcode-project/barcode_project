@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -101,12 +100,7 @@ public class shops_details extends AppCompatActivity {
             startActivityForResult(i, REQUEST_CONNECT);
         });
 
-        bt_exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        bt_exit.setOnClickListener(view -> finish());
 
 
 

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.CameraPreview;
 import com.journeyapps.barcodescanner.CompoundBarcodeView;
 import com.journeyapps.barcodescanner.ScanOptions;
 
@@ -24,50 +26,38 @@ public class BarcodeScanner extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 200;
     private Button scanButton;
     private TextView resultTextView;
-    private View redLineView;
+
     private CompoundBarcodeView compoundBarcodeView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
-        compoundBarcodeView= (CompoundBarcodeView) findViewById(R.id.barcode_view);
+        compoundBarcodeView =  findViewById(R.id.barcode_view);
         scanButton = findViewById(R.id.scan_button);
         resultTextView = findViewById(R.id.result_text_view);
-        redLineView = findViewById(R.id.red_line_view);
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(BarcodeScanner.this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    startScanner();
-                } else {
-                    ActivityCompat.requestPermissions(BarcodeScanner.this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
-                }
+        scanButton.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(BarcodeScanner.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                startScanner();
+            } else {
+                ActivityCompat.requestPermissions(BarcodeScanner.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
             }
         });
 
+        SeekBar zoomSeekBar = findViewById(R.id.zoom_seek_bar);
 
-//        SeekBar zoomSeekBar = findViewById(R.id.zoom_seek_bar);
-//
-//        zoomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                // حصول على كائن CameraZoom من CompoundBarcodeView
-//                CameraZoom cameraZoom = compoundBarcodeView.getCameraSettings().isAutoFocusEnabled();
-//
-//                // ضبط مستوى التكبير والتصغير
-//                cameraZoom.setZoom(progress);
-//                compoundBarcodeView.setCameraSettings(compoundBarcodeView.getCameraSettings());
-//            }
-//
-//            // الدوال التالية يمكنك تركها فارغة لأنها ليست ضرورية لهذا السياق
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//            }
-//        });
+        zoomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+            // الدوال التالية يمكنك تركها فارغة لأنها ليست ضرورية لهذا السياق
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
     private void startScanner() {
         scanButton.setEnabled(false);
@@ -75,31 +65,24 @@ public class BarcodeScanner extends AppCompatActivity {
         ScanOptions options = new ScanOptions();
         options.setBeepEnabled(false);
         options.setCameraId(0);
-        redLineView.setVisibility(View.VISIBLE);
+        options.setBarcodeImageEnabled(true);
         compoundBarcodeView.decodeContinuous(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
                 String barcodeValue = result.getText();
                 Toast.makeText(BarcodeScanner.this, "Scanned barcode: " + barcodeValue, Toast.LENGTH_SHORT).show();
-
                 // Display the scanned barcode value in the resultTextView.
                 resultTextView.setText(barcodeValue);
-
                 // Stop the scanner.
                 compoundBarcodeView.pause();
-                redLineView.setVisibility(View.GONE);
-
                 scanButton.setEnabled(true);
             }
-
             @Override
             public void possibleResultPoints(List<ResultPoint> resultPoints) {
                 // Unused method, can be left empty.
             }
         });
         // Animate the red line across the screen
-
-
         compoundBarcodeView.resume();
     }
     @Override
