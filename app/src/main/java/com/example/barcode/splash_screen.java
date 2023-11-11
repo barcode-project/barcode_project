@@ -25,7 +25,7 @@ public class splash_screen extends AppCompatActivity {
                 if (isLoggedIn) {
                     switch (type) {
                         case "user":
-                            startActivity(new Intent(splash_screen.this, MainActivity.class));
+                            startActivity(new Intent(splash_screen.this, login_page.class));
                             finish();
                         default:
                             // Do something when no option is selected

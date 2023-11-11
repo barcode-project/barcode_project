@@ -36,6 +36,7 @@ public class shops_details extends AppCompatActivity {
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"المبلغ", "الرسوم"};
+    private  String[] shortTex = {null};
     Bitmap bm = null;
     private static final int REQUEST_CONNECT = 100;
     @Override
@@ -64,6 +65,7 @@ public class shops_details extends AppCompatActivity {
 
 
         shortText = "Customer Name: Mr/Mrs. احمد" + "customer_name";
+
         longText = "نشكركم";
 
 
@@ -72,6 +74,9 @@ public class shops_details extends AppCompatActivity {
         templatePDF.addMetaData("دائرة الخدمات الالكترونية", "تراخيص المهن", "YQR");
         templatePDF.addTitle(shopname, shop_address + "\n ايميل" + shop_email + "\nContact: " + shop_contact + "\nInvoice ID:" + insitiution_number, order_time + " " + order_date);
         templatePDF.addParagraph(shortText);
+templatePDF.createTable(shortTex,getOrdersData());
+
+
 
 
         BarCodeEncoder qrCodeEncoder = new BarCodeEncoder();
@@ -102,7 +107,9 @@ public class shops_details extends AppCompatActivity {
             startActivityForResult(i, REQUEST_CONNECT);
         });
 
-        bt_exit.setOnClickListener(view -> finish());
+        bt_exit.setOnClickListener(v -> {
+                finish();
+        });
 
 
 
@@ -111,13 +118,14 @@ public class shops_details extends AppCompatActivity {
 
     private ArrayList<String[]> getOrdersData() {
         ArrayList<String[]> rows = new ArrayList<>();
-        rows.add(new String[]{currency + "cost_total","رسوم محل"});
+        rows.add(new String[]{currency + shopname,"رسوم محل"});
         rows.add(new String[]{currency + "40000","دعاية وإعلان"});
         rows.add(new String[]{currency + "2000","نظافة"});
         rows.add(new String[]{currency + "1200","نظافة مهن"});
         rows.add(new String[]{currency + "2500","رسوم الخدمة"});
         rows.add(new String[]{"..................................", "......................................."});
         rows.add(new String[]{currency + "price","الإجمالي"});
+
         return rows;
     }
 
