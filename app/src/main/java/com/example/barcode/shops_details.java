@@ -22,18 +22,20 @@ import com.google.zxing.WriterException;
 import java.util.ArrayList;
 
 public class shops_details extends AppCompatActivity {
+
+
     private ImageView bt_exit;
      TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
      TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
      Button btnPdfReceipt, btnThermalPrinter;
      ContentLoadingProgressBar progressBar;
     private TemplatePDF templatePDF;
-     String currency="ral", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
+     String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
 
-     String insitiution_number="08967674490",order_time,order_date="احمد محمد";
+     String insitiution_number="08967674490",order_time,order_date="12/12/2000";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
-    private String[] header = {"Description", "Price"};
+    private String[] header = {"المبلغ", "الرسوم"};
     Bitmap bm = null;
     private static final int REQUEST_CONNECT = 100;
     @Override
@@ -62,7 +64,7 @@ public class shops_details extends AppCompatActivity {
 
 
         shortText = "Customer Name: Mr/Mrs. احمد" + "customer_name";
-        longText = "Thanks for purchase. Visit again";
+        longText = "نشكركم";
 
 
         templatePDF = new TemplatePDF(getApplicationContext());
@@ -109,13 +111,13 @@ public class shops_details extends AppCompatActivity {
 
     private ArrayList<String[]> getOrdersData() {
         ArrayList<String[]> rows = new ArrayList<>();
-        rows.add(new String[]{"الجوبي" + "\n" + "مفروشات" + "\n" + "(" + "qty" + "x" + currency + "price" + ")", currency + "cost_total"});
-        rows.add(new String[]{"..........................................", ".................................."});
-        rows.add(new String[]{"الاجمالي رقم: ", currency + "40000"});
-        rows.add(new String[]{"الاجمالي كتابة: ", currency + "اربعين الف ريال"});
-        rows.add(new String[]{"Discount: ", currency + "getDiscount"});
-        rows.add(new String[]{"..........................................", ".................................."});
-        rows.add(new String[]{"Total Price: ", currency + "price"});
+        rows.add(new String[]{currency + "cost_total","رسوم محل"});
+        rows.add(new String[]{currency + "40000","دعاية وإعلان"});
+        rows.add(new String[]{currency + "2000","نظافة"});
+        rows.add(new String[]{currency + "1200","نظافة مهن"});
+        rows.add(new String[]{currency + "2500","رسوم الخدمة"});
+        rows.add(new String[]{"..................................", "......................................."});
+        rows.add(new String[]{currency + "price","الإجمالي"});
         return rows;
     }
 
