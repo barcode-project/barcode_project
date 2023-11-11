@@ -1,5 +1,7 @@
 package com.example.barcode.pdf_report;
 
+import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Pdf;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +16,11 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfDate;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.interfaces.PdfRunDirection;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,6 +71,7 @@ public class TemplatePDF {
             Rectangle pageSize = new Rectangle(164.41f, 500.41f); //14400 //for 58 mm pos printer
             //document=new Document(PageSize.A4);
             document=new Document(pageSize);
+            document.addLanguage("ar");
             pdfWriter=PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
             pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_NO_BIDI );
             pdfWriter.setLanguage("ar");
@@ -173,6 +178,7 @@ public class TemplatePDF {
             paragraph.setSpacingBefore(5);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
+
         }
         catch (Exception e)
         {
