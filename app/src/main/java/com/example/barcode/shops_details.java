@@ -30,13 +30,13 @@ public class shops_details extends AppCompatActivity {
      Button btnPdfReceipt, btnThermalPrinter;
      ContentLoadingProgressBar progressBar;
     private TemplatePDF templatePDF;
-     String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , longText, shortText;
+     String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
 
      String insitiution_number="08967674490",order_time,order_date="12/12/2000";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"المبلغ", "الرسوم"};
-    private  String[] shortTex = {null};
+    private  String[] shortTex = {null},longText;
     Bitmap bm = null;
     private static final int REQUEST_CONNECT = 100;
     @Override
@@ -64,17 +64,12 @@ public class shops_details extends AppCompatActivity {
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
 
 
-        shortText = "Customer Name: Mr/Mrs. احمد" + "customer_name";
+        shortText = "Customer Name: Mr/Mrs. " + "customer_name";
 
-        longText = "نشكركم";
+        longText = new String[]{"نشكركم"};
 
 
-        templatePDF = new TemplatePDF(getApplicationContext());
-        templatePDF.openDocument();
-        templatePDF.addMetaData("دائرة الخدمات الالكترونية", "تراخيص المهن", "YQR");
-        templatePDF.addTitle(shopname, shop_address + "\n ايميل" + shop_email + "\nContact: " + shop_contact + "\nInvoice ID:" + insitiution_number, order_time + " " + order_date);
-        templatePDF.addParagraph(shortText);
-templatePDF.createTable(shortTex,getOrdersData());
+
 
 
 
@@ -88,7 +83,12 @@ templatePDF.createTable(shortTex,getOrdersData());
 
 
         btnPdfReceipt.setOnClickListener(v -> {
-
+            templatePDF = new TemplatePDF(getApplicationContext());
+            templatePDF.openDocument();
+            //templatePDF.addMetaData("دائرة الخدمات الالكترونية", "تراخيص المهن", "YQR");
+            //templatePDF.addTitle(shopname, shop_address + "\n ايميل" + shop_email + "\nContact: " + shop_contact + "\nInvoice ID:" + insitiution_number, order_time + " " + order_date);
+            // templatePDF.addParagraph(shortText);
+            templatePDF.createHeader(shortTex,gethaderData());
             templatePDF.createTable(header, getOrdersData());
             templatePDF.addRightParagraph(longText);
             templatePDF.addImage(bm);
@@ -125,6 +125,17 @@ templatePDF.createTable(shortTex,getOrdersData());
         rows.add(new String[]{currency + "2500","رسوم الخدمة"});
         rows.add(new String[]{"..................................", "......................................."});
         rows.add(new String[]{currency + "price","الإجمالي"});
+
+        return rows;
+    }
+    private ArrayList<String[]> gethaderData() {
+        ArrayList<String[]> rows = new ArrayList<>();
+        rows.add(new String[]{ shopname});
+        rows.add(new String[]{"دائرة الخدمات الالكترونية"});
+        rows.add(new String[]{"مديرية الوحدة"});
+        rows.add(new String[]{"نظافة مهن"});
+        rows.add(new String[]{"نوع النشاط"});
+        rows.add(new String[]{"اسم المالك"});
 
         return rows;
     }

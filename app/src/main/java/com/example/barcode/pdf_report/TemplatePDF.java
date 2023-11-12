@@ -1,7 +1,5 @@
 package com.example.barcode.pdf_report;
 
-import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Pdf;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,11 +14,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfDate;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.interfaces.PdfRunDirection;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -168,15 +164,35 @@ public class TemplatePDF {
             Log.e("addParagraph",e.toString());
         }
     }
-    public void addRightParagraph(String text)
+    public void addRightParagraph(String[] text)
     {
 
         try{
 
-            paragraph=new Paragraph(text,fText);
-            paragraph.setSpacingAfter(5);
-            paragraph.setSpacingBefore(5);
-            paragraph.setAlignment(Element.ALIGN_CENTER);
+//            paragraph=new Paragraph(text,fText);
+//            paragraph.setSpacingAfter(5);
+//            paragraph.setSpacingBefore(5);
+//            paragraph.setAlignment(Element.ALIGN_CENTER);
+//            document.add(paragraph);
+            paragraph = new Paragraph();
+            paragraph.setFont(fText);
+            PdfPTable pdfPTable = new PdfPTable(text.length);
+            pdfPTable.setSpacingAfter(5);
+            pdfPTable.setSpacingBefore(5);
+            pdfPTable.setRunDirection(Element.ALIGN_RIGHT);
+            PdfPCell pdfPCell;
+
+            int indexC = 0;
+            while (indexC < text.length) {
+                pdfPCell = new PdfPCell(new Phrase(text[indexC++], fSubTitle));
+                pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+//                pdfPCell.setBackgroundColor(BaseColor.WHITE);
+                pdfPCell.setBorderColor(BaseColor.WHITE);
+                pdfPTable.addCell(pdfPCell);
+            }
+
+            paragraph.add(pdfPTable);
             document.add(paragraph);
 
         }
@@ -225,6 +241,47 @@ public class TemplatePDF {
         }catch (Exception e)
         {
             Log.e("createTable",e.toString());
+        }
+    }
+    public void createHeader(String[] header, ArrayList<String[]> clients)
+    {
+
+        try {
+            paragraph = new Paragraph();
+            paragraph.setFont(fText);
+            PdfPTable pdfPTable = new PdfPTable(header.length);
+            pdfPTable.setWidthPercentage(100);
+            pdfPTable.setSpacingBefore(4);
+            pdfPTable.setRunDirection(Element.ALIGN_RIGHT);
+
+            PdfPCell pdfPCell;
+
+            int indexC = 0;
+            while (indexC < header.length) {
+                pdfPCell = new PdfPCell(new Phrase(header[indexC++], fSubTitle));
+                pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+//                pdfPCell.setBackgroundColor(BaseColor.WHITE);
+                pdfPCell.setBorderColor(BaseColor.WHITE);
+                pdfPTable.addCell(pdfPCell);
+            }
+            for (int indexR = 0; indexR < clients.size(); indexR++) {
+                String[] row = clients.get(indexR);
+
+                for (indexC = 0; indexC < header.length; indexC++) {
+                    pdfPCell = new PdfPCell(new Phrase(row[indexC],fRowText));
+                    pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    // pdfPCell.setFixedHeight(40);
+                    pdfPCell.setBorder(Rectangle.NO_BORDER);
+                    pdfPTable.addCell(pdfPCell);
+                }
+            }
+            paragraph.add(pdfPTable);
+            document.add(paragraph);
+
+        }catch (Exception e)
+        {
+            Log.e("createheader",e.toString());
         }
     }
     public void viewPDF()
