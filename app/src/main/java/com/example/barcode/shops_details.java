@@ -25,13 +25,13 @@ public class shops_details extends AppCompatActivity {
 
 
     TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
-     TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
-     Button btnPdfReceipt, btnThermalPrinter;
-     ContentLoadingProgressBar progressBar;
+    TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
+    Button btnPdfReceipt, btnThermalPrinter;
+    ContentLoadingProgressBar progressBar;
     private TemplatePDF templatePDF;
-     String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
+    String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
 
-     String insitiution_number="08967674490",order_time,order_date="12/12/2000";
+    String insitiution_number="08967674490",order_time,order_date="12/12/2000";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"المبلغ", "الرسوم"};
@@ -114,7 +114,7 @@ public class shops_details extends AppCompatActivity {
         });
 
         bt_exit.setOnClickListener(v -> {
-                finish();
+            finish();
         });
         FloatingActionButton button=findViewById(R.id.fab);
         button.setOnClickListener(new View.OnClickListener() {

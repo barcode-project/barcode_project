@@ -56,21 +56,19 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rounded_up">
+        app:layout_constraintTop_toBottomOf="@+id/rounded_up"
+        android:layout_marginTop="@dimen/_42sdp">
 
         <LinearLayout
             android:id="@+id/shop_details_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-
-            >
+            android:paddingHorizontal="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -107,7 +105,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
-                    android:enabled="false"
                     android:fontFamily="@font/boldiphone"
                     android:text="الفتح للتجارة والتوزيع"
                     android:textColor="@color/black"
@@ -135,9 +132,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="775486828"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -156,7 +153,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="تجارة عامة"
                         android:textColor="@color/black"
@@ -182,9 +178,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="68547"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -203,9 +199,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="2"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -229,9 +225,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="411"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -250,7 +246,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="الحي السياسي"
                         android:textColor="@color/black"
@@ -276,9 +271,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="3"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -297,9 +292,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="5"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -318,9 +313,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="2"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -345,9 +340,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="3"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -366,9 +361,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="5"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -387,9 +382,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
-                        android:enabled="false"
                         android:fontFamily="@font/boldiphone"
                         android:text="2"
+                        android:inputType="number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -407,10 +402,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/note"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:background="@drawable/rounded_dark"
                     android:fontFamily="@font/boldiphone"
-
                     android:hint="الملاحظة"
                     android:padding="16dp"
                     android:textColor="@color/black"
@@ -418,6 +412,64 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginVertical="@dimen/_6sdp">
+
+                <RelativeLayout
+                    android:id="@+id/chooseImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@color/light_custom">
+
+                    <View
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/ic_baseline_camera_alt_24"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/save_pdf_Btn"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:background="@drawable/round_back_primary"
+                    android:fontFamily="@font/boldiphone"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:text="حفظ البيانات"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/printBtn"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:background="@drawable/round_back_primary"
+                    android:fontFamily="@font/boldiphone"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:text="تحديد الموقع"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
