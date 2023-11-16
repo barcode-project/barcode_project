@@ -12,6 +12,6 @@
         <!-- Status bar color. -->
 
         <!-- Customize your theme here. -->
-        <item name="android:statusBarColor" tools:targetApi="21">?attr/colorSecondaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorSecondaryVariant</item>
     </style>
 </resources>

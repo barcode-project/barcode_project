@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "barcode"
-include ':app'
+include ':app',':lib-zxing',':library-release'

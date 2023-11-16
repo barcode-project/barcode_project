@@ -41,15 +41,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".BarcodeScanner"
-            android:exported="false"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+<!--        <activity-->
+<!--            android:name=".BarcodeScanner"-->
+<!--            android:exported="false"-->
+<!--            android:hardwareAccelerated="true"-->
+<!--            android:screenOrientation="portrait">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
         <activity
             android:name=".DeviceListActivity"
             android:exported="false"

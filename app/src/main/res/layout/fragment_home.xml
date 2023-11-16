@@ -19,20 +19,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/etxt_search"
+            android:id="@+id/etxt_search_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:layout_weight="1"
             android:background="@drawable/search_view_bg"
-            android:drawableRight="@drawable/ic_search2"
+            android:drawableStart="@drawable/ic_search2"
             android:ems="10"
-            android:fontFamily="@font/boldiphone"
+            android:fontFamily="sans-serif"
             android:hint="@string/search_here"
-            android:inputType="textPersonName"
             android:minHeight="48dp"
             android:padding="10dp"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_10ssp" />
 
     </LinearLayout>
 
