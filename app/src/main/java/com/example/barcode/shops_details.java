@@ -2,9 +2,8 @@ package com.example.barcode;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,15 +15,17 @@ import com.example.barcode.pdf_report.BarCodeEncoder;
 import com.example.barcode.pdf_report.TemplatePDF;
 import com.example.barcode.utils.PrefMng;
 import com.example.barcode.utils.Tools;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
 
 import java.util.ArrayList;
 
 public class shops_details extends AppCompatActivity {
 
 
-    TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
+    private ImageView bt_exit;
+     TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
      TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
      Button btnPdfReceipt, btnThermalPrinter;
      ContentLoadingProgressBar progressBar;
@@ -43,7 +44,7 @@ public class shops_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_details);
         progressBar=findViewById(R.id.all_details_progressBar);
-        ImageView bt_exit = findViewById(R.id.exit);
+        bt_exit=findViewById(R.id.exit);
         id_no=findViewById(R.id.insitiution_no);
         last_licens=findViewById(R.id.last_license);
         owner_name=findViewById(R.id.owner_name);
@@ -71,21 +72,14 @@ public class shops_details extends AppCompatActivity {
 
 
 
-//            try {
-//                bm= createQRCode(insitiution_number,600,300);
-//            } catch (WriterException e) {
-//                throw new RuntimeException(e);
-//            }
-
-
 
 
         BarCodeEncoder qrCodeEncoder = new BarCodeEncoder();
-//        try {
-//            bm = qrCodeEncoder.encodeAsBitmap(insitiution_number, BarcodeFormat.CODE_128, 600, 300);
-//        } catch (WriterException e) {
-//            Log.d("Data", e.toString());
-//        }
+        try {
+            bm = qrCodeEncoder.encodeAsBitmap(insitiution_number, BarcodeFormat.CODE_128, 600, 300);
+        } catch (WriterException e) {
+            Log.d("Data", e.toString());
+        }
 
 
         btnPdfReceipt.setOnClickListener(v -> {
@@ -116,23 +110,7 @@ public class shops_details extends AppCompatActivity {
         bt_exit.setOnClickListener(v -> {
                 finish();
         });
-        FloatingActionButton button=findViewById(R.id.fab);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                double latitude = 37.7749; // خط العرض لموقع العميل
-                double longitude = -122.4194; // خط الطول لموقع العميل
-                String label = "موقع العميل"; // اسم الموقع الذي سيظهر في خرائط جوجل
 
-                String uri = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(" + label + ")";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setPackage("com.google.android.apps.maps"); // تحديد تطبيق خرائط جوجل
-
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
 
 
 
