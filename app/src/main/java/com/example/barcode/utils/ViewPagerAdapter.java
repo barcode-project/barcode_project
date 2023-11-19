@@ -30,10 +30,11 @@ public class ViewPagerAdapter extends PagerAdapter {
         return imageUrls.size();
     }
 
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view=layoutInflater.inflate(R.layout.showimageslayout,container,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.showimageslayout,container,false);
         ImageView imageView=view.findViewById(R.id.ImageUpload);
         imageView.setImageURI(imageUrls.get(position));
         container.addView(view);
@@ -49,4 +50,5 @@ public class ViewPagerAdapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         ((RelativeLayout)object).removeView(container);
     }
+
 }

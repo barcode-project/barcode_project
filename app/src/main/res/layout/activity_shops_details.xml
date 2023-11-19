@@ -52,414 +52,414 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<<<<<<< HEAD
-=======
-    <LinearLayout
-        android:id="@+id/shop_details_linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
->>>>>>> 8534888c7f06cd29cc6c412bd57bd79370ed5b98
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_6sdp"
-                android:hint="@string/insitiution_no"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/insitiution_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="68547"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="أخر ترخيص"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/last_license"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="15/7/2023"
-                    android:fontFamily="@font/boldiphone"
-                    android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/shop_details_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_6sdp"
-            android:hint="إسم المالك"
-            android:textColorHint="#616161">
+            android:layout_marginTop="@dimen/_50sdp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/owner_name"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_6sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:hint="@string/insitiution_no"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/insitiution_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="68547"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:hint="أخر ترخيص"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/last_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="15/7/2023"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:textColor="@color/black"
-                android:enabled="false"
-                android:text="محمد أحمد  سعيد الفتح"
-                android:textSize="@dimen/_12ssp"
-                android:fontFamily="@font/boldiphone"/>
+                android:layout_marginVertical="@dimen/_6sdp"
+                android:hint="إسم المالك"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/owner_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:enabled="false"
+                    android:fontFamily="@font/boldiphone"
+                    android:text="محمد أحمد  سعيد الفتح"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_6sdp"
-            android:hint="إسم الشهرة"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/shop_name"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:textColor="@color/black"
-                android:text="الفتح للتجارة والتوزيع"
-                android:textSize="@dimen/_12ssp"
-                android:fontFamily="@font/boldiphone"
-                android:enabled="false"/>
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="رقم التلفون"
+                android:hint="إسم الشهرة"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_no"
+                    android:id="@+id/shop_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="775486828"
-                    android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
+                    android:text="الفتح للتجارة والتوزيع"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="نوع النشاط"
-                android:textColorHint="#616161">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/activity_type"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="تجارة عامة"
-                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="رقم التلفون"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="775486828"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="نوع النشاط"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="تجارة عامة"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="وحدة الجوار"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/neighbor_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="411"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="العنوان"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="الحي السياسي"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة أمامي"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/front_signboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="3"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة جانبي"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/side_signboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="5"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة الكتروني"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/elec_signboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة سطحية"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/supetficail_signboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="3"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة لاصق"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/stuck_signboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="5"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="لوحة جدارية"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mural_signborard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="الأجمالي"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/totl_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:background="@drawable/rounded_dark"
+                        android:enabled="false"
+                        android:fontFamily="@font/boldiphone"
+                        android:text="150000"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/save_pdf_Btn"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:background="@drawable/round_back_primary"
                     android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="حفظ pdf"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/printBtn"
+                    android:layout_width="@dimen/_83sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:background="@drawable/round_back_primary"
+                    android:fontFamily="@font/boldiphone"
+                    android:text="طباعة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="وحدة الجوار"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/neighbor_unit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="411"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="العنوان"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_unit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="الحي السياسي"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="لوحة أمامي"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/front_signboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="3"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="لوحة جانبي"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/side_signboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="5"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="لوحة الكتروني"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/elec_signboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="2"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-<<<<<<< HEAD
-=======
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="لوحة سطحية"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/supetficail_signboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="3"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="لوحة لاصق"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/stuck_signboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="5"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:hint="لوحة جدارية"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mural_signborard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="2"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:hint="الأجمالي"
-                android:textColorHint="#616161">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/totl_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_dark"
-                    android:enabled="false"
-                    android:text="150000"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/boldiphone"
-                    android:textColor="@color/black" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/save_pdf_Btn"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:background="@drawable/round_back_primary"
-                android:fontFamily="@font/boldiphone"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:text="حفظ pdf"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/printBtn"
-                android:layout_width="@dimen/_83sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:background="@drawable/round_back_primary"
-                android:fontFamily="@font/boldiphone"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:text="طباعة"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
->>>>>>> 8534888c7f06cd29cc6c412bd57bd79370ed5b98
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:importantForAccessibility="no"
+        android:pointerIcon="zoom_in"
+        android:src="@drawable/ic_location_map"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#FFFFFF"
+        tools:targetApi="n" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

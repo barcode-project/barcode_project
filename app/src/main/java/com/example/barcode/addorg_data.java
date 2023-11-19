@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -20,7 +21,7 @@ import com.example.barcode.utils.ViewPagerAdapter;
 import java.util.ArrayList;
 
 public class addorg_data extends AppCompatActivity {
-
+    private static final int PICK_IMAGE_REQUEST = 1;
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
@@ -40,7 +41,7 @@ public class addorg_data extends AppCompatActivity {
 
                 Checkpermission();
 
-                pickimageftomgallry();
+
             }
         });
 
@@ -52,7 +53,7 @@ public class addorg_data extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(addorg_data.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(addorg_data.this,new
-                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
+                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PICK_IMAGE_REQUEST);
             }else{
 
                 pickimageftomgallry();
@@ -68,12 +69,14 @@ public class addorg_data extends AppCompatActivity {
     private void pickimageftomgallry() {
 
         //here we go to gallery to select images
-        Intent intent =new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
+//        Intent intent =new Intent();
+//        intent.setType("image/*");
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(intent,1);
 
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
 
@@ -81,22 +84,19 @@ public class addorg_data extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==1 && requestCode==RESULT_OK && data!=null && data.getClipData()!=null){
-            int count=data.getClipData().getItemCount();
-            for (int i=0 ; i<count;i++){
-                ImageUri=data.getClipData().getItemAt(i).getUri();
 
-                //add list that add all image uri
-                chooseImageList.add(ImageUri);
-                SetAdapter();
-            }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            ImageUri = data.getData();
+            chooseImageList.add(ImageUri);
+            SetAdapter();
+
         }
-
-    }
+        }
 
     private void SetAdapter() {
 
         ViewPagerAdapter adapter=new ViewPagerAdapter(this,chooseImageList);
+
         viewPager.setAdapter(adapter);
 
     }
