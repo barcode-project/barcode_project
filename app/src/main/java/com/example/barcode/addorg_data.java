@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class addorg_data extends AppCompatActivity {
     ViewPager viewPager;
     Uri ImageUri;
     ArrayList<Uri> chooseImageList;
+    private ImageView add_shops_exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class addorg_data extends AppCompatActivity {
         setContentView(R.layout.activity_addorg_data);
         pickimagebtn=findViewById(R.id.chooseImage);
         viewPager = findViewById(R.id.viewPager);
+        add_shops_exit=findViewById(R.id.add_shops_exit);
         chooseImageList = new ArrayList<>();
 
         pickimagebtn.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +45,12 @@ public class addorg_data extends AppCompatActivity {
                 Checkpermission();
 
 
+            }
+        });
+        add_shops_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

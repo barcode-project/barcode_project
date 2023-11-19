@@ -31,7 +31,7 @@
         />
 
     <ImageView
-        android:id="@+id/exit"
+        android:id="@+id/add_shops_exit"
         android:layout_width="@dimen/_12sdp"
         android:layout_height="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_14sdp"
@@ -50,7 +50,7 @@
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@+id/exit"
+        app:layout_constraintRight_toLeftOf="@+id/add_shops_exit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
