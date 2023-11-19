@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menulogout"
-        android:title="تسجيل الخروج"
-        android:icon="@drawable/ic_baseline_logout_24" />
+        android:title="الحساب"
+        android:icon="@drawable/ic_baseline_person_24" />
 
 
-    <item
-        android:id="@+id/menuHistory"
-        android:title="السجل"
-        android:icon="@drawable/ic_history" />
+<!--    <item-->
+<!--        android:id="@+id/menuHistory"-->
+<!--        android:title="السجل"-->
+<!--        android:icon="@drawable/ic_history" />-->
 
     <item
         android:id="@+id/placeholder"
         android:checkable="false" />
 
-    <item
-        android:id="@+id/menuSearch"
-        android:title="البحث"
-        android:icon="@drawable/ic_search" />
+<!--    <item-->
+<!--        android:id="@+id/menuSearch"-->
+<!--        android:title="البحث"-->
+<!--        android:icon="@drawable/ic_search" />-->
 
     <item
         android:id="@+id/menuHome"

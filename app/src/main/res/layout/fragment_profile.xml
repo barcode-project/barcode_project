@@ -1,10 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context=".profileFragment">
 
+    <ImageView
+        android:id="@+id/home_rounded_up"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_180sdp"
+        android:layout_marginTop="-5dp"
+        android:src="@drawable/home_bg_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/frist_linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_rounded_up">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_shops_cardview"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/_15sdp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bus"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="إضافة منشأه"
+                    android:textSize="20sp"
+                    android:textColor="@color/custom"
+                    app:fontFamily="@font/boldiphone" />
+                <ImageView
+                    android:id="@+id/bus"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    app:srcCompat="@drawable/add_shop" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/show_all_shops_cardview"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/_15sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bus2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="عرض المنشئآت"
+                    android:textSize="20sp"
+                    app:fontFamily="@font/boldiphone"
+                    android:textColor="@color/custom"/>
+
+                <ImageView
+                    android:id="@+id/bus2"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    app:srcCompat="@drawable/show_shop" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/socend_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frist_linearLayout">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/history_shops_cardview"
+            android:layout_width="@dimen/_135sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="@dimen/_15sdp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bus6"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="سجل المسح"
+                    android:textSize="20sp"
+                    android:textColor="@color/custom"
+                    app:fontFamily="@font/boldiphone" />
+                <ImageView
+                    android:id="@+id/bus6"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    app:srcCompat="@drawable/home_history" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

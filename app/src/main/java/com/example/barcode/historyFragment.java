@@ -1,14 +1,12 @@
 package com.example.barcode;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +53,11 @@ private List<history> historyList;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_history, container, false);
-        resview=view.findViewById(R.id.history_recyclerView);
-        historyList=tisthistory();
-        adapter_history=new adapter_history(getContext(),historyList);
-        resview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        resview.setAdapter(adapter_history);
+//        resview=view.findViewById(R.id.history_recyclerView);
+//        historyList=tisthistory();
+//        adapter_history=new adapter_history(getContext(),historyList);
+//        resview.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        resview.setAdapter(adapter_history);
 
         return view;
     }

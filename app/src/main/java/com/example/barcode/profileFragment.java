@@ -1,12 +1,13 @@
 package com.example.barcode;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,9 +15,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class profileFragment extends Fragment {
+    private CardView show_shops_card,add_shop_card,history_shops_card;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -59,7 +59,32 @@ public class profileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+       View view= inflater.inflate(R.layout.fragment_profile, container, false);
+       show_shops_card=view.findViewById(R.id.show_all_shops_cardview);
+       show_shops_card.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent inten=new Intent(getActivity(),all_shops_list.class);
+               startActivity(inten);
+           }
+       });
+       add_shop_card=view.findViewById(R.id.add_shops_cardview);
+       add_shop_card.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent inte=new Intent(getActivity(),addorg_data.class);
+               startActivity(inte);
+           }
+       });
+       history_shops_card=view.findViewById(R.id.history_shops_cardview);
+       history_shops_card.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent inte=new Intent(getActivity(),historyFragment.class);
+               startActivity(inte);
+           }
+       });
+        return view;
     }
 
 

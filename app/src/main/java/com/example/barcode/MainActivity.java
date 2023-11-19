@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView = findViewById(R.id.bottom_nav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new homeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new profileFragment()).commit();
         bottomNavigationView.setSelectedItemId(R.id.menuHome);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -76,19 +76,19 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.menulogout:
-                        fragment = new profileFragment();
+                        fragment = new setting_profileFragment();
                         break;
 
-                    case R.id.menuHistory:
-                        fragment = new historyFragment();
-                        break;
-
-                    case R.id.menuSearch:
-                        fragment = new searchFragment();
-                        break;
+//                    case R.id.menuHistory:
+//                        fragment = new historyFragment();
+//                        break;
+//
+//                    case R.id.menuSearch:
+//                        fragment = new setting_profileFragment();
+//                        break;
 
                     case R.id.menuHome:
-                        fragment = new homeFragment();
+                        fragment = new profileFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();

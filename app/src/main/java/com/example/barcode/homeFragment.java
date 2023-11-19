@@ -60,7 +60,7 @@ public class homeFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         ReView= view.findViewById(R.id.a_d_c_recyclerView);
         etxt_search= view.findViewById(R.id.etxt_search_home);
-etxt_search.clearComposingText();
+        etxt_search.clearComposingText();
         etxt_search.setText(data);
         etxt_search.setText(data);
         ereasList=generateDummy();

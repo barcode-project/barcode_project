@@ -23,15 +23,16 @@ import java.util.ArrayList;
 
 public class shops_details extends AppCompatActivity {
 
-
+    private TemplatePDF templatePDF;
+    private ImageView bt_exit;
     TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
     TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
     Button btnPdfReceipt, btnThermalPrinter;
     ContentLoadingProgressBar progressBar;
-    private TemplatePDF templatePDF;
-    String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
 
-    String insitiution_number="08967674490",order_time,order_date="12/12/2000";
+     String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
+
+     String insitiution_number="08967674490",order_time,order_date="12/12/2000";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"المبلغ", "الرسوم"};
@@ -43,7 +44,7 @@ public class shops_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_details);
         progressBar=findViewById(R.id.all_details_progressBar);
-        ImageView bt_exit = findViewById(R.id.exit);
+        bt_exit=findViewById(R.id.exit);
         id_no=findViewById(R.id.insitiution_no);
         last_licens=findViewById(R.id.last_license);
         owner_name=findViewById(R.id.owner_name);

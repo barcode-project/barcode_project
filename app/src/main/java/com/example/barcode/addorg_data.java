@@ -91,7 +91,7 @@ public class addorg_data extends AppCompatActivity {
             SetAdapter();
 
         }
-        }
+    }
 
     private void SetAdapter() {
 
