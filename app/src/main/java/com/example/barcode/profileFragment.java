@@ -80,7 +80,7 @@ public class profileFragment extends Fragment {
        history_shops_card.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent inte=new Intent(getActivity(),historyFragment.class);
+               Intent inte=new Intent(getActivity(),qr_history.class);
                startActivity(inte);
            }
        });

@@ -35,6 +35,12 @@ public class qr_history extends AppCompatActivity {
         history.add(new history(" قبل 17دقائق","شارع ايران",1));
         history.add(new history(" قبل 21دقائق","شارع مجاهد",1));
         history.add(new history(" قبل 55دقائق","شارع حدة",1));
+        history.add(new history(" قبل 5دقائق","شارع مجاهد",1));
+        history.add(new history(" قبل 10دقائق","شارع عمان",1));
+        history.add(new history(" قبل 15دقائق","شارع صفر",1));
+        history.add(new history(" قبل 17دقائق","شارع ايران",1));
+        history.add(new history(" قبل 21دقائق","شارع مجاهد",1));
+        history.add(new history(" قبل 55دقائق","شارع حدة",1));
 
         return history;
     }
