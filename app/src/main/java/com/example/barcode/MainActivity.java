@@ -1,5 +1,7 @@
 package com.example.barcode;
 
+import static com.google.android.material.internal.ContextUtils.getActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -32,14 +34,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    homeFragment  fragament = new homeFragment();
-                    Bundle bundle2 = new Bundle();
-                    bundle2.putString("qrcode", result);
-                    fragament.setArguments(bundle2);
 
-                    bottomNavigationView = findViewById(R.id.bottom_nav);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragament).commit();
-                    bottomNavigationView.setSelectedItemId(R.id.menuHome);
+                    // إنشاء Intent للانتقال إلى النشاط الجديد
+                    Intent intent = new Intent(this, all_shops_list.class);
+
+                    // وضع البيانات في Intent
+                    intent.putExtra("qrcode", result);
+
+                    // بدء النشاط الجديد
+                    startActivity(intent);
+
+//                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+//                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+//                    homeFragment  fragament = new homeFragment();
+//                    Bundle bundle2 = new Bundle();
+//                    bundle2.putString("qrcode", result);
+//                    fragament.setArguments(bundle2);
+//
+//                    bottomNavigationView = findViewById(R.id.bottom_nav);
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragament).commit();
+//                    bottomNavigationView.setSelectedItemId(R.id.menuHome);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
 
                 }

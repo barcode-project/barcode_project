@@ -45,7 +45,6 @@ public class adapter_history extends RecyclerView.Adapter<adapter_history.histor
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
