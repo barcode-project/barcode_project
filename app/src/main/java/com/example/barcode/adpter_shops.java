@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHolder> {
-    private Context context;
-    private List<shops> shopsList;
+    private final Context context;
+    private final List<shops> shopsList;
 
     public adpter_shops(Context context, List<shops> shopsList) {
         this.context = context;

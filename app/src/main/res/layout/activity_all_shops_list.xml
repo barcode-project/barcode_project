@@ -55,48 +55,45 @@
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rounded_up2">
 
-        <EditText
-            android:id="@+id/etxt_search"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/txt_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:layout_weight="1"
             android:background="@drawable/search_view_bg"
-            android:drawableRight="@drawable/ic_search2"
-            android:ems="10"
             android:fontFamily="@font/boldiphone"
-            android:hint="@string/search_here"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
             android:padding="10dp"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_12ssp"
+            app:defaultQueryHint="@string/search_here"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_margin="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rounded_up2"
-        >
+        app:layout_constraintTop_toBottomOf="@id/layout1">
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview55"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
             android:clipToPadding="true"
             android:layoutDirection="rtl"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
