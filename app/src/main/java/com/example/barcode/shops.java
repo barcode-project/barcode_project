@@ -4,12 +4,16 @@ public class shops {
     private String name_shop;
     private static int id;
 
+    public shops() {
+
+    }
 
     public shops(String name_shop,int id) {
         this.name_shop =name_shop;
         this.id=id;
 
     }
+
 
     public static int getId() {
         return id;

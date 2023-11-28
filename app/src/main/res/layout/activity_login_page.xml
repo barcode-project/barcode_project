@@ -78,6 +78,7 @@
             android:textColorHint="#616161">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@drawable/rounded_dark"
@@ -119,6 +120,7 @@
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:background="@drawable/rounded_dark"

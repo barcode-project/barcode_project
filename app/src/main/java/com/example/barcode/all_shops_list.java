@@ -1,18 +1,36 @@
 package com.example.barcode;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.barcode.Server.URLs;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class all_shops_list extends AppCompatActivity {
     private RecyclerView ReView;
@@ -20,6 +38,7 @@ public class all_shops_list extends AppCompatActivity {
     private List<shops> shopsList;
     private ImageView all_shops_exit;
     private SearchView searchView;
+    private SharedPreferences sharedPreferences;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +46,11 @@ public class all_shops_list extends AppCompatActivity {
         setContentView(R.layout.activity_all_shops_list);
         all_shops_exit=findViewById(R.id.all_shops_exit);
         ReView = findViewById(R.id.recycleview55);
-        shopsList=test();
+        sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         adpter_shops=new adpter_shops(getBaseContext(),shopsList);
         ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
         ReView.setAdapter(adpter_shops);
+        shopsList=test();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +83,73 @@ public class all_shops_list extends AppCompatActivity {
 
     private List<shops> test(){
         List<shops> shops=new ArrayList<>();
-        shops.add(new shops("سوبر",1));
-        shops.add(new shops("صيدلية " ,1));
-        shops.add(new shops("كافيه",1));
-        shops.add(new shops("سوبر",1));
-        shops.add(new shops("صيدلية ",1));
-        shops.add(new shops("كافيه",1));
-        shops.add(new shops("سوبر",1));
-        shops.add(new shops("صيدلية ",1));
-        shops.add(new shops("كافيه",1));
+        StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Orgs, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getBoolean("success")) {
+                        JSONArray array = new JSONArray(object.getString("data"));
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject citizen = array.getJSONObject(i);
+
+                            shops user = new shops();
+//                            user.setNo(i+1);
+                            user.setId(citizen.getInt("id"));
+                            user.setName_shop(citizen.getString("name"));
+
+
+                            shops.add(i,user);
+
+                        }
+                        adpter_shops=new adpter_shops(getBaseContext(),shopsList);
+                        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
+                        ReView.setAdapter(adpter_shops);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(all_shops_list.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+//                progressBar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(all_shops_list.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressBar.setVisibility(View.GONE);
+            }
+
+        }){
+
+            // provide token in header
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("token","");
+                HashMap<String,String> map = new HashMap<>();
+//                map.put("Authorization","Bearer "+token);
+                map.put("auth-token",token);
+                return map;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
+
+//        shops.add(new shops("سوبر",1));
+//        shops.add(new shops("صيدلية " ,1));
+//        shops.add(new shops("كافيه",1));
+//        shops.add(new shops("سوبر",1));
+//        shops.add(new shops("صيدلية ",1));
+//        shops.add(new shops("كافيه",1));
+//        shops.add(new shops("سوبر",1));
+//        shops.add(new shops("صيدلية ",1));
+//        shops.add(new shops("كافيه",1));
 
         return shops;
     }
