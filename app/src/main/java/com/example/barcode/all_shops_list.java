@@ -47,9 +47,9 @@ public class all_shops_list extends AppCompatActivity {
         all_shops_exit=findViewById(R.id.all_shops_exit);
         ReView = findViewById(R.id.recycleview55);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        adpter_shops=new adpter_shops(getBaseContext(),shopsList);
-        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
-        ReView.setAdapter(adpter_shops);
+//        adpter_shops=new adpter_shops(getBaseContext(),shopsList);
+//        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
+//        ReView.setAdapter(adpter_shops);
         shopsList=test();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +97,10 @@ public class all_shops_list extends AppCompatActivity {
                             shops user = new shops();
 //                            user.setNo(i+1);
                             user.setId(citizen.getInt("id"));
-                            user.setName_shop(citizen.getString("name"));
+                            user.setName_shop(citizen.getString("org_name"));
 
 
-                            shops.add(i,user);
+                            shops.add(user);
 
                         }
                         adpter_shops=new adpter_shops(getBaseContext(),shopsList);

@@ -44,7 +44,10 @@ public class login_page extends AppCompatActivity {
         Passwordtext = findViewById(R.id.password);
         signInBtn.setOnClickListener(v -> {
             if (validate()){
-                login();
+//                login();
+                startActivity(new Intent(login_page.this, MainActivity.class));
+                finish();
+
             }
         });
 
@@ -63,10 +66,10 @@ public class login_page extends AppCompatActivity {
                         //make shared preference user
                         SharedPreferences userPref = getBaseContext().getSharedPreferences("user",MODE_PRIVATE);
                         SharedPreferences.Editor editor = userPref.edit();
-                        editor.putString("token",user.getString("api_token"));
-                        editor.putString("username",user.getString("username"));
-                        editor.putString("fullname",user.getString("fullname"));
-                        editor.putInt("id",user.getInt("id"));
+//                        editor.putString("token",user.getString("api_token"));
+                        editor.putString("phone",user.getString("phone"));
+//                        editor.putString("fullname",user.getString("fullname"));
+//                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
                         editor.putString("type","user");
                         startActivity(new Intent(login_page.this, MainActivity.class));
@@ -112,7 +115,7 @@ public class login_page extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map = new HashMap<>();
-                map.put("username",usernamekey.getText().toString().trim());
+                map.put("phone",usernamekey.getText().toString().trim());
                 map.put("password",Passwordtext.getText().toString().trim());
                 return map;
             }
@@ -142,6 +145,20 @@ public class login_page extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private boolean validate2() {
+        //first getting the values
+        final String mySSn = usernamekey.getText().toString().trim();
+        final String myPassword = Passwordtext.getText().toString().trim();
+
+        //validating inputs
+        if (mySSn == "11" && myPassword == "11" ) {
+            return true;
+        }
+        Toast.makeText(this, "خطأ في اسم المستخدم او كلمة المرور", Toast.LENGTH_SHORT).show();
+            return false;
+
     }
 
 }
