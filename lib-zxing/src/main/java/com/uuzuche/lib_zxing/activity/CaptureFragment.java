@@ -1,5 +1,6 @@
 package com.uuzuche.lib_zxing.activity;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.zxing.BarcodeFormat;
@@ -31,6 +34,7 @@ import com.uuzuche.lib_zxing.decoding.InactivityTimer;
 import com.uuzuche.lib_zxing.view.ViewfinderView;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -98,7 +102,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     @Override
     public void onResume() {
         super.onResume();
-        if (hasSurface) {
+            if (hasSurface) {
             initCamera(surfaceHolder);
         } else {
             surfaceHolder.addCallback(this);
@@ -140,6 +144,14 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
         }
         initBeepSound();
         vibrate = true;
+    }
+    private boolean checkCameraPermission() {
+        int cameraPermission = ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.CAMERA);
+        return cameraPermission == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PERMISSION_CAMERA_REQUEST);
     }
 
     @Override
@@ -329,10 +341,10 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
 
         if (requestCode == PERMISSION_CAMERA_REQUEST) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // تم الحصول على أذونة الكاميرا، قم بتهيئة الكاميرا
                 initCamera(surfaceHolder);
             } else {
-                // TODO
-                Toast.makeText(getContext().getApplicationContext(), "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "تم رفض أذونة الكاميرا", Toast.LENGTH_SHORT).show();
             }
         }
     }
