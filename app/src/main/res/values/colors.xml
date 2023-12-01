@@ -13,4 +13,6 @@
     <color name="custom2">#4293FE</color>
     <color name="light_custom">#C374B9FF</color>
     <color name="gridLineColor">#80000000</color>
+    <color name="textColorPrimaryDark">#757575</color>
+    <color name="textColorSecondaryLight">#666666</color>
 </resources>

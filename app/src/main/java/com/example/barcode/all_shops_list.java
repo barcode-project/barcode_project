@@ -97,7 +97,7 @@ public class all_shops_list extends AppCompatActivity {
             }
         }
         if (filterList.isEmpty()){
-            Toast.makeText(this," يوجد منشئة بهاذا الاسم",Toast.LENGTH_LONG).show();
+            Toast.makeText(this," لا يوجد منشئة بهاذا الاسم",Toast.LENGTH_LONG).show();
         }
         else {
             adpter_shops.setFlteredList(filterList);

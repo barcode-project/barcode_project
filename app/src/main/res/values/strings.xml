@@ -31,4 +31,5 @@
     <string name="open_with_external_pdf_reader">افتح بقارئ pdf خارجي</string>
     <string name="generate_pdf_receipt">إيصال PDF</string>
     <string name="insitiution_no">رقم المنشأه</string>
+    <string name="cancel">الغاء</string>
 </resources>

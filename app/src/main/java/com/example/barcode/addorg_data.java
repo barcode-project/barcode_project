@@ -12,12 +12,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +48,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -52,7 +60,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
+    ArrayAdapter<String> streetAdapter;
     ArrayList<Uri> chooseImageList;
+    List<String> name_street;
+    String selectedstreetID;
 
     private LatLng currentLatLng;
     private GoogleMap googleMap;
@@ -74,9 +85,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         chooseImageList = new ArrayList<>();
-//        List<String> items = Arrays.asList("411","412","413","414");
-//        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.select_dialog_item,items));
-//        spinner.setDropDownWidth(300);
+
+         name_street= new ArrayList<>();
+
+
 
         String[] items={"<>","411","412","413","415"};
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,items) {
@@ -109,6 +121,82 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             }
 
         });
+        address_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                streetAdapter= new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
+                streetAdapter.addAll(name_street);
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
+                dialog.setView(dialogView);
+                dialog.setCancelable(false);
+
+                Button dialog_button = dialogView.findViewById(R.id.dialog_button);
+                EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
+                TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+                ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
+
+
+//                dialog_title.setText("");
+                dialog_list.setVerticalScrollBarEnabled(true);
+                dialog_list.setAdapter(streetAdapter);
+
+                dialog_input.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                        streetAdapter.getFilter().filter(charSequence);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+
+                final AlertDialog alertDialog = dialog.create();
+
+                dialog_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+
+
+                dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        alertDialog.dismiss();
+                        final String selectedItem = streetAdapter.getItem(position);
+
+                        String street_id = "0";
+                        address_unit.setText(selectedItem);
+
+
+                        for (int i = 0; i < name_street.size(); i++) {
+                            if (name_street.get(i).equalsIgnoreCase(selectedItem)) {
+                                // Get the ID of selected Country
+//                                street_id = street.get(i).get("street_id");
+                            }
+                        }
+
+
+                        selectedstreetID = street_id;
+                        Log.d("category_id", street_id);
+                    }
+                });
+            }
+
+        });
+
         pickimagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,7 +324,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             double longitude = currentLatLng.longitude;
 
             String locationText = "Latitude: " + latitude + "\nLongitude: " + longitude;
-            address_unit.setText(locationText);
+//            address_unit.setText(locationText);
             // عرض معلومات الموقع في واجهة المستخدم، أو استخدمها في عمليات أخرى
             Toast.makeText(this, "الموقع المحدد: " + latitude + ", " + longitude, Toast.LENGTH_SHORT).show();
         }
