@@ -71,14 +71,17 @@ public class shops_details extends AppCompatActivity {
         longText = new String[]{"نشكركم"};
 
         ArrayList<PlateData> plateList = new ArrayList<>();
+//        plateList.add(new PlateData("نوع اللوحة 1", 5, 100.0, 50.0));
         plateList.add(new PlateData("نوع اللوحة 1", 5, 100.0, 50.0));
+//        plateList.add(new PlateData("نوع اللوحة 2", 5, 100.0, 50.0));
         plateList.add(new PlateData("نوع اللوحة 2", 3, 80.0, 40.0));
         // ... أضف المزيد من البيانات إذا لزم الأمر
 //        String[] items={"5, 100.0, 50.0","411","412","413","415"};
-//        // قم بربط بيانات اللوحة بـ ArrayAdapter
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        String[] items={"5, 100.0, 50.0","411","412","413","415"};
+        // قم بربط بيانات اللوحة بـ ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
 
-     ArrayAdapter<PlateData> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, plateList);
+//     ArrayAdapter<PlateData> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, items);
 //
         // ربط القائمة بـ ListView
         ListView listView = findViewById(R.id.listView);

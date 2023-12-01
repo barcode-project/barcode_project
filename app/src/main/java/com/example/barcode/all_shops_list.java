@@ -55,9 +55,7 @@ public class all_shops_list extends AppCompatActivity {
         liner = findViewById(R.id.no_orders_layout);
         texterror=findViewById(R.id.texterror);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-//        adpter_shops=new adpter_shops(getBaseContext(),shopsList);
-//        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
-//        ReView.setAdapter(adpter_shops);
+//
         shopsList = test();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +81,30 @@ public class all_shops_list extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // يمكنك تنفيذ إجراءات عند تغيير نص البحث
-                return false;
+                filterListener(newText);
+
+                return true;
             }
+
+
         });
     }
+    private void filterListener(String text) {
+        List<shops> filterList = new ArrayList<>();
+        for (shops shop : shopsList){
+            if (shop.getName_shop().toLowerCase().contains(text.toLowerCase())){
+                filterList.add(shop);
+            }
+        }
+        if (filterList.isEmpty()){
+            Toast.makeText(this," يوجد منشئة بهاذا الاسم",Toast.LENGTH_LONG).show();
+        }
+        else {
+            adpter_shops.setFlteredList(filterList);
+        }
+
+    }
+
 
     private List<shops> test() {
         List<shops> shops = new ArrayList<>();
@@ -111,7 +128,7 @@ public class all_shops_list extends AppCompatActivity {
                             shops.add(user);
 
                         }
-                        adpter_shops = new adpter_shops(getBaseContext(), shopsList);
+                        adpter_shops = new adpter_shops(all_shops_list.this, shops);
                         ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
                         ReView.setAdapter(adpter_shops);
                     }

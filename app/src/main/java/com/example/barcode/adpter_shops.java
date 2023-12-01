@@ -13,12 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHolder> {
-    private final Context context;
-    private final List<shops> shopsList;
+    private  Context context;
+    private List<shops> shopsList;
 
     public adpter_shops(Context context, List<shops> shopsList) {
         this.context = context;
         this.shopsList = shopsList;
+    }
+    public void setFlteredList(List<shops>filFlteredList){
+        this.shopsList=filFlteredList;
+//        notfyDataSetChanged();
+
     }
     @NonNull
     @Override

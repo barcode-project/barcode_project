@@ -139,6 +139,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="@dimen/_130sdp"
+                    android:id="@+id/doorss_numbers"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_6sdp"
                     android:layout_marginVertical="@dimen/_10sdp"
@@ -262,43 +263,61 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_10sdp"/>
 
-                <com.google.android.gms.maps.MapView
-                    android:id="@+id/mapView"
+                <fragment
+                    android:id="@+id/mapFragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp"/>
+                    android:layout_height="@dimen/_100sdp" />
 
 
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginVertical="@dimen/_6sdp">
-
-                <RelativeLayout
-                    android:id="@+id/chooseImage"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:background="@color/light_custom">
-
-                    <View
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/ic_baseline_camera_alt_24"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager"
+                android:orientation="vertical"
+                android:layout_marginVertical="@dimen/_6sdp"
+                android:background="@drawable/rounded_dark">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_height="match_parent"
+                    android:text="صور المرفقات"
+                    android:fontFamily="@font/boldiphone"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="@dimen/_6sdp">
+
+                    <RelativeLayout
+                        android:id="@+id/chooseImage"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:background="@color/light_custom">
+
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/ic_baseline_camera_alt_24"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout>
 
             </LinearLayout>
+
+
+
 
             <Button
                 android:id="@+id/upload_bt"

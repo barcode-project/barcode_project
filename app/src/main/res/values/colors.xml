@@ -12,4 +12,5 @@
     <color name="custom">#3B8AF4</color>
     <color name="custom2">#4293FE</color>
     <color name="light_custom">#C374B9FF</color>
+    <color name="gridLineColor">#80000000</color>
 </resources>
