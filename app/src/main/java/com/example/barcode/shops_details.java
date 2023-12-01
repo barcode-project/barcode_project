@@ -64,7 +64,7 @@ public class shops_details extends AppCompatActivity {
         totl_price=findViewById(R.id.totl_price);
         btnThermalPrinter=findViewById(R.id.printBtn);
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
-
+        int id = getIntent().getIntExtra("id",0);
 
         shortText = "Customer Name: Mr/Mrs. " + "customer_name";
 
