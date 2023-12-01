@@ -44,9 +44,9 @@ public class login_page extends AppCompatActivity {
         Passwordtext = findViewById(R.id.password);
         signInBtn.setOnClickListener(v -> {
             if (validate()){
-//                login();
-                startActivity(new Intent(login_page.this, MainActivity.class));
-                finish();
+                login();
+//                startActivity(new Intent(login_page.this, MainActivity.class));
+//                finish();
 
             }
         });
@@ -66,8 +66,8 @@ public class login_page extends AppCompatActivity {
                         //make shared preference user
                         SharedPreferences userPref = getBaseContext().getSharedPreferences("user",MODE_PRIVATE);
                         SharedPreferences.Editor editor = userPref.edit();
-//                        editor.putString("token",user.getString("api_token"));
-                        editor.putString("phone",user.getString("phone"));
+                        editor.putString("token",user.getString("api_token"));
+//                        editor.putString("phone",user.getString("phone"));
 //                        editor.putString("fullname",user.getString("fullname"));
 //                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
@@ -93,19 +93,21 @@ public class login_page extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 //                dialog.dismiss();
-                String errorMessage = "حدث خطأ أثناء تسجيل الدخول. الرجاء معاودة المحاولة في وقت لاحق.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    errorMessage = "لا يمكن الاتصال بالخادم. الرجاء التحقق من اتصال الانترنت الخاص بك.";
-                } else if (error instanceof AuthFailureError) {
-                    errorMessage = "اسم المستخدم أو كلمة المرور غير صحيحة. حاول مرة اخرى.";
-                } else if (error instanceof ServerError) {
-                    errorMessage = "حدث خطأ في الخادم. الرجاء معاودة المحاولة في وقت لاحق.";
-                } else if (error instanceof NetworkError) {
-                    errorMessage = "لا يمكن الاتصال بالخادم. الرجاء التحقق من اتصال الانترنت الخاص بك.";
-                } else if (error instanceof ParseError) {
-                    errorMessage = "حدث خطأ أثناء تحليل الاستجابة. الرجاء معاودة المحاولة في وقت لاحق.";
-                }
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+                Toast.makeText(login_page.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                String errorMessage = "حدث خطأ أثناء تسجيل الدخول. الرجاء معاودة المحاولة في وقت لاحق.";
+//                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                    errorMessage = "لا يمكن الاتصال بالخادم. الرجاء التحقق من اتصال الانترنت الخاص بك.";
+//                } else if (error instanceof AuthFailureError) {
+//                    errorMessage = "اسم المستخدم أو كلمة المرور غير صحيحة. حاول مرة اخرى.";
+//                } else if (error instanceof ServerError) {
+//                    errorMessage = "حدث خطأ في الخادم. الرجاء معاودة المحاولة في وقت لاحق.";
+//                } else if (error instanceof NetworkError) {
+//                    errorMessage = "لا يمكن الاتصال بالخادم. الرجاء التحقق من اتصال الانترنت الخاص بك.";
+//                } else if (error instanceof ParseError) {
+//                    errorMessage = "حدث خطأ أثناء تحليل الاستجابة. الرجاء معاودة المحاولة في وقت لاحق.";
+//                }
+//                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         }){
 

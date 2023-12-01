@@ -110,6 +110,7 @@
         android:layout_centerVertical="true"
         android:orientation="vertical"
         android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -122,8 +123,8 @@
             android:elevation="2dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_order_available"
             tools:targetApi="lollipop" />
+            //app:lottie_rawRes="@raw/no_order_available"
 
         <TextView
             android:id="@+id/texterror"

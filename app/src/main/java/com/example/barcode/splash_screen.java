@@ -20,7 +20,7 @@ public class splash_screen extends AppCompatActivity {
             public void run() {
                 SharedPreferences userPref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
                 boolean isLoggedIn = userPref.getBoolean("isLoggedIn", false);
-                boolean isPlaced = userPref.getBoolean("isPlaced", false);
+//                boolean isPlaced = userPref.getBoolean("isPlaced", false);
                 String type = userPref.getString("type", "non");
                 if (isLoggedIn) {
                     switch (type) {
@@ -41,25 +41,25 @@ public class splash_screen extends AppCompatActivity {
 
     }
 
-    private void isFirstTime() {
-        //for checking if the app is running for the very first time
-        //we need to save a value to shared preferences
-        SharedPreferences preferences = getApplication().getSharedPreferences("onBoard", MODE_PRIVATE);
-        boolean isFirstTime = preferences.getBoolean("isFirstTime", true);
-        //default value true
-        if (isFirstTime) {
-            // if its true then its first time and we will change it false
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("isFirstTime", false);
-            editor.apply();
-
-            // start main activity
-            startActivity(new Intent(splash_screen.this, login_page.class));
-            finish();
-        } else {
-            //start login Activity
-            startActivity(new Intent(splash_screen.this, MainActivity.class));
-            finish();
-        }
-    }
+//    private void isFirstTime() {
+//        //for checking if the app is running for the very first time
+//        //we need to save a value to shared preferences
+//        SharedPreferences preferences = getApplication().getSharedPreferences("onBoard", MODE_PRIVATE);
+//        boolean isFirstTime = preferences.getBoolean("isFirstTime", true);
+//        //default value true
+//        if (isFirstTime) {
+//            // if its true then its first time and we will change it false
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putBoolean("isFirstTime", false);
+//            editor.apply();
+//
+//            // start main activity
+//            startActivity(new Intent(splash_screen.this, login_page.class));
+//            finish();
+//        } else {
+//            //start login Activity
+//            startActivity(new Intent(splash_screen.this, MainActivity.class));
+//            finish();
+//        }
+//    }
 }
