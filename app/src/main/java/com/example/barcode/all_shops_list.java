@@ -56,7 +56,7 @@ public class all_shops_list extends AppCompatActivity {
         texterror=findViewById(R.id.texterror);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 //
-        shopsList = test();
+        test();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +111,7 @@ public class all_shops_list extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Orgs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("ALL_SHOPS_RESPONSE", response);
+//                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
@@ -128,6 +128,8 @@ public class all_shops_list extends AppCompatActivity {
                             shops.add(user);
 
                         }
+                        shopsList = shops;
+                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
                         adpter_shops = new adpter_shops(all_shops_list.this, shops);
                         ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
                         ReView.setAdapter(adpter_shops);

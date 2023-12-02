@@ -1,19 +1,33 @@
 package com.example.barcode;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.barcode.Server.URLs;
 import com.example.barcode.pdf_report.BarCodeEncoder;
 import com.example.barcode.pdf_report.TemplatePDF;
 import com.example.barcode.utils.PrefMng;
@@ -21,7 +35,14 @@ import com.example.barcode.utils.Tools;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class shops_details extends AppCompatActivity {
 
@@ -31,6 +52,7 @@ public class shops_details extends AppCompatActivity {
     TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
     Button btnPdfReceipt, btnThermalPrinter;
     ContentLoadingProgressBar progressBar;
+    private SharedPreferences sharedPreferences;
 
      String currency="", shopname="احمد", shop_contact, shop_email, shop_address=String.valueOf("الرويشان") , shortText;
 
@@ -41,6 +63,7 @@ public class shops_details extends AppCompatActivity {
     private  String[] shortTex = {null},longText;
     Bitmap bm = null;
     private static final int REQUEST_CONNECT = 100;
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +87,8 @@ public class shops_details extends AppCompatActivity {
         totl_price=findViewById(R.id.totl_price);
         btnThermalPrinter=findViewById(R.id.printBtn);
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
-        int id = getIntent().getIntExtra("id",0);
+        sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        id = getIntent().getIntExtra("id",0);
 
         shortText = "Customer Name: Mr/Mrs. " + "customer_name";
 
@@ -181,6 +205,80 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{"اسم المالك"});
 
         return rows;
+    }
+
+    private List<shops> test() {
+        List<shops> shops = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                Log.d("ALL_SHOPS_RESPONSE", response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getBoolean("success")) {
+                        JSONArray array = new JSONArray(object.getString("data"));
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject citizen = array.getJSONObject(i);
+
+//                            shops user = new shops();
+////                            user.setNo(i+1);
+//                            user.setId(citizen.getInt("id"));
+//                            user.setName_shop(citizen.getString("org_name"));
+
+
+//                            shops.add(user);
+
+                        }
+//                        shopsList = shops;
+//                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
+//                        adpter_shops = new adpter_shops(all_shops_list.this, shops);
+//                        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
+//                        ReView.setAdapter(adpter_shops);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(shops_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+//                progressBar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(shops_details.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressBar.setVisibility(View.GONE);
+//                texterror.setText(error.getMessage());
+//                liner.setVisibility(View.VISIBLE);
+            }
+
+        }) {
+
+            // provide token in header
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("token", "");
+                HashMap<String, String> map = new HashMap<>();
+//                map.put("Authorization","Bearer "+token);
+                map.put("auth-token", token);
+                return map;
+            }
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("id", String.valueOf(id));
+                return map;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
+
+        return shops;
     }
 
 }

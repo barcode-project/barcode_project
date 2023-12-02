@@ -369,13 +369,13 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                         }
 
-                    }
                         for (int i = 0; i < product_category.size(); i++) {
 
                             // Get the ID of selected Country
                             name_street.add(product_category.get(i).get("name_street"));
                         }
                         productCategory=product_category;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
