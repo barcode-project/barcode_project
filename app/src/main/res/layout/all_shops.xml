@@ -21,7 +21,7 @@
         app:layout_constraintGuide_percent="0.93" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/list_item1_root_cardView"
+        android:id="@+id/shops_root_cardView"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
@@ -71,10 +71,10 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/list_item1_root_cardView"
+        app:layout_constraintBottom_toBottomOf="@+id/shops_root_cardView"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toStartOf="@+id/guideline23"
-        app:layout_constraintTop_toTopOf="@+id/list_item1_root_cardView">
+        app:layout_constraintTop_toTopOf="@+id/shops_root_cardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
