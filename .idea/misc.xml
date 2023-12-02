@@ -1,5 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/activity_addorg_data.xml" value="0.1526293287729799" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/all_shops.xml" value="0.1" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/inpot_billboard.xml" value="0.1526293287729799" />
+        <entry key="..\:/Users/pc/AppData/Local/Android/Sdk/platforms/android-33/data/res/layout/simple_spinner_dropdown_item.xml" value="0.16666666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$APPLICATION_HOME_DIR$/jbr/bin/$PROECT_DIR$/build/classes" />
   </component>
   <component name="VisualizationToolProject">

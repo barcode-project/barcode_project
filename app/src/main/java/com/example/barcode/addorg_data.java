@@ -54,7 +54,7 @@ import java.util.Map;
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    TextInputEditText address_unit,doors_numbers;
+    TextInputEditText address_unit, doors_numbers;
     TextInputLayout doorss_numbers;
 
     RelativeLayout pickimagebtn;
@@ -72,13 +72,13 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addorg_data);
-        pickimagebtn=findViewById(R.id.chooseImage);
+        pickimagebtn = findViewById(R.id.chooseImage);
         viewPager = findViewById(R.id.viewPager);
         ImageView add_shops_exit = findViewById(R.id.add_shops_exit);
-        Button uploadButton=findViewById(R.id.upload_bt);
-        address_unit=findViewById(R.id.address_unit);
-        doors_numbers=findViewById(R.id.doors_numbers);
-        @SuppressLint({"LocalSuppress"}) AppCompatSpinner spinner=findViewById(R.id.spinner_neighbor_unit);
+        Button uploadButton = findViewById(R.id.upload_bt);
+        address_unit = findViewById(R.id.address_unit);
+        doors_numbers = findViewById(R.id.doors_numbers);
+        @SuppressLint({"LocalSuppress"}) AppCompatSpinner spinner = findViewById(R.id.spinner_neighbor_unit);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapFragment);
@@ -86,18 +86,17 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         chooseImageList = new ArrayList<>();
 
-         name_street= new ArrayList<>();
+        name_street = new ArrayList<>();
 
 
-
-        String[] items={"<>","411","412","413","415"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,items) {
+        String[] items = {"<>", "411", "412", "413", "415"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items) {
             @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position,convertView,parent );
-                if (position==0){
-                    ((TextView)view).setText("وحدة الجوار");
+                View view = super.getView(position, convertView, parent);
+                if (position == 0) {
+                    ((TextView) view).setText("وحدة الجوار");
                 }
                 return view;
             }
@@ -107,7 +106,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         doors_numbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(addorg_data.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(addorg_data.this);
                 builder.setTitle("اختار المطلوب");
                 builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
@@ -124,7 +123,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         address_unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                streetAdapter= new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
+                streetAdapter = new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
                 streetAdapter.addAll(name_street);
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
@@ -222,9 +221,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void openInputActivity() {
-        Dialog inputDialog=new Dialog(this);
+        Dialog inputDialog = new Dialog(this);
         inputDialog.setContentView(R.layout.inpot_billboard);
-        inputDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        inputDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         inputDialog.show();
     }
 
@@ -244,17 +243,17 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     private void Checkpermission() {
 
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(addorg_data.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(addorg_data.this,new
-                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PICK_IMAGE_REQUEST);
-            }else{
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(addorg_data.this, new
+                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PICK_IMAGE_REQUEST);
+            } else {
 
                 pickimageftomgallry();
 
             }
-        }else{
+        } else {
 
             pickimageftomgallry();
 
@@ -262,7 +261,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void pickimageftomgallry() {
-
 
 
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -284,11 +282,12 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     private void SetAdapter() {
 
-        ViewPagerAdapter adapter=new ViewPagerAdapter(this,chooseImageList);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, chooseImageList);
 
         viewPager.setAdapter(adapter);
 
     }
+
     private void requestLocationUpdates() {
         if (googleMap != null) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -302,7 +301,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         return true;
                     }
                 });
-            // حصول على الموقع الحالي
+                // حصول على الموقع الحالي
                 googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                     @Override
                     public void onMyLocationChange(Location location) {
@@ -332,10 +331,21 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, request location updates
                 if (googleMap != null) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
                     googleMap.setMyLocationEnabled(true);
                     requestLocationUpdates();
                 }
