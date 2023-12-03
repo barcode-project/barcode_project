@@ -90,6 +90,7 @@ public class shops_details extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id",0);
         Log.d("id", String.valueOf(id));
+
         test();
 
         shortText = "Customer Name: Mr/Mrs. " + "customer_name";
@@ -214,25 +215,18 @@ public class shops_details extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("ALL_SHOPS_RESPONSE", response);
+//                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
-                        JSONArray array = new JSONArray(object.getString("data"));
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject citizen = array.getJSONObject(i);
+                        JSONObject citizen = new JSONObject(object.getString("data"));
+                            owner_name.setText(citizen.getString("owner_name"));
+                            id_no.setText(String.valueOf(citizen.getInt("id")));
+                            shop_name.setText(citizen.getString("org_name"));
+                            phone_no.setText(citizen.getString("owner_phone"));
+                            address_unit.setText(citizen.getString("street_name"));
+                            activity_type.setText(citizen.getString("org_type_name"));
 
-                            shops user = new shops();
-                            user.setId(citizen.getInt("id"));
-                            user.setName_shop(citizen.getString("org_name"));
-                            user.setName_shop(citizen.getString("owner_phone"));
-                            user.setName_shop(citizen.getString("owner_name"));
-                            user.setName_shop(citizen.getString("street_name"));
-                            user.setName_shop(citizen.getString("org_type_name"));
-
-
-
-                        }
 //                        shopsList = shops;
 //                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
 //                        adpter_shops = new adpter_shops(all_shops_list.this, shops);

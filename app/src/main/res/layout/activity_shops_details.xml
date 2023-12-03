@@ -87,7 +87,6 @@
                         android:background="@drawable/rounded_dark"
                         android:enabled="false"
                         android:fontFamily="@font/boldiphone"
-                        android:text="68547"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +129,6 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:fontFamily="@font/boldiphone"
-                    android:text="محمد أحمد  سعيد الفتح"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -153,7 +151,6 @@
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
                     android:fontFamily="@font/boldiphone"
-                    android:text="الفتح للتجارة والتوزيع"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -180,7 +177,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="775486828"
                     android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
@@ -201,7 +197,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="تجارة عامة"
                     android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
@@ -249,7 +244,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:enabled="false"
-                    android:text="الحي السياسي"
                     android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/boldiphone"
                     android:textColor="@color/black" />
