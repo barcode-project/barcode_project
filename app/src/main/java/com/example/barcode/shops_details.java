@@ -89,6 +89,8 @@ public class shops_details extends AppCompatActivity {
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id",0);
+        Log.d("id", String.valueOf(id));
+        test();
 
         shortText = "Customer Name: Mr/Mrs. " + "customer_name";
 
@@ -212,7 +214,7 @@ public class shops_details extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Log.d("ALL_SHOPS_RESPONSE", response);
+                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
@@ -220,13 +222,15 @@ public class shops_details extends AppCompatActivity {
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject citizen = array.getJSONObject(i);
 
-//                            shops user = new shops();
-////                            user.setNo(i+1);
-//                            user.setId(citizen.getInt("id"));
-//                            user.setName_shop(citizen.getString("org_name"));
+                            shops user = new shops();
+                            user.setId(citizen.getInt("id"));
+                            user.setName_shop(citizen.getString("org_name"));
+                            user.setName_shop(citizen.getString("owner_phone"));
+                            user.setName_shop(citizen.getString("owner_name"));
+                            user.setName_shop(citizen.getString("street_name"));
+                            user.setName_shop(citizen.getString("org_type_name"));
 
 
-//                            shops.add(user);
 
                         }
 //                        shopsList = shops;
@@ -269,8 +273,8 @@ public class shops_details extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("id", String.valueOf(id));
+                HashMap<String,String> map = new HashMap<>();
+                map.put("id",String.valueOf(id));
                 return map;
             }
         };
