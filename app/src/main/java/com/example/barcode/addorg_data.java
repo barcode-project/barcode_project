@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +85,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     List<HashMap<String, String>> productCategory;
     private LatLng currentLatLng;
     private GoogleMap googleMap;
+    private Bitmap bitmap = null;
+    TextInputEditText owner_name,shop_name,phone_no,note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +98,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         Button uploadButton=findViewById(R.id.upload_bt);
         address_unit=findViewById(R.id.address_unit);
         doors_numbers=findViewById(R.id.doors_numbers);
+        owner_name = findViewById(R.id.owner_name);
+        shop_name = findViewById(R.id.shop_name);
+        phone_no = findViewById(R.id.phone_no);
+        note = findViewById(R.id.note);
         @SuppressLint({"LocalSuppress"}) AppCompatSpinner spinner=findViewById(R.id.spinner_neighbor_unit);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
@@ -102,7 +112,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         chooseImageList = new ArrayList<>();
 
         name_street = new ArrayList<>();
-
 
         test();
 
@@ -269,7 +278,11 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             ImageUri = data.getData();
             chooseImageList.add(ImageUri);
             SetAdapter();
-
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),ImageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -358,9 +371,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject citizen = array.getJSONObject(i);
 
-//                            user.setNo(i+1);
                             HashMap<String, String> map = new HashMap<String, String>();
-
 
                             map.put("street_id", String.valueOf(citizen.getInt("id")));
                             map.put("name_street", citizen.getString("name"));
@@ -370,7 +381,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         }
 
                         for (int i = 0; i < product_category.size(); i++) {
-
                             // Get the ID of selected Country
                             name_street.add(product_category.get(i).get("name_street"));
                         }
@@ -389,9 +399,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 error.printStackTrace();
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
+
             }
 
         }) {
@@ -414,5 +422,72 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
 
         return product_category;
+    }
+
+    private List<shops> saveData() {
+        List<shops> shops = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                Log.d("ALL_SHOPS_RESPONSE", response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getBoolean("success")) {
+                        JSONObject citizen = new JSONObject(object.getString("data"));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+//                progressBar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressBar.setVisibility(View.GONE);
+            }
+
+        }) {
+
+            // provide token in header
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("token", "");
+                HashMap<String, String> map = new HashMap<>();
+                map.put("auth-token", token);
+                return map;
+            }
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> map = new HashMap<>();
+                map.put("org_name",shop_name.getText().toString().trim());
+                map.put("org_image",bitmapToString(bitmap));
+                return map;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
+
+        return shops;
+    }
+
+    private String bitmapToString(Bitmap bitmap) {
+        if (bitmap!=null){
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+            byte [] array = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(array,Base64.DEFAULT);
+        }
+
+        return "";
     }
 }

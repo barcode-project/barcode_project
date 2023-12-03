@@ -210,73 +210,65 @@ public class shops_details extends AppCompatActivity {
         return rows;
     }
 
-    private List<shops> test() {
-        List<shops> shops = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-//                Log.d("ALL_SHOPS_RESPONSE", response);
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object.getBoolean("success")) {
-                        JSONObject citizen = new JSONObject(object.getString("data"));
-                            owner_name.setText(citizen.getString("owner_name"));
-                            id_no.setText(String.valueOf(citizen.getInt("id")));
-                            shop_name.setText(citizen.getString("org_name"));
-                            phone_no.setText(citizen.getString("owner_phone"));
-                            address_unit.setText(citizen.getString("street_name"));
-                            activity_type.setText(citizen.getString("org_type_name"));
+        private List<shops> test() {
+            List<shops> shops = new ArrayList<>();
+            StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+    //                Log.d("ALL_SHOPS_RESPONSE", response);
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        if (object.getBoolean("success")) {
+                            JSONObject citizen = new JSONObject(object.getString("data"));
+                                owner_name.setText(citizen.getString("owner_name"));
+                                id_no.setText(String.valueOf(citizen.getInt("id")));
+                                shop_name.setText(citizen.getString("org_name"));
+                                phone_no.setText(citizen.getString("owner_phone"));
+                                address_unit.setText(citizen.getString("street_name"));
+                                activity_type.setText(citizen.getString("org_type_name"));
 
-//                        shopsList = shops;
-//                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-//                        adpter_shops = new adpter_shops(all_shops_list.this, shops);
-//                        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
-//                        ReView.setAdapter(adpter_shops);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(shops_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(shops_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+    //                progressBar.setVisibility(View.GONE);
+
                 }
-//                progressBar.setVisibility(View.GONE);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Toast.makeText(shops_details.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+    //                progressBar.setVisibility(View.GONE);
+                }
 
-                error.printStackTrace();
-                Toast.makeText(shops_details.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
-            }
+            }) {
 
-        }) {
+                // provide token in header
 
-            // provide token in header
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String token = sharedPreferences.getString("token", "");
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("auth-token", token);
+                    return map;
+                }
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = sharedPreferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-//                map.put("Authorization","Bearer "+token);
-                map.put("auth-token", token);
-                return map;
-            }
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("id",String.valueOf(id));
+                    return map;
+                }
+            };
 
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> map = new HashMap<>();
-                map.put("id",String.valueOf(id));
-                return map;
-            }
-        };
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(request);
-
-        return shops;
-    }
+            return shops;
+        }
 
 }
