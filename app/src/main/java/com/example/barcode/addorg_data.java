@@ -2,7 +2,6 @@ package com.example.barcode;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -213,23 +211,30 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void openInputActivity() {
-        Dialog inputDialog = new Dialog(this);
-        inputDialog.setContentView(R.layout.inpot_billboard);
-        inputDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        inputDialog.show();
-        signboard1 = findViewById(R.id.signboard1);
-        signboard2 = findViewById(R.id.signboard2);
-        signboard3 = findViewById(R.id.signboard3);
-        board_size_1 = findViewById(R.id.board_size_1);
-        board_size_2 = findViewById(R.id.board_size_2);
-        board_size_3 = findViewById(R.id.board_size_3);
-        upload_billboard_bt = findViewById(R.id.upload_billboard_bt);
-        signboard1.getText().toString();
-        board_size_1.getText().toString();
-        signboard2.getText().toString();
-        board_size_2.getText().toString();
-        signboard3.getText().toString();
-        board_size_3.getText().toString();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
+        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(false);
+        signboard1 = dialogView.findViewById(R.id.signboard1);
+        signboard2 = dialogView.findViewById(R.id.signboard2);
+        signboard3 = dialogView.findViewById(R.id.signboard3);
+        board_size_1 = dialogView.findViewById(R.id.board_size_1);
+        board_size_2 = dialogView.findViewById(R.id.board_size_2);
+        board_size_3 = dialogView.findViewById(R.id.board_size_3);
+        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
+        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//        signboard1.getText().toString();
+//        board_size_1.getText().toString();
+//        signboard2.getText().toString();
+//        board_size_2.getText().toString();
+//        signboard3.getText().toString();
+//        board_size_3.getText().toString();
+            }
+        });
+        dialog.show();
     }
 
     public void onMapReady(GoogleMap map) {
@@ -330,7 +335,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         if (currentLatLng != null) {
             latitude = currentLatLng.latitude;
             longitude = currentLatLng.longitude;
-
+            Log.d("ALL_SHOPS_RESPONSE", String.valueOf(currentLatLng));
             String locationText = "Latitude: " + latitude + "\nLongitude: " + longitude;
 //            address_unit.setText(locationText);
             // عرض معلومات الموقع في واجهة المستخدم، أو استخدمها في عمليات أخرى
@@ -345,17 +350,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, request location updates
                 if (googleMap != null) {
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    googleMap.setMyLocationEnabled(true);
                     requestLocationUpdates();
                 }
             }
@@ -523,9 +517,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         } else if (NameStreet.isEmpty() || streetid.isEmpty()) {
             address_unit.setError(getString(R.string.this_cannot_be_empty));
             address_unit.requestFocus();
-        } else if (maplatitude.isEmpty() && maplongitude.isEmpty()) {
-            Toast.makeText(this, "الرجاء الضغط على زر GPS في الخريطه", Toast.LENGTH_LONG).show();
-
+        } else {
+            openInputActivity();
         }
 
         return true;
