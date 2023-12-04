@@ -1,6 +1,8 @@
 package com.example.barcode;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -51,6 +54,7 @@ public class shops_details extends AppCompatActivity {
     TextInputEditText id_no,last_licens,owner_name,shop_name,phone_no,activity_type,neighbor_unit,address_unit;
     TextView front_signboard,side_signboard,elec_signboard,supetficail_signboard,stuck_signboard,mural_signborard,totl_price;
     Button btnPdfReceipt, btnThermalPrinter;
+    AppCompatButton show_billboard;
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
 
@@ -78,13 +82,14 @@ public class shops_details extends AppCompatActivity {
         activity_type=findViewById(R.id.activity_type);
         neighbor_unit=findViewById(R.id.neighbor_unit);
         address_unit=findViewById(R.id.address_unit);
-        front_signboard=findViewById(R.id.front_signboard);
-        side_signboard=findViewById(R.id.side_signboard);
-        elec_signboard=findViewById(R.id.elec_signboard);
-        supetficail_signboard=findViewById(R.id.supetficail_signboard);
-        stuck_signboard=findViewById(R.id.stuck_signboard);
-        mural_signborard=findViewById(R.id.mural_signborard);
-        totl_price=findViewById(R.id.totl_price);
+//        front_signboard=findViewById(R.id.front_signboard);
+//        side_signboard=findViewById(R.id.side_signboard);
+//        elec_signboard=findViewById(R.id.elec_signboard);
+//        supetficail_signboard=findViewById(R.id.supetficail_signboard);
+//        stuck_signboard=findViewById(R.id.stuck_signboard);
+//        mural_signborard=findViewById(R.id.mural_signborard);
+//        totl_price=findViewById(R.id.totl_price);
+        show_billboard = findViewById(R.id.show_billboard);
         btnThermalPrinter=findViewById(R.id.printBtn);
         btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -111,8 +116,8 @@ public class shops_details extends AppCompatActivity {
 //     ArrayAdapter<PlateData> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, items);
 //
         // ربط القائمة بـ ListView
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+//        ListView listView = findViewById(R.id.listView);
+//        listView.setAdapter(adapter);
 
 
 //            try {
@@ -155,6 +160,13 @@ public class shops_details extends AppCompatActivity {
             //Pick a Bluetooth device
             Intent i = new Intent(shops_details.this, DeviceListActivity.class);
             startActivityForResult(i, REQUEST_CONNECT);
+        });
+
+        show_billboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showListDialog();
+            }
         });
 
 
@@ -271,4 +283,11 @@ public class shops_details extends AppCompatActivity {
             return shops;
         }
 
+    private void showListDialog() {
+        List<ListItem> items = new ArrayList<>();
+        items.add(new ListItem("John", "25", "Male"));
+        items.add(new ListItem("Alice", "30", "Female"));
+
+        ListDialog.showListDialog(this, "اللوحات", items);
+    }
 }
