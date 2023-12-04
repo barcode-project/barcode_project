@@ -1,11 +1,9 @@
 package com.example.barcode;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -34,7 +32,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -54,7 +51,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,23 +66,21 @@ import java.util.Map;
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private SharedPreferences sharedPreferences;
-
-    TextInputEditText address_unit,doors_numbers;
-    TextInputLayout doorss_numbers;
-
+    TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note, signboard1, signboard2, signboard3, board_size_3, board_size_2, board_size_1;
+    Button uploadButton, upload_billboard_bt;
+    double latitude, longitude;
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
     ArrayAdapter<String> streetAdapter;
     ArrayList<Uri> chooseImageList;
     List<String> name_street;
-    String selectedstreetID;
+    String selectedstreetID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
     List<HashMap<String, String>> productCategory;
+    private SharedPreferences sharedPreferences;
+    private Bitmap bitmap = null;
     private LatLng currentLatLng;
     private GoogleMap googleMap;
-    private Bitmap bitmap = null;
-    TextInputEditText owner_name,shop_name,phone_no,note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +89,15 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         pickimagebtn = findViewById(R.id.chooseImage);
         viewPager = findViewById(R.id.viewPager);
         ImageView add_shops_exit = findViewById(R.id.add_shops_exit);
-        Button uploadButton=findViewById(R.id.upload_bt);
-        address_unit=findViewById(R.id.address_unit);
-        doors_numbers=findViewById(R.id.doors_numbers);
+        uploadButton = findViewById(R.id.upload_bt);
+        address_unit = findViewById(R.id.address_unit);
+        doors_numbers = findViewById(R.id.doors_numbers);
         owner_name = findViewById(R.id.owner_name);
         shop_name = findViewById(R.id.shop_name);
+        shop_type = findViewById(R.id.shop_type);
         phone_no = findViewById(R.id.phone_no);
         note = findViewById(R.id.note);
-        @SuppressLint({"LocalSuppress"}) AppCompatSpinner spinner=findViewById(R.id.spinner_neighbor_unit);
+
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -113,15 +108,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         name_street = new ArrayList<>();
 
+
         test();
 
-        doors_numbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-
-        });
         address_unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +179,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                             }
                         }
 
-
                         selectedstreetID = street_id;
                         Log.d("street_id", street_id);
                     }
@@ -204,7 +193,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 Checkpermission();
 
-
             }
         });
         add_shops_exit.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +204,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openInputActivity();
+                //   openInputActivity();
+                validate();
+
             }
         });
 
@@ -227,6 +217,19 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         inputDialog.setContentView(R.layout.inpot_billboard);
         inputDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         inputDialog.show();
+        signboard1 = findViewById(R.id.signboard1);
+        signboard2 = findViewById(R.id.signboard2);
+        signboard3 = findViewById(R.id.signboard3);
+        board_size_1 = findViewById(R.id.board_size_1);
+        board_size_2 = findViewById(R.id.board_size_2);
+        board_size_3 = findViewById(R.id.board_size_3);
+        upload_billboard_bt = findViewById(R.id.upload_billboard_bt);
+        signboard1.getText().toString();
+        board_size_1.getText().toString();
+        signboard2.getText().toString();
+        board_size_2.getText().toString();
+        signboard3.getText().toString();
+        board_size_3.getText().toString();
     }
 
     public void onMapReady(GoogleMap map) {
@@ -279,7 +282,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             chooseImageList.add(ImageUri);
             SetAdapter();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),ImageUri);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), ImageUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -289,7 +292,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private void SetAdapter() {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, chooseImageList);
-
         viewPager.setAdapter(adapter);
 
     }
@@ -306,6 +308,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                         return true;
                     }
+
                 });
                 // حصول على الموقع الحالي
                 googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -325,8 +328,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     private void setCurrentLocation() {
         if (currentLatLng != null) {
-            double latitude = currentLatLng.latitude;
-            double longitude = currentLatLng.longitude;
+            latitude = currentLatLng.latitude;
+            longitude = currentLatLng.longitude;
 
             String locationText = "Latitude: " + latitude + "\nLongitude: " + longitude;
 //            address_unit.setText(locationText);
@@ -358,6 +361,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
+
     private ArrayList<HashMap<String, String>> test() {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
@@ -370,22 +374,24 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         JSONArray array = new JSONArray(object.getString("data"));
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject citizen = array.getJSONObject(i);
-
+//                            user.setNo(i+1);
                             HashMap<String, String> map = new HashMap<String, String>();
 
                             map.put("street_id", String.valueOf(citizen.getInt("id")));
                             map.put("name_street", citizen.getString("name"));
-
+                            Log.d("ALL_SHOPS_RESPONSE", response);
                             product_category.add(map);
+                            Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
 
                         }
 
-                        for (int i = 0; i < product_category.size(); i++) {
-                            // Get the ID of selected Country
-                            name_street.add(product_category.get(i).get("name_street"));
-                        }
-                        productCategory=product_category;
                     }
+                    for (int i = 0; i < product_category.size(); i++) {
+
+                        // Get the ID of selected Country
+                        name_street.add(product_category.get(i).get("name_street"));
+                    }
+                    productCategory = product_category;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -399,7 +405,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 error.printStackTrace();
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
+//                progressBar.setVisibility(View.GONE);
+//                texterror.setText(error.getMessage());
+//                liner.setVisibility(View.VISIBLE);
             }
 
         }) {
@@ -423,7 +431,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         return product_category;
     }
-
     private List<shops> saveData() {
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
@@ -489,5 +496,38 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }
 
         return "";
+    }
+    private boolean validate() {
+        String streetid = selectedstreetID;
+        NameStreet = address_unit.getText().toString();
+        DoorsNumbers = doors_numbers.getText().toString();
+        OwnerName = owner_name.getText().toString();
+        ShopName = shop_name.getText().toString();
+        PhoneNo = phone_no.getText().toString();
+        ShopType = shop_type.getText().toString();
+        Note = note.getText().toString();
+        String maplongitude = String.valueOf(longitude);
+        String maplatitude = String.valueOf(latitude);
+
+
+
+        if (ShopName.isEmpty()) {
+            shop_name.setError(getString(R.string.this_cannot_be_empty));
+            shop_name.requestFocus();
+        } else if (DoorsNumbers.isEmpty()) {
+            doors_numbers.setError(getString(R.string.this_cannot_be_empty));
+            doors_numbers.requestFocus();
+        } else if (ShopType.isEmpty()) {
+            shop_type.setError(getString(R.string.this_cannot_be_empty));
+            shop_type.requestFocus();
+        } else if (NameStreet.isEmpty() || streetid.isEmpty()) {
+            address_unit.setError(getString(R.string.this_cannot_be_empty));
+            address_unit.requestFocus();
+        } else if (maplatitude.isEmpty() && maplongitude.isEmpty()) {
+            Toast.makeText(this, "الرجاء الضغط على زر GPS في الخريطه", Toast.LENGTH_LONG).show();
+
+        }
+
+        return true;
     }
 }
