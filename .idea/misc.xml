@@ -6,13 +6,14 @@
         <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/activity_addorg_data.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/activity_shops_details.xml" value="0.1526293287729799" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/all_shops.xml" value="0.1" />
+        <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/billboard_item.xml" value="0.16417272338606242" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/dialog_list_search.xml" value="0.1526293287729799" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/barcode_project/app/src/main/res/layout/inpot_billboard.xml" value="0.1526293287729799" />
         <entry key="..\:/Users/pc/AppData/Local/Android/Sdk/platforms/android-33/data/res/layout/simple_spinner_dropdown_item.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$APPLICATION_HOME_DIR$/jbr/bin/$PROECT_DIR$/build/classes" />
   </component>
   <component name="VisualizationToolProject">
