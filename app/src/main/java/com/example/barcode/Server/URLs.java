@@ -8,4 +8,6 @@ public class URLs {
     public static final String Get_Streets = HOME+"worker/get_streets";
     public static final String Get_Orgs = HOME+"worker/get_orgs";
     public static final String Get_Org = HOME+"worker/user_get_org";
+    public static final String UserProfile = HOME+"worker/get_profile";
+    public static final String USER_LOGOUT = HOME+"worker/logout";
 }
