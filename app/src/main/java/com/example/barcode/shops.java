@@ -2,7 +2,7 @@ package com.example.barcode;
 
 public class shops {
     private String name_shop;
-    private static int id;
+    private int id;
 
     public shops() {
 
@@ -15,7 +15,7 @@ public class shops {
     }
 
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 

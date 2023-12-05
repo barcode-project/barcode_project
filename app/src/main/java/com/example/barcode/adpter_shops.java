@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -42,7 +43,7 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, shops_details.class) ;
-                intent.putExtra("id", shops.getId());
+                intent.putExtra("id", shop.getId());
                 context.startActivity(intent);
             }
         });
