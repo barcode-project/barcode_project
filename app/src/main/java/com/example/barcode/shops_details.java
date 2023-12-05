@@ -216,8 +216,11 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{"دائرة الخدمات الالكترونية"});
         rows.add(new String[]{"مديرية الوحدة"});
         rows.add(new String[]{"نظافة مهن"});
+        rows.add(new String[]{"الوقت والتاريخ"});
         rows.add(new String[]{"نوع النشاط"});
+        rows.add(new String[]{"اسم المنشأه"});
         rows.add(new String[]{"اسم المالك"});
+        rows.add(new String[]{"رقم التواصل"});
 
         return rows;
     }
