@@ -1,163 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/shop_details_linear"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/custom"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اللوحة الاعلانية"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint=" نوع اللوحة"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signboard1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="القياس :الطول * العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_size_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint=" نوع اللوحة"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signboard2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="القياس :الطول * العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_size_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint=" نوع اللوحة"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signboard3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="القياس :الطول * العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_size_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_6sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="لوحة أمامي"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/front_signboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="القياس :الطول * العرض"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/board_size_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_6sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="لوحة جانبي"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/side_signboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="القياس :الطول * العرض"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/board_size_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_6sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="لوحة سطحي"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/supetficail_signboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:hint="القياس :الطول * العرض"
-            android:textColorHint="#616161">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/board_size_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark"
-                android:fontFamily="@font/boldiphone"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+        android:padding="10dp">
 
         <Button
-            android:id="@+id/upload_bt"
+            android:id="@+id/upload_billboard_bt"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_44sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginVertical="@dimen/_6sdp"
             android:background="@drawable/round_back_primary"
             android:fontFamily="@font/boldiphone"
-            android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:text="حفظ البيانات"
+            android:text="حفظ البيانات "
             android:textColor="@color/white"
-            android:textSize="@dimen/_15ssp"
-            android:layout_gravity="center_horizontal"/>
+            android:textSize="@dimen/_15ssp" />
     </LinearLayout>
 </LinearLayout>
