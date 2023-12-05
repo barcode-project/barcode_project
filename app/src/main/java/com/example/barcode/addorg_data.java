@@ -159,7 +159,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 alertDialog.show();
 
-
                 dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
