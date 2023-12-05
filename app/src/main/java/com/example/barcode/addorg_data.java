@@ -70,11 +70,11 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
-    ArrayAdapter<String> streetAdapter;
+    ArrayAdapter<String> streetAdapter,shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
-    List<String> name_street;
-    String selectedstreetID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
-    List<HashMap<String, String>> productCategory;
+    List<String> name_street,name_shops_type;
+    String selectedstreetID,selectedshopstypID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
+    List<HashMap<String, String>> productCategory,shopsCategory;
     private SharedPreferences sharedPreferences;
     private Bitmap bitmap = null;
     private LatLng currentLatLng;
@@ -105,8 +105,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         chooseImageList = new ArrayList<>();
 
         name_street = new ArrayList<>();
+        name_shops_type = new ArrayList<>();
 
-
+        gitshop_type();
         test();
 
 
@@ -184,6 +185,80 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             }
 
         });
+        shop_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shopstypeAdapter = new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
+                shopstypeAdapter.addAll(name_shops_type);
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
+                dialog.setView(dialogView);
+                dialog.setCancelable(false);
+
+                Button dialog_button = dialogView.findViewById(R.id.dialog_button);
+                EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
+                TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+                ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
+
+
+                dialog_title.setText("نوع النشاط");
+                dialog_list.setVerticalScrollBarEnabled(true);
+                dialog_list.setAdapter(shopstypeAdapter);
+
+                dialog_input.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                        shopstypeAdapter.getFilter().filter(charSequence);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+
+                final AlertDialog alertDialog = dialog.create();
+
+                dialog_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+
+
+                dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        alertDialog.dismiss();
+                        final String selectedItem = shopstypeAdapter.getItem(position);
+
+                        String shopstype_id = "1";
+                        shop_type.setText(selectedItem);
+
+
+                        for (int i = 0; i < name_shops_type.size(); i++) {
+                            if (name_shops_type.get(i).equalsIgnoreCase(selectedItem)) {
+                                // Get the ID of selected Country
+                                shopstype_id = shopsCategory.get(i).get("shopstype_id");
+                            }
+                        }
+
+                        selectedshopstypID = shopstype_id;
+                        Log.d("shopstype_id", shopstype_id);
+                    }
+                });
+            }
+
+        });
 
         pickimagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +271,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         add_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
@@ -214,7 +290,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
         View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
         dialog.setView(dialogView);
-        dialog.setCancelable(false);
+       // dialog.setCancelable(false);
         signboard1 = dialogView.findViewById(R.id.signboard1);
         signboard2 = dialogView.findViewById(R.id.signboard2);
         signboard3 = dialogView.findViewById(R.id.signboard3);
@@ -425,6 +501,76 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         return product_category;
     }
+     private ArrayList<HashMap<String, String>> gitshop_type() {
+        ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getBoolean("success")) {
+                        JSONArray array = new JSONArray(object.getString("data"));
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject citizen = array.getJSONObject(i);
+//                            user.setNo(i+1);
+                            HashMap<String, String> map = new HashMap<String, String>();
+
+                            map.put("shopstype_id", String.valueOf(citizen.getInt("id")));
+                            map.put("name_shops_type", citizen.getString("name"));
+                            Log.d("ALL_SHOPS_RESPONSE", response);
+                            shops_category.add(map);
+                            Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
+
+                        }
+
+                    }
+                    for (int i = 0; i < shops_category.size(); i++) {
+
+                        // Get the ID of selected Country
+                        name_shops_type.add(shops_category.get(i).get("name_shops_type"));
+                    }
+                    shopsCategory = shops_category;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+//                progressBar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressBar.setVisibility(View.GONE);
+//                texterror.setText(error.getMessage());
+//                liner.setVisibility(View.VISIBLE);
+            }
+
+        }) {
+
+            // provide token in header
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("token", "");
+                HashMap<String, String> map = new HashMap<>();
+//                map.put("Authorization","Bearer "+token);
+                map.put("auth-token", token);
+                return map;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
+
+
+        return shops_category;
+    }
+
     private List<shops> saveData() {
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
@@ -493,6 +639,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
     private boolean validate() {
         String streetid = selectedstreetID;
+        String shoptypeid=selectedshopstypID;
         NameStreet = address_unit.getText().toString();
         DoorsNumbers = doors_numbers.getText().toString();
         OwnerName = owner_name.getText().toString();
@@ -511,7 +658,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         } else if (DoorsNumbers.isEmpty()) {
             doors_numbers.setError(getString(R.string.this_cannot_be_empty));
             doors_numbers.requestFocus();
-        } else if (ShopType.isEmpty()) {
+        } else if (ShopType.isEmpty() ||shoptypeid.isEmpty()) {
             shop_type.setError(getString(R.string.this_cannot_be_empty));
             shop_type.requestFocus();
         } else if (NameStreet.isEmpty() || streetid.isEmpty()) {
