@@ -293,9 +293,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         signboard1 = dialogView.findViewById(R.id.signboard1);
         signboard2 = dialogView.findViewById(R.id.signboard2);
         signboard3 = dialogView.findViewById(R.id.signboard3);
-        board_size_1 = dialogView.findViewById(R.id.board_size_1);
-        board_size_2 = dialogView.findViewById(R.id.board_size_2);
-        board_size_3 = dialogView.findViewById(R.id.board_size_3);
+        //board_size_1 = dialogView.findViewById(R.id.board_size_1);
+       // board_size_2 = dialogView.findViewById(R.id.board_size_2);
+        //board_size_3 = dialogView.findViewById(R.id.board_size_3);
         upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
         upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
             @Override
