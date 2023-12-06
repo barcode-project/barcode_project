@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
@@ -56,6 +57,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,9 +112,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         name_street = new ArrayList<>();
         name_shops_type = new ArrayList<>();
 
-//        gitshop_type();
         test();
-
 
         address_unit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,8 +282,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 //   openInputActivity();
+//                sendImage(ImageUri);
+                if(validate()){
                 saveData();
-
+                }
             }
         });
 
@@ -596,7 +598,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
                         Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(addorg_data.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                     else {
                         Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -649,6 +653,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
+//        MySingleton.getInstance(this).getRequestQueue().add(request);
 
         return shops;
     }
@@ -665,36 +670,109 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private boolean validate() {
-        String streetid = selectedstreetID;
-        String shoptypeid=selectedshopstypID;
-        NameStreet = address_unit.getText().toString();
-        DoorsNumbers = doors_numbers.getText().toString();
-        OwnerName = owner_name.getText().toString();
-        ShopName = shop_name.getText().toString();
-        PhoneNo = phone_no.getText().toString();
-        ShopType = shop_type.getText().toString();
-        Note = note.getText().toString();
-        String maplongitude = String.valueOf(longitude);
-        String maplatitude = String.valueOf(latitude);
-
-
-
-        if (ShopName.isEmpty()) {
+        if (owner_name.getText().toString().isEmpty()) {
+            owner_name.setError(getString(R.string.this_cannot_be_empty));
+            owner_name.requestFocus();
+            return false;
+        }
+        else if (shop_name.getText().toString().isEmpty()) {
             shop_name.setError(getString(R.string.this_cannot_be_empty));
             shop_name.requestFocus();
-        } else if (DoorsNumbers.isEmpty()) {
+            return false;
+        }
+         else if (phone_no.getText().toString().isEmpty()) {
+             phone_no.setError(getString(R.string.this_cannot_be_empty));
+             phone_no.requestFocus();
+             return false;
+         }
+        else if (doors_numbers.getText().toString().isEmpty()) {
             doors_numbers.setError(getString(R.string.this_cannot_be_empty));
             doors_numbers.requestFocus();
-        } else if (ShopType.isEmpty() ||shoptypeid.isEmpty()) {
+            return false;
+        } else if (shop_type.getText().toString().isEmpty() || selectedshopstypID.isEmpty()) {
             shop_type.setError(getString(R.string.this_cannot_be_empty));
             shop_type.requestFocus();
-        } else if (NameStreet.isEmpty() || streetid.isEmpty()) {
+            return false;
+        } else if (address_unit.getText().toString().isEmpty() || selectedstreetID.isEmpty()) {
             address_unit.setError(getString(R.string.this_cannot_be_empty));
             address_unit.requestFocus();
-        } else {
-            openInputActivity();
+            return false;
+        }
+         else if (note.getText().toString().isEmpty()) {
+             note.setError(getString(R.string.this_cannot_be_empty));
+             note.requestFocus();
+             return false;
+         }
+           return true;
+    }
+
+    private void sendImage(Uri imageUri) {
+        // Get the actual file path from the URI
+
+        // Replace URL with your server endpoint
+//        String url = "https://yourserver.com/api/upload";
+
+        Map<String, String> map = new HashMap<>();
+        map.put("org_name", shop_name.getText().toString().trim());
+        map.put("owner_name", owner_name.getText().toString().trim());
+        map.put("owner_phone", phone_no.getText().toString().trim());
+        map.put("building_type_id", "1");
+        map.put("org_type_id", selectedshopstypID);
+        map.put("street_id", selectedstreetID);
+        map.put("hood_unit_id", selectedstreetID);
+        map.put("note", note.getText().toString().trim());
+        map.put("log_x", String.valueOf(latitude));
+        map.put("log_y", String.valueOf(longitude));
+        Log.d("ALL_MAP",map.get("org_name"));
+        String token = sharedPreferences.getString("token", "");
+
+        String imagePath = FileUtils.getPathFromUri(this, imageUri);
+        File imageFile = new File(imagePath);
+
+        progressBar.setVisibility(View.VISIBLE);
+        MultipartRequest multipartRequest = new MultipartRequest(URLs.Insert_Data, imageFile, map, token,
+                response -> {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        if (object.getBoolean("success")) {
+                            Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(addorg_data.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    progressBar.setVisibility(View.GONE);
+                },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                });
+
+// Add the request to the RequestQueue
+        MySingleton.getInstance(this).getRequestQueue().add(multipartRequest);
+    }
+}
+class FileUtils {
+
+    public static String getPathFromUri(Context context, Uri uri) {
+        String filePath = null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+
+        if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            filePath = cursor.getString(columnIndex);
+            cursor.close();
         }
 
-        return true;
+        return filePath;
     }
 }
