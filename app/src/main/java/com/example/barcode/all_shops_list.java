@@ -47,7 +47,6 @@ public class all_shops_list extends AppCompatActivity {
     private LinearLayout liner;
     private TextView texterror;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -610,7 +611,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 return map;
             }
 
-            @Nullable
+            @NonNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map = new HashMap<>();
@@ -636,7 +637,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         return "";
     }
-    private boolean validate() {
+    private void validate() {
         String streetid = selectedstreetID;
         String shoptypeid=selectedshopstypID;
         NameStreet = address_unit.getText().toString();
@@ -645,7 +646,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         ShopName = shop_name.getText().toString();
         PhoneNo = phone_no.getText().toString();
         ShopType = shop_type.getText().toString();
-        Note = note.getText().toString();
+        Note = Objects.requireNonNull(note.getText()).toString();
         String maplongitude = String.valueOf(longitude);
         String maplatitude = String.valueOf(latitude);
 
@@ -667,6 +668,5 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             openInputActivity();
         }
 
-        return true;
     }
 }
