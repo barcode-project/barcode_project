@@ -10,4 +10,5 @@ public class URLs {
     public static final String Get_Org = HOME+"worker/user_get_org";
     public static final String UserProfile = HOME+"worker/get_profile";
     public static final String USER_LOGOUT = HOME+"worker/logout";
+    public static final String Insert_Data = HOME+"worker/insert_org_data";
 }

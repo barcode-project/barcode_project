@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
@@ -60,13 +61,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note, signboard1, signboard2, signboard3, board_size_3, board_size_2, board_size_1;
     Button uploadButton, upload_billboard_bt;
+    ContentLoadingProgressBar progressBar;
     double latitude, longitude;
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
@@ -85,6 +86,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addorg_data);
+        progressBar = findViewById(R.id.add_org_progressBar);
         pickimagebtn = findViewById(R.id.chooseImage);
         viewPager = findViewById(R.id.viewPager);
         ImageView add_shops_exit = findViewById(R.id.add_shops_exit);
@@ -108,7 +110,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         name_street = new ArrayList<>();
         name_shops_type = new ArrayList<>();
 
-        gitshop_type();
+//        gitshop_type();
         test();
 
 
@@ -253,6 +255,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         }
 
                         selectedshopstypID = shopstype_id;
+                        Toast.makeText(addorg_data.this, selectedshopstypID, Toast.LENGTH_SHORT).show();
                         Log.d("shopstype_id", shopstype_id);
                     }
                 });
@@ -279,7 +282,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 //   openInputActivity();
-                validate();
+                saveData();
 
             }
         });
@@ -432,8 +435,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private ArrayList<HashMap<String, String>> test() {
+    private void test() {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
+        ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -446,96 +451,44 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                             JSONObject citizen = array.getJSONObject(i);
 //                            user.setNo(i+1);
                             HashMap<String, String> map = new HashMap<String, String>();
-
                             map.put("street_id", String.valueOf(citizen.getInt("id")));
                             map.put("name_street", citizen.getString("name"));
                             Log.d("ALL_SHOPS_RESPONSE", response);
                             product_category.add(map);
                             Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
-
                         }
 
-                    }
-                    for (int i = 0; i < product_category.size(); i++) {
-
-                        // Get the ID of selected Country
-                        name_street.add(product_category.get(i).get("name_street"));
-                    }
-                    productCategory = product_category;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-//                progressBar.setVisibility(View.GONE);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                error.printStackTrace();
-                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
-            }
-
-        }) {
-
-            // provide token in header
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = sharedPreferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-//                map.put("Authorization","Bearer "+token);
-                map.put("auth-token", token);
-                return map;
-            }
-
-        };
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(request);
-
-
-        return product_category;
-    }
-     private ArrayList<HashMap<String, String>> gitshop_type() {
-        ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object.getBoolean("success")) {
-                        JSONArray array = new JSONArray(object.getString("data"));
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject citizen = array.getJSONObject(i);
+                        JSONArray array2 = new JSONArray(object.getString("org_type"));
+                        for (int i = 0; i < array2.length(); i++) {
+                            JSONObject citizen = array2.getJSONObject(i);
 //                            user.setNo(i+1);
                             HashMap<String, String> map = new HashMap<String, String>();
-
                             map.put("shopstype_id", String.valueOf(citizen.getInt("id")));
                             map.put("name_shops_type", citizen.getString("name"));
                             Log.d("ALL_SHOPS_RESPONSE", response);
                             shops_category.add(map);
                             Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
-
                         }
 
                     }
-                    for (int i = 0; i < shops_category.size(); i++) {
+                    for (int i = 0; i < product_category.size(); i++) {
+                        // Get the ID of selected Country
+                        name_street.add(product_category.get(i).get("name_street"));
+                    }
+                    productCategory = product_category;
 
+
+                    for (int i = 0; i < shops_category.size(); i++) {
                         // Get the ID of selected Country
                         name_shops_type.add(shops_category.get(i).get("name_shops_type"));
                     }
                     shopsCategory = shops_category;
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
 
             }
         }, new Response.ErrorListener() {
@@ -544,9 +497,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 error.printStackTrace();
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
             }
 
         }) {
@@ -566,29 +517,95 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
-
-
-        return shops_category;
     }
 
+//    private void gitshop_type() {
+//        ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
+//        StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//                try {
+//                    JSONObject object = new JSONObject(response);
+//                    if (object.getBoolean("success")) {
+//                        JSONArray array = new JSONArray(object.getString("data"));
+//                        for (int i = 0; i < array.length(); i++) {
+//                            JSONObject citizen = array.getJSONObject(i);
+////                            user.setNo(i+1);
+//                            HashMap<String, String> map = new HashMap<String, String>();
+//                            map.put("shopstype_id", String.valueOf(citizen.getInt("id")));
+//                            map.put("name_shops_type", citizen.getString("name"));
+//                            Log.d("ALL_SHOPS_RESPONSE", response);
+//                            shops_category.add(map);
+//                            Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
+//
+//                        }
+//
+//                    }
+//                    for (int i = 0; i < shops_category.size(); i++) {
+//
+//                        // Get the ID of selected Country
+//                        name_shops_type.add(shops_category.get(i).get("name_shops_type"));
+//                    }
+//                    shopsCategory = shops_category;
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+////                progressBar.setVisibility(View.GONE);
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//                error.printStackTrace();
+//                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+////                progressBar.setVisibility(View.GONE);
+////                texterror.setText(error.getMessage());
+////                liner.setVisibility(View.VISIBLE);
+//            }
+//
+//        }) {
+//
+//            // provide token in header
+//
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                String token = sharedPreferences.getString("token", "");
+//                HashMap<String, String> map = new HashMap<>();
+////                map.put("Authorization","Bearer "+token);
+//                map.put("auth-token", token);
+//                return map;
+//            }
+//
+//        };
+//
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        queue.add(request);
+//    }
+
     private List<shops> saveData() {
+        progressBar.setVisibility(View.VISIBLE);
         List<shops> shops = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 //                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
-                        JSONObject citizen = new JSONObject(object.getString("data"));
+                        Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
 
+                    }
+                    else {
+                        Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-//                progressBar.setVisibility(View.GONE);
-
+                progressBar.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -596,7 +613,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 error.printStackTrace();
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
 
         }) {
@@ -611,12 +628,21 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 return map;
             }
 
-            @NonNull
+            @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map = new HashMap<>();
                 map.put("org_name",shop_name.getText().toString().trim());
-                map.put("org_image",bitmapToString(bitmap));
+                map.put("owner_name",owner_name.getText().toString().trim());
+                map.put("owner_phone",phone_no.getText().toString().trim());
+                map.put("building_type_id","1");
+                map.put("org_type_id",selectedshopstypID);
+                map.put("street_id",selectedstreetID);
+                map.put("hood_unit_id",selectedstreetID);
+                map.put("note",note.getText().toString().trim());
+                map.put("log_x",String.valueOf(latitude));
+                map.put("log_y", String.valueOf(longitude));
+//                map.put("org_image",bitmapToString(bitmap));
                 return map;
             }
         };
@@ -637,7 +663,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         return "";
     }
-    private void validate() {
+
+    private boolean validate() {
         String streetid = selectedstreetID;
         String shoptypeid=selectedshopstypID;
         NameStreet = address_unit.getText().toString();
@@ -646,7 +673,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         ShopName = shop_name.getText().toString();
         PhoneNo = phone_no.getText().toString();
         ShopType = shop_type.getText().toString();
-        Note = Objects.requireNonNull(note.getText()).toString();
+        Note = note.getText().toString();
         String maplongitude = String.valueOf(longitude);
         String maplatitude = String.valueOf(latitude);
 
@@ -668,5 +695,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             openInputActivity();
         }
 
+        return true;
     }
 }

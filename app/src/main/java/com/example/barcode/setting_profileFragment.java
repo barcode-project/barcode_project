@@ -85,8 +85,10 @@ public class setting_profileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_setting_profile, container, false);
         sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-
+        user_name = view.findViewById(R.id.user_name);
+        user_number = view.findViewById(R.id.user_number);
         CardView logout_btn = view.findViewById(R.id.logout_btn);
+        load();
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,8 +189,8 @@ public class setting_profileFragment extends Fragment {
                     if (object.getBoolean("success")) {
 //                        JSONObject citizen = object.getJSONObject("data");
                         JSONObject aqel = object.getJSONObject("data");
-                        String phone_number = aqel.getString("phone_number");
-                        String name = aqel.getString("name");
+                        String phone_number = aqel.getString("phone");
+                        String name = aqel.getString("fullname");
 
                         user_name.setText(name);
                         user_number.setText(phone_number);
