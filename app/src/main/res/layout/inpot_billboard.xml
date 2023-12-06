@@ -36,9 +36,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:hint=" نوع اللوحة"
                 android:textColorHint="#616161">
@@ -56,23 +56,44 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:hint="القياس :الطول * العرض"
+                android:hint="الطول"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/board_size_1"
+                    android:id="@+id/board_hight_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:fontFamily="@font/boldiphone"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_width_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -81,9 +102,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:hint=" نوع اللوحة"
                 android:textColorHint="#616161">
@@ -101,23 +122,44 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:hint="القياس :الطول * العرض"
+                android:hint="الطول"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/board_size_2"
+                    android:id="@+id/board_hight_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:fontFamily="@font/boldiphone"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_width_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -126,9 +168,9 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:hint=" نوع اللوحة"
                 android:textColorHint="#616161">
@@ -146,23 +188,44 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:hint="القياس :الطول * العرض"
+                android:hint="الطول"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/board_size_3"
+                    android:id="@+id/board_hight_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
                     android:fontFamily="@font/boldiphone"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:hint="العرض"
+                android:textColorHint="#616161">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/board_width_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_dark"
+                    android:fontFamily="@font/boldiphone"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
     </LinearLayout>
 

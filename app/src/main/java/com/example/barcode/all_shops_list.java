@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +43,7 @@ public class all_shops_list extends AppCompatActivity {
     private ImageView all_shops_exit;
     private SearchView searchView;
     private SharedPreferences sharedPreferences;
+    private ContentLoadingProgressBar progressBar;
     private LinearLayout liner;
     private TextView texterror;
 
@@ -54,6 +56,7 @@ public class all_shops_list extends AppCompatActivity {
         ReView = findViewById(R.id.recycleview55);
         liner = findViewById(R.id.no_orders_layout);
         texterror=findViewById(R.id.texterror);
+        progressBar=findViewById(R.id.a_s_progressBar);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 //
         test();
@@ -107,6 +110,7 @@ public class all_shops_list extends AppCompatActivity {
 
 
     private List<shops> test() {
+        progressBar.setVisibility(View.VISIBLE);
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Orgs, new Response.Listener<String>() {
             @Override
@@ -138,16 +142,17 @@ public class all_shops_list extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(all_shops_list.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
 
             }
-        }, new Response.ErrorListener() {
+        },
+                new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
                 error.printStackTrace();
                 Toast.makeText(all_shops_list.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 texterror.setText(error.getMessage());
                 liner.setVisibility(View.VISIBLE);
             }
