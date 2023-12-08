@@ -258,14 +258,13 @@ public class shops_details extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(request);
-
             return shops;
         }
 
     private void showListDialog() {
-        List<ListItem> items = new ArrayList<>();
-        items.add(new ListItem("John", "25", "Male"));
-        items.add(new ListItem("Alice", "30", "Female"));
+        List<PlateData> items = new ArrayList<>();
+        items.add(new PlateData("جانبية", "1", "2","4"));
+        items.add(new PlateData("امامية", "1", "1","3"));
 
         ListDialog.showListDialog(this, "اللوحات", items);
     }

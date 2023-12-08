@@ -56,6 +56,7 @@ public class AddedOrgsList extends AppCompatActivity {
         texterror=findViewById(R.id.texterror);
         progressBar=findViewById(R.id.a_s_progressBar);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        test();
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +105,7 @@ public class AddedOrgsList extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, URLs.GET_VIR_ORGS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Log.d("ALL_SHOPS_RESPONSE", response);
+                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
@@ -123,7 +124,7 @@ public class AddedOrgsList extends AppCompatActivity {
                         }
                         shopsList = shops;
                         Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-                        adpter_shops = new adpter_shops(AddedOrgsList.this, shops);
+                        adpter_shops = new adpter_shops(AddedOrgsList.this, shops,2);
                         ReView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
                         ReView.setAdapter(adpter_shops);
                     }

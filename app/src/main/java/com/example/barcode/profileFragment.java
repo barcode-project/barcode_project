@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class profileFragment extends Fragment {
-    private CardView show_shops_card,add_shop_card,history_shops_card;
+    private CardView show_shops_card,add_shop_card,history_shops_card,show_added_shops_cardview;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -81,6 +81,14 @@ public class profileFragment extends Fragment {
            @Override
            public void onClick(View view) {
                Intent inte=new Intent(getActivity(),qr_history.class);
+               startActivity(inte);
+           }
+       });
+        show_added_shops_cardview=view.findViewById(R.id.show_added_shops_cardview);
+        show_added_shops_cardview.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent inte=new Intent(getActivity(),AddedOrgsList.class);
                startActivity(inte);
            }
        });

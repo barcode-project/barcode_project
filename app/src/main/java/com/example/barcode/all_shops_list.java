@@ -133,7 +133,7 @@ public class all_shops_list extends AppCompatActivity {
                         }
                         shopsList = shops;
                         Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-                        adpter_shops = new adpter_shops(all_shops_list.this, shops);
+                        adpter_shops = new adpter_shops(all_shops_list.this, shops,1);
                         ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
                         ReView.setAdapter(adpter_shops);
                     }
@@ -174,15 +174,6 @@ public class all_shops_list extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
 
-//        shops.add(new shops("سوبر",1));
-//        shops.add(new shops("صيدلية " ,1));
-//        shops.add(new shops("كافيه",1));
-//        shops.add(new shops("سوبر",1));
-//        shops.add(new shops("صيدلية ",1));
-//        shops.add(new shops("كافيه",1));
-//        shops.add(new shops("سوبر",1));
-//        shops.add(new shops("صيدلية ",1));
-//        shops.add(new shops("كافيه",1));
 
         return shops;
     }

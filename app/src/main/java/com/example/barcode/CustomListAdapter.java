@@ -9,16 +9,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomListAdapter extends ArrayAdapter<ListItem> {
+public class CustomListAdapter extends ArrayAdapter<PlateData> {
 
-    public CustomListAdapter(Context context, List<ListItem> items) {
+    public CustomListAdapter(Context context, List<PlateData> items) {
         super(context, 0, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ListItem item = getItem(position);
+        PlateData item = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
@@ -26,13 +26,17 @@ public class CustomListAdapter extends ArrayAdapter<ListItem> {
         }
 
         // Lookup view for data population
-        TextView textName = convertView.findViewById(R.id.textName);
-        TextView textAgeSex = convertView.findViewById(R.id.textAgeSex);
+        TextView type = convertView.findViewById(R.id.type);
+        TextView length = convertView.findViewById(R.id.length);
+        TextView width = convertView.findViewById(R.id.width);
+        TextView quan = convertView.findViewById(R.id.quan);
 
         // Populate the data into the template view using the data object
         if (item != null) {
-            textName.setText(item.getName());
-            textAgeSex.setText(item.getAgeSex());
+            type.setText(item.getPlateType());
+            length.setText(String.valueOf(item.getLength()));
+            width.setText(String.valueOf(item.getWidth()));
+            quan.setText(String.valueOf(item.getQuantity()));
         }
 
         // Return the completed view to render on screen

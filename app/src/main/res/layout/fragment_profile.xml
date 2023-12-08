@@ -98,18 +98,21 @@
         android:layout_height="190dp"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frist_linearLayout">
         <androidx.cardview.widget.CardView
             android:id="@+id/history_shops_cardview"
-            android:layout_width="@dimen/_135sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_120sdp"
+            android:layout_weight="1"
             android:layout_margin="10dp"
             app:cardCornerRadius="@dimen/_15sdp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,8 +120,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:text="سجل المسح"
-                    android:textSize="20sp"
                     android:textColor="@color/custom"
+                    android:textSize="20sp"
                     app:fontFamily="@font/boldiphone" />
                 <ImageView
                     android:id="@+id/bus6"
@@ -127,6 +130,39 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/home_history" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/show_added_shops_cardview"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/_15sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bus4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text=" المنشئات المضافة"
+                    android:textColor="@color/custom"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/boldiphone" />
+
+                <ImageView
+                    android:id="@+id/bus4"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    app:srcCompat="@drawable/show_shop" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 

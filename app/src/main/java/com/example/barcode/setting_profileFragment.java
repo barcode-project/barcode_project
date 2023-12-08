@@ -88,7 +88,9 @@ public class setting_profileFragment extends Fragment {
         user_name = view.findViewById(R.id.user_name);
         user_number = view.findViewById(R.id.user_number);
         CardView logout_btn = view.findViewById(R.id.logout_btn);
-        load();
+        user_name.setText(sharedPreferences.getString("fullname", "none"));
+        user_number.setText(sharedPreferences.getString("phone", "777777777"));
+//        load();
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

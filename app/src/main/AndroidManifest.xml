@@ -31,6 +31,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".AddBoard"
+            android:exported="false" />
+        <activity
+            android:name=".AddedShopDetails"
+            android:exported="false" />
+        <activity
             android:name=".AddedOrgsList"
             android:exported="false" />
         <activity

@@ -13,5 +13,8 @@ public class URLs {
     public static final String UserProfile = HOME+"worker/get_profile";
     public static final String USER_LOGOUT = HOME+"worker/logout";
     public static final String Insert_Data = HOME+"worker/insert_org_data";
+    public static final String Insert_Board = HOME+"worker/insert_billboard";
+    public static final String Get_Board = HOME+"worker/get_billboard";
+    public static final String Get_Vir_Board = HOME+"worker/get_vir_billboard";
 
 }

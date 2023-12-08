@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ListDialog {
 
-    public static void showListDialog(Context context, String title, List<ListItem> items) {
+    public static void showListDialog(Context context, String title, List<PlateData> items) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         // Set the dialog title

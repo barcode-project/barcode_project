@@ -17,10 +17,11 @@ import java.util.List;
 public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHolder> {
     private  Context context;
     private List<shops> shopsList;
-
-    public adpter_shops(Context context, List<shops> shopsList) {
+    private int flag;
+    public adpter_shops(Context context, List<shops> shopsList,int flag) {
         this.context = context;
         this.shopsList = shopsList;
+        this.flag = flag;
     }
     @SuppressLint("NotifyDataSetChanged")
     public void setFlteredList(List<shops>filFlteredList){
@@ -43,7 +44,13 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, shops_details.class) ;
+                Intent intent = null;
+                if(flag == 1) {
+                    intent = new Intent(context, shops_details.class);
+                }
+                else if (flag == 2){
+                    intent = new Intent(context, AddedShopDetails.class);
+                }
                 intent.putExtra("id", shop.getId());
                 context.startActivity(intent);
             }

@@ -74,11 +74,11 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
-    ArrayAdapter<String> streetAdapter,shopstypeAdapter;
+    ArrayAdapter<String> streetAdapter, shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
-    List<String> name_street,name_shops_type;
-    String selectedstreetID,selectedshopstypID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
-    List<HashMap<String, String>> productCategory,shopsCategory;
+    List<String> name_street, name_shops_type;
+    String selectedstreetID, selectedshopstypID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
+    List<HashMap<String, String>> productCategory, shopsCategory;
     private SharedPreferences sharedPreferences;
     private Bitmap bitmap = null;
     private LatLng currentLatLng;
@@ -281,42 +281,40 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   openInputActivity();
-//                sendImage(ImageUri);
-                if(validate()){
-                saveData();
+                if (validate()) {
+                    saveData();
                 }
             }
         });
 
     }
 
-    private void openInputActivity() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
-        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
-        dialog.setView(dialogView);
-       // dialog.setCancelable(false);
-        signboard1 = dialogView.findViewById(R.id.signboard1);
-        signboard2 = dialogView.findViewById(R.id.signboard2);
-        signboard3 = dialogView.findViewById(R.id.signboard3);
-        //board_size_1 = dialogView.findViewById(R.id.board_size_1);
-       // board_size_2 = dialogView.findViewById(R.id.board_size_2);
-        //board_size_3 = dialogView.findViewById(R.id.board_size_3);
-        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
-        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//        signboard1.getText().toString();
-//        board_size_1.getText().toString();
-//        signboard2.getText().toString();
-//        board_size_2.getText().toString();
-//        signboard3.getText().toString();
-//        board_size_3.getText().toString();
-            }
-        });
-        dialog.show();
-    }
+//    private void openInputActivity() {
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
+//        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
+//        dialog.setView(dialogView);
+//        // dialog.setCancelable(false);
+//        signboard1 = dialogView.findViewById(R.id.signboard1);
+//        signboard2 = dialogView.findViewById(R.id.signboard2);
+//        signboard3 = dialogView.findViewById(R.id.signboard3);
+//        //board_size_1 = dialogView.findViewById(R.id.board_size_1);
+//        // board_size_2 = dialogView.findViewById(R.id.board_size_2);
+//        //board_size_3 = dialogView.findViewById(R.id.board_size_3);
+//        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
+//        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////        signboard1.getText().toString();
+////        board_size_1.getText().toString();
+////        signboard2.getText().toString();
+////        board_size_2.getText().toString();
+////        signboard3.getText().toString();
+////        board_size_3.getText().toString();
+//            }
+//        });
+//        dialog.show();
+//    }
 
     public void onMapReady(GoogleMap map) {
         googleMap = map;
@@ -536,8 +534,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         Intent intent = new Intent(addorg_data.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -570,16 +567,16 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> map = new HashMap<>();
-                map.put("org_name",shop_name.getText().toString().trim());
-                map.put("owner_name",owner_name.getText().toString().trim());
-                map.put("owner_phone",phone_no.getText().toString().trim());
-                map.put("building_type_id","1");
-                map.put("org_type_id",selectedshopstypID);
-                map.put("street_id",selectedstreetID);
-                map.put("hood_unit_id",selectedstreetID);
-                map.put("note",note.getText().toString().trim());
-                map.put("log_x",String.valueOf(latitude));
+                HashMap<String, String> map = new HashMap<>();
+                map.put("org_name", shop_name.getText().toString().trim());
+                map.put("owner_name", owner_name.getText().toString().trim());
+                map.put("owner_phone", phone_no.getText().toString().trim());
+                map.put("building_type_id", "1");
+                map.put("org_type_id", selectedshopstypID);
+                map.put("street_id", selectedstreetID);
+                map.put("hood_unit_id", selectedstreetID);
+                map.put("note", note.getText().toString().trim());
+                map.put("log_x", String.valueOf(latitude));
                 map.put("log_y", String.valueOf(longitude));
 //                map.put("org_image",bitmapToString(bitmap));
                 return map;
@@ -594,11 +591,11 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private String bitmapToString(Bitmap bitmap) {
-        if (bitmap!=null){
+        if (bitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-            byte [] array = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(array,Base64.DEFAULT);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] array = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(array, Base64.DEFAULT);
         }
 
         return "";
@@ -609,18 +606,15 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             owner_name.setError(getString(R.string.this_cannot_be_empty));
             owner_name.requestFocus();
             return false;
-        }
-        else if (shop_name.getText().toString().isEmpty()) {
+        } else if (shop_name.getText().toString().isEmpty()) {
             shop_name.setError(getString(R.string.this_cannot_be_empty));
             shop_name.requestFocus();
             return false;
-        }
-         else if (phone_no.getText().toString().isEmpty()) {
-             phone_no.setError(getString(R.string.this_cannot_be_empty));
-             phone_no.requestFocus();
-             return false;
-         }
-        else if (doors_numbers.getText().toString().isEmpty()) {
+        } else if (phone_no.getText().toString().isEmpty()) {
+            phone_no.setError(getString(R.string.this_cannot_be_empty));
+            phone_no.requestFocus();
+            return false;
+        } else if (doors_numbers.getText().toString().isEmpty()) {
             doors_numbers.setError(getString(R.string.this_cannot_be_empty));
             doors_numbers.requestFocus();
             return false;
@@ -632,82 +626,299 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             address_unit.setError(getString(R.string.this_cannot_be_empty));
             address_unit.requestFocus();
             return false;
+        } else if (note.getText().toString().isEmpty()) {
+            note.setError(getString(R.string.this_cannot_be_empty));
+            note.requestFocus();
+            return false;
         }
-         else if (note.getText().toString().isEmpty()) {
-             note.setError(getString(R.string.this_cannot_be_empty));
-             note.requestFocus();
-             return false;
-         }
-           return true;
+        return true;
     }
 
-    private void sendImage(Uri imageUri) {
-        // Get the actual file path from the URI
-
-        // Replace URL with your server endpoint
-//        String url = "https://yourserver.com/api/upload";
-
-        Map<String, String> map = new HashMap<>();
-        map.put("org_name", shop_name.getText().toString().trim());
-        map.put("owner_name", owner_name.getText().toString().trim());
-        map.put("owner_phone", phone_no.getText().toString().trim());
-        map.put("building_type_id", "1");
-        map.put("org_type_id", selectedshopstypID);
-        map.put("street_id", selectedstreetID);
-        map.put("hood_unit_id", selectedstreetID);
-        map.put("note", note.getText().toString().trim());
-        map.put("log_x", String.valueOf(latitude));
-        map.put("log_y", String.valueOf(longitude));
-        Log.d("ALL_MAP",map.get("org_name"));
-        String token = sharedPreferences.getString("token", "");
-
-        String imagePath = FileUtils.getPathFromUri(this, imageUri);
-        File imageFile = new File(imagePath);
-
-        progressBar.setVisibility(View.VISIBLE);
-        MultipartRequest multipartRequest = new MultipartRequest(URLs.Insert_Data, imageFile, map, token,
-                response -> {
-                    try {
-                        JSONObject object = new JSONObject(response);
-                        if (object.getBoolean("success")) {
-                            Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(addorg_data.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    progressBar.setVisibility(View.GONE);
-                },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                });
-
-// Add the request to the RequestQueue
-        MySingleton.getInstance(this).getRequestQueue().add(multipartRequest);
-    }
 }
-class FileUtils {
 
-    public static String getPathFromUri(Context context, Uri uri) {
-        String filePath = null;
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+//    private void sendImage(Uri imageUri) {
+//        // Get the actual file path from the URI
+//
+//        // Replace URL with your server endpoint
+////        String url = "https://yourserver.com/api/upload";
+//
+//        Map<String, String> map = new HashMap<>();
+//        map.put("org_name", shop_name.getText().toString().trim());
+//        map.put("owner_name", owner_name.getText().toString().trim());
+//        map.put("owner_phone", phone_no.getText().toString().trim());
+//        map.put("building_type_id", "1");
+//        map.put("org_type_id", selectedshopstypID);
+//        map.put("street_id", selectedstreetID);
+//        map.put("hood_unit_id", selectedstreetID);
+//        map.put("note", note.getText().toString().trim());
+//        map.put("log_x", String.valueOf(latitude));
+//        map.put("log_y", String.valueOf(longitude));
+//        Log.d("ALL_MAP",map.get("org_name"));
+//        String token = sharedPreferences.getString("token", "");
+//
+//        String imagePath = FileUtils.getPathFromUri(this, imageUri);
+//        File imageFile = new File(imagePath);
+//
+//        progressBar.setVisibility(View.VISIBLE);
+//        MultipartRequest multipartRequest = new MultipartRequest(URLs.Insert_Data, imageFile, map, token,
+//                response -> {
+//                    try {
+//                        JSONObject object = new JSONObject(response);
+//                        if (object.getBoolean("success")) {
+//                            Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(addorg_data.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                        else {
+//                            Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                    progressBar.setVisibility(View.GONE);
+//                },
+//                error -> {
+//                    error.printStackTrace();
+//                    Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    progressBar.setVisibility(View.GONE);
+//                });
+//
+//// Add the request to the RequestQueue
+//        MySingleton.getInstance(this).getRequestQueue().add(multipartRequest);
+//    }
 
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            filePath = cursor.getString(columnIndex);
-            cursor.close();
-        }
+//    Object[][] orgTypes = {
+//            {"1", "صيدلية"},
+//            {"19", "مستشفى"},
+//            {"20", "مركز صحي"},
+//            {"21", "عيادة"},
+//            {"22", "مختبرات"},
+//            {"23", "نظريات وسمعيات"},
+//            {"24", "أشعة"},
+//            {"25", "مصنع"},
+//            {"26", "بنك"},
+//            {"27", "تجاره عامة"},
+//            {"28", "تجارة وتسويق"},
+//            {"29", "جامعة"},
+//            {"30", "خلاطة مركزية"},
+//            {"31", "روضة"},
+//            {"32", "سوق"},
+//            {"33", "سوق قات"},
+//            {"34", "شركة صرافة"},
+//            {"35", "شركة"},
+//            {"36", "كلية"},
+//            {"37", "مدرسة اهلية"},
+//            {"38", "مركز تجاري"},
+//            {"39", "وكالة"},
+//            {"40", "مطعم كبير"},
+//            {"41", "مطعم صغير"},
+//            {"42", "فندق"},
+//            {"43", "مركز تدريب"},
+//            {"44", "مركز طبي"},
+//            {"45", "معهد"},
+//            {"46", "شواية"},
+//            {"47", "بوفية"},
+//            {"48", "مؤسسة"},
+//            {"49", "خدمات الاتصالات"},
+//            {"50", "سفريات"},
+//            {"51", "ادوات طبية"},
+//            {"52", "استيراد"},
+//            {"53", "برمجيات انظمة"},
+//            {"54", "تجهيز مستشفيات"},
+//            {"55", "تسويق وتسويق الكترونية"},
+//            {"56", "إذاعة"},
+//            {"57", "اذاعة"},
+//            {"58", "خدمة اتصال"},
+//            {"59", "مركز دراسات"},
+//            {"60", "توليد كهرباء"},
+//            {"61", "ثلاجة تبريد"},
+//            {"62", "حلول تقنية"},
+//            {"63", "حلويات"},
+//            {"64", "خدمات اتصالات"},
+//            {"65", "خدمات اعراس"},
+//            {"66", "خدمات سيارات"},
+//            {"67", "خدمات طباعة"},
+//            {"68", "خدمات ما بعد البيع"},
+//            {"69", "خدمات مياة"},
+//            {"70", "دعاية واعلان"},
+//            {"71", "ثقافة"},
+//            {"72", "زينة سيارات"},
+//            {"73", "شقق مفروشة"},
+//            {"74", "شنط"},
+//            {"75", "شاورما"},
+//            {"76", "شيش"},
+//            {"77", "صالة"},
+//            {"78", "صيانة سيارات"},
+//            {"79", "صيانة"},
+//            {"80", "ضرب ابر"},
+//            {"81", "طاقة شمسية"},
+//            {"82", "علاج طبيعي"},
+//            {"83", "عوازل"},
+//            {"85", "قطع غيار"},
+//            {"86", "كشافة"},
+//            {"87", "كفتيريا"},
+//            {"88", "كمبيوترات"},
+//            {"89", "كميرات"},
+//            {"90", "كهرباء"},
+//            {"91", "متعهد حفلات"},
+//            {"92", "مجوهرات"},
+//            {"93", "محاماة"},
+//            {"94", "مجطة بترول"},
+//            {"95", "محطة صناعية"},
+//            {"96", "محطة غاز"},
+//            {"97", "محطة كهرباء"},
+//            {"98", "محطة مياة"},
+//            {"99", "محمصه"},
+//            {"100", "مخازن"},
+//            {"101", "مخبز وحلويات"},
+//            {"102", "مختبر طبي"},
+//            {"103", "صيانة الكترونيات"},
+//            {"104", "صيانة جوالات"},
+//            {"105", "طابعات"},
+//            {"106", "طاحون"},
+//            {"107", "طاقة كهربائية"},
+//            {"109", "عبايات"},
+//            {"110", "عسل"},
+//            {"111", "عود"},
+//            {"112", "فحم"},
+//            {"113", "فساتين"},
+//            {"114", "فضيات"},
+//            {"115", "فل"},
+//            {"116", "فلترات مياة"},
+//            {"117", "كنافة"},
+//            {"118", "كوافير"},
+//            {"119", "كوش"},
+//            {"121", "مبيعات"},
+//            {"122", "كيماويات"},
+//            {"123", "مبيعات تذاكر"},
+//            {"124", "مخزن"},
+//            {"125", "مستحضرات اطفال"},
+//            {"126", "مسجلات سيارات"},
+//            {"127", "مسلخ"},
+//            {"128", "مشروبات"},
+//            {"129", "مصاعد"},
+//            {"130", "مطابخ"},
+//            {"131", "معدات زؤاعية"},
+//            {"132", "معسلات"},
+//            {"133", "مغسلة"},
+//            {"134", "مفاتيح"},
+//            {"135", "مكسرات"},
+//            {"136", "مكملات غذائية"},
+//            {"137", "مكياج"},
+//            {"139", "ملحمة"},
+//            {"140", "منشار احجار"},
+//            {"141", "منظفات"},
+//            {"142", "مواد عازلة"},
+//            {"143", "موزع"},
+//            {"144", "موقف"},
+//            {"145", "نسخ مسلسلات"},
+//            {"146", "نقطة"},
+//            {"147", "هدايا"},
+//            {"148", "هنجر"},
+//            {"149", "هندسة كهرباء"},
+//            {"150", "ورد"},
+//            {"151", "ورشة"},
+//            {"152", "انظمة اكترونية"},
+//            {"153", "امين شرعي"},
+//            {"154", "ادوات موسيقية"},
+//            {"155", "ادوات منزلية"},
+//            {"156", "أدوات كهربائية"},
+//            {"157", "أدوات صحية"},
+//            {"158", "ادوات زينة"},
+//            {"159", "أدوات رياضية"},
+//            {"160", "أدوت خياطة"},
+//            {"161", "أدوات تجميل"},
+//            {"162", "أجهزة منزلية"},
+//            {"163", "إطارات"},
+//            {"164", "انترنت"},
+//            {"165", "الوان"},
+//            {"166", "العاب نارية"},
+//            {"167", "العاب اطفال"},
+//            {"168", "العاب"},
+//            {"169", "اكسسوارات"},
+//            {"170", "اكترونيات"},
+//            {"171", "اقمشة"},
+//            {"172", "اصلاح ساعات"},
+//            {"173", "اسماك"},
+//            {"174", "اسكافي"},
+//            {"175", "اسفنج"},
+//            {"176", "استريو"},
+//            {"177", "استديو تصوير"},
+//            {"178", "استديو"},
+//            {"179", "ازهار"},
+//            {"180", "ادوات تجميل"},
+//            {"181", "نادي ومعهد رياضي"},
+//            {"182", "ميزان"},
+//            {"183", "مولدات"},
+//            {"184", "مواد غذائية"},
+//            {"185", "مواد بناء"},
+//            {"186", "ملعب"},
+//            {"187", "ملابس"},
+//            {"188", "مكتبة"},
+//            {"189", "مكتب"},
+//            {"190", "مقاولات"},
+//            {"191", "مفروشات"},
+//            {"192", "معهد تدريب"},
+//            {"193", "معسل"},
+//            {"194", "معرض"},
+//            {"195", "معدات زراعية"},
+//            {"196", "معدات"},
+//            {"197", "مطبعة"},
+//            {"198", "مطابع"},
+//            {"199", "مشتقات نفطية"},
+//            {"200", "مستلزمات"},
+//            {"201", "مركز الدراسات"},
+//            {"202", "مصنع بلك"},
+//            {"203", "وجبات سريعة"},
+//            {"204", "مركز توزيع"},
+//            {"205", "فرع مدرسة"},
+//            {"206", "فرع شركة"},
+//            {"207", "فرع جامعه"},
+//            {"208", "فرع بنك"},
+//            {"209", "روضه"},
+//            {"210", "حضانه"},
+//            {"211", "تقنية معلومات"},
+//            {"212", "ايسكريم"},
+//            {"213", "ادوات كهرباء"},
+//            {"214", "اثاث"},
+//            {"215", "برمجيات"},
+//            {"216", "نظارات"},
+//            {"217", "مول تجاري"},
+//            {"218", "مر"},
+//            {"219", "مركز"},
+//            {"220", "مدرسة"},
+//            {"221", "مجموعة"},
+//            {"222", "كهربائيات"},
+//            {"223", "كهرباء ومواد غذائية"},
+//            {"224", "صناعة بلاستيك"},
+//            {"225", "سوبر ماركت"},
+//            {"226", "سبا فارما"},
+//            {"227", "خدمة توصيل شركة"},
+//            {"228", "خدمات"},
+//            {"229", "حديقة"},
+//            {"230", "تسويق الكتروني"},
+//            {"231", "تسويق"},
+//            {"232", "تجارة عامة"}
+//    };
 
-        return filePath;
-    }
-}
+            // Access the elements using orgTypes[i][j]
+
+//class FileUtils {
+//
+//    public static String getPathFromUri(Context context, Uri uri) {
+//        String filePath = null;
+//        String[] projection = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+//
+//        if (cursor != null) {
+//            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            cursor.moveToFirst();
+//            filePath = cursor.getString(columnIndex);
+//            cursor.close();
+//        }
+//
+//        return filePath;
+//    }
+//}
