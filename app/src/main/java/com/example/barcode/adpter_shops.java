@@ -27,7 +27,6 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     public void setFlteredList(List<shops>filFlteredList){
         this.shopsList=filFlteredList;
         notifyDataSetChanged();
-
     }
     @NonNull
     @Override

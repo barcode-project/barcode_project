@@ -24,8 +24,8 @@
         android:id="@+id/list_item1_root_cardView"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
         app:cardBackgroundColor="@color/white"
@@ -134,7 +134,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/boldiphone"
                 android:text="9999"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_8ssp"
                 android:textAlignment="center"
                 android:textColor="#FFFFFFFF" />
 

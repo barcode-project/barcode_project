@@ -10,6 +10,7 @@
 
 
     <ImageView
+
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -74,7 +75,7 @@
             android:layout_height="65dp"
             android:layout_marginVertical="@dimen/_4sdp"
             android:background="@drawable/rounded_dark"
-            android:hint="الرقم الوطيفي"
+            android:hint="الرقم الهاتف"
             android:textColorHint="#616161">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +112,6 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:id="@+id/Passwordtext"
-                    android:layoutDirection="rtl"
                     android:layout_height="65dp"
                     android:layout_marginVertical="@dimen/_4sdp"
                     android:background="@drawable/rounded_dark"
@@ -126,6 +126,7 @@
                         android:background="@drawable/rounded_dark"
                         android:inputType="textPassword"
                         android:layoutDirection="rtl"
+                        android:textAlignment="textStart"
                         android:textColor="@color/black" />
 
                 </com.google.android.material.textfield.TextInputLayout>

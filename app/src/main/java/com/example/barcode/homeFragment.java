@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+//////////////غير مستخدمة
 
 public class homeFragment extends Fragment {
     private RecyclerView ReView;
@@ -61,7 +62,6 @@ public class homeFragment extends Fragment {
         ReView= view.findViewById(R.id.a_d_c_recyclerView);
         etxt_search= view.findViewById(R.id.etxt_search_home);
         etxt_search.clearComposingText();
-        etxt_search.setText(data);
         etxt_search.setText(data);
         ereasList=generateDummy();
         Log.d("qrcode",data);

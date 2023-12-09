@@ -50,21 +50,22 @@
         app:layout_constraintRight_toLeftOf="@+id/shops_exit"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rounded_up"
+        android:layout_marginTop="@dimen/_42sdp">
 
         <LinearLayout
             android:id="@+id/shop_details_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50sdp"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingHorizontal="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,32 +208,13 @@
                 android:layout_height="match_parent"
                 >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="@dimen/_130sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_6sdp"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:hint="وحدة الجوار"
-                    android:textColorHint="#616161">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/neighbor_unit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_dark"
-                        android:enabled="false"
-                        android:textSize="@dimen/_12ssp"
-                        android:fontFamily="@font/boldiphone"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="@dimen/_130sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_6sdp"
                     android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
                     android:hint="العنوان"
                     android:textColorHint="#616161">
 
@@ -247,7 +229,37 @@
                         android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
+                    android:hint="الملاحظة"
+                    android:textColorHint="#616161">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteshow"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:background="@drawable/rounded_dark"
+                        android:fontFamily="@font/boldiphone"
+                        android:gravity="start"
+                        android:enabled="false"
+                        android:inputType="textMultiLine"
+                        android:padding="16dp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -277,24 +289,24 @@
                     android:text="اضافة لوحة"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
-
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:importantForAccessibility="no"
+                android:pointerIcon="zoom_in"
+                android:src="@drawable/ic_location_map"
+                app:layout_anchorGravity="bottom|end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:rippleColor="#FFFFFF"
+                tools:targetApi="n" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:importantForAccessibility="no"
-        android:pointerIcon="zoom_in"
-        android:src="@drawable/ic_location_map"
-        app:layout_anchorGravity="bottom|end"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="#FFFFFF"
-        tools:targetApi="n" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

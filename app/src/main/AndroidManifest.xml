@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -40,6 +41,9 @@
             android:name=".AddedOrgsList"
             android:exported="false" />
         <activity
+            android:name=".org_details"
+            android:exported="false" />
+        <activity
             android:name=".qr_history"
             android:exported="false">
             <meta-data
@@ -55,11 +59,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".DeviceListActivity"
             android:exported="false"
@@ -112,7 +116,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBARkX5tfkam81w-FgEibeft1LdWGOFlBM" />

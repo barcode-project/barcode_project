@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
-    tools:context=".addorg_data">
+    tools:context=".org_details">
 
     <androidx.core.widget.ContentLoadingProgressBar
         app:layout_constraintRight_toRightOf="parent"
@@ -30,7 +29,7 @@
         />
 
     <ImageView
-        android:id="@+id/add_shops_exit"
+        android:id="@+id/orgdetails_exit"
         android:layout_width="@dimen/_12sdp"
         android:layout_height="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_14sdp"
@@ -45,11 +44,11 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:fontFamily="@font/boldiphone"
-        android:text="تقديم طلب رخصة"
+        android:text="بيانات طلب رخصة"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@+id/add_shops_exit"
+        app:layout_constraintRight_toLeftOf="@+id/orgdetails_exit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
@@ -78,7 +77,7 @@
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/owner_name"
+                    android:id="@+id/owner_name1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
@@ -100,7 +99,7 @@
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/shop_name"
+                    android:id="@+id/shop_name1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
@@ -121,7 +120,7 @@
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_no"
+                    android:id="@+id/phone_no1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_dark"
@@ -150,7 +149,7 @@
                     android:textColorHint="#616161">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/doors_numbers"
+                        android:id="@+id/doors_numbers1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_dark"
@@ -170,7 +169,7 @@
                     android:textColorHint="#616161">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/shop_type"
+                        android:id="@+id/shop_type1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -197,7 +196,7 @@
                     android:textColorHint="#616161">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/address_unit"
+                        android:id="@+id/address_unit1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -207,55 +206,36 @@
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_4sdp"
                 android:layout_marginVertical="@dimen/_6sdp"
                 android:hint="الملاحظة"
                 android:textColorHint="#616161">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/note"
+                    android:id="@+id/note1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:background="@drawable/rounded_dark"
                     android:fontFamily="@font/boldiphone"
-                    android:hint="الملاحظة"
                     android:gravity="start"
-                    android:textAlignment="textStart"
+                    android:inputType="textMultiLine"
                     android:padding="16dp"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginVertical="@dimen/_6sdp"
-                android:background="@drawable/rounded_dark">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="تحديد الموقع على الخريطة"
-                    android:fontFamily="@font/boldiphone"
-                    android:textSize="@dimen/_12ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_10sdp"/>
-
-                <fragment
-                    android:id="@+id/mapFragment"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp" />
-
-
-            </LinearLayout>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,7 +259,7 @@
                     android:layout_marginVertical="@dimen/_6sdp">
 
                     <RelativeLayout
-                        android:id="@+id/chooseImage"
+                        android:id="@+id/chooseImage1"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:background="@color/light_custom">
@@ -292,7 +272,7 @@
                     </RelativeLayout>
 
                     <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewPager"
+                        android:id="@+id/viewPager1"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -305,14 +285,14 @@
 
 
             <Button
-                android:id="@+id/upload_bt"
+                android:id="@+id/upload_bt1"
                 android:layout_width="@dimen/_130sdp"
                 android:layout_height="@dimen/_44sdp"
                 android:background="@drawable/round_back_primary"
                 android:fontFamily="@font/boldiphone"
                 android:layout_marginVertical="@dimen/_6sdp"
                 android:layout_marginHorizontal="@dimen/_4sdp"
-                android:text=" حفظ البيانات"
+                android:text=" تعديل البيانات"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:layout_gravity="center_horizontal"/>

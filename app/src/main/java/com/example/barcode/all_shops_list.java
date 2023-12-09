@@ -57,7 +57,7 @@ public class all_shops_list extends AppCompatActivity {
         texterror=findViewById(R.id.texterror);
         progressBar=findViewById(R.id.a_s_progressBar);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-//
+
         test();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
@@ -93,16 +93,25 @@ public class all_shops_list extends AppCompatActivity {
     }
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
-        for (shops shop : shopsList){
-            if (shop.getName_shop().toLowerCase().contains(text.toLowerCase())){
-                filterList.add(shop);
+        if (shopsList != null) {
+            for (shops shop : shopsList) {
+                if (shop.getName_shop().toLowerCase().startsWith(text.toLowerCase())) {
+                    filterList.add(shop);
+                }
             }
-        }
-        if (filterList.isEmpty()){
-            Toast.makeText(this," لا يوجد منشئة بهاذا الاسم",Toast.LENGTH_LONG).show();
-        }
-        else {
-            adpter_shops.setFlteredList(filterList);
+
+            if (filterList.isEmpty()) {
+                Toast.makeText(this, " لا يوجد منشئة بهذا الاسم", Toast.LENGTH_LONG).show();
+            } else {
+                if (adpter_shops != null) {
+                    adpter_shops.setFlteredList(filterList);
+                } else {
+                    Log.e("Adapter Error", "adpter_shops is null");
+                }
+            }
+        } else {
+            Log.e("List Error", "shopsList is null");
+            Toast.makeText(this, "قائمة المحلات فارغة", Toast.LENGTH_LONG).show();
         }
 
     }

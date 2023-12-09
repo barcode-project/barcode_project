@@ -1,32 +1,22 @@
 package com.example.barcode;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,8 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.barcode.Server.URLs;
-import com.example.barcode.pdf_report.TemplatePDF;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
@@ -51,14 +40,14 @@ import java.util.Map;
 
 public class AddedShopDetails extends AppCompatActivity {
     private ImageView bt_exit;
-    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit,type,length,width,quan;
+    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, shownote, address_unit,type,quan;
     AppCompatButton show_billboard,add_btn;
     ContentLoadingProgressBar progressBar;
     Button upload_billboard_bt;
     private SharedPreferences sharedPreferences;
     private int id;
     ArrayAdapter<String> shopstypeAdapter;
-    String selectedshopstypID;
+    String selectedshopstypID,longitudelength,latitudewidth;
     List<HashMap<String, String>> shopsCategory;
     List<String> name_shops_type;
     Spinner spinner;
@@ -78,7 +67,7 @@ public class AddedShopDetails extends AppCompatActivity {
         shop_name=findViewById(R.id.shop_name);
         phone_no=findViewById(R.id.phone_no);
         activity_type=findViewById(R.id.activity_type);
-        neighbor_unit=findViewById(R.id.neighbor_unit);
+        shownote=findViewById(R.id.noteshow);
         address_unit=findViewById(R.id.address_unit);
         show_billboard = findViewById(R.id.show_billboard);
         add_btn = findViewById(R.id.add_btn);
@@ -113,6 +102,24 @@ public class AddedShopDetails extends AppCompatActivity {
                 finish();
             }
         });
+        FloatingActionButton button=findViewById(R.id.fab1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double latitude = Double.parseDouble(latitudewidth); // خط العرض لموقع العميل
+                double longitude = Double.parseDouble(longitudelength); // خط الطول لموقع العميل
+                String label = "موقع العميل"; // اسم الموقع الذي سيظهر في خرائط جوجل
+
+
+                String uri = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(" + label + ")";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps"); // تحديد تطبيق خرائط جوجل
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 
@@ -133,6 +140,9 @@ public class AddedShopDetails extends AppCompatActivity {
                         phone_no.setText(citizen.getString("owner_phone"));
                         address_unit.setText(citizen.getString("street_name"));
                         activity_type.setText(citizen.getString("org_type_name"));
+                        shownote.setText(citizen.getString("note"));
+                        longitudelength=citizen.getString("log_y");
+                        latitudewidth=citizen.getString("log_x");
                         JSONArray array = new JSONArray(citizen.getString("billboard"));
                         for (int i = 0; i < array.length(); i++) {
                         JSONObject billboard = array.getJSONObject(i);
@@ -149,6 +159,7 @@ public class AddedShopDetails extends AppCompatActivity {
 
                         }
                         Plate = list;
+                        Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
                     }
 
                 } catch (JSONException e) {

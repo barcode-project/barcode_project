@@ -1,24 +1,20 @@
 package com.example.barcode;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -42,6 +38,7 @@ public class login_page extends AppCompatActivity {
         signInBtn=findViewById(R.id.signInBtn);
         usernamekey = findViewById(R.id.username);
         Passwordtext = findViewById(R.id.password);
+
         signInBtn.setOnClickListener(v -> {
             if (validate()){
                 login();
@@ -72,6 +69,7 @@ public class login_page extends AppCompatActivity {
 //                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
                         editor.putString("type","user");
+                        Log.d("ALL_SHOPS_RESPONSE", String.valueOf(user));
                         startActivity(new Intent(login_page.this, MainActivity.class));
                         finish();
                         editor.apply();

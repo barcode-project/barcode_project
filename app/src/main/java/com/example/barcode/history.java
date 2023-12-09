@@ -3,7 +3,7 @@ package com.example.barcode;
 public class history {
     private String time;
     private String history_name;
-    private int id_nu;
+    private static int id_nu;
 
     public history(String time, String history_name, int id_nu) {
         this.time = time;
@@ -24,7 +24,7 @@ public class history {
     }
 
 
-    public int getId_nu() {
+    public static int getId_nu() {
         return id_nu;
     }
 

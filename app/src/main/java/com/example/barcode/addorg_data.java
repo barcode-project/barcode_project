@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
@@ -57,7 +56,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,8 +65,8 @@ import java.util.Map;
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note, signboard1, signboard2, signboard3, board_size_3, board_size_2, board_size_1;
-    Button uploadButton, upload_billboard_bt;
+    TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note;
+    Button uploadButton;
     ContentLoadingProgressBar progressBar;
     double latitude, longitude;
     RelativeLayout pickimagebtn;
@@ -289,32 +287,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-//    private void openInputActivity() {
-//        AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
-//        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
-//        dialog.setView(dialogView);
-//        // dialog.setCancelable(false);
-//        signboard1 = dialogView.findViewById(R.id.signboard1);
-//        signboard2 = dialogView.findViewById(R.id.signboard2);
-//        signboard3 = dialogView.findViewById(R.id.signboard3);
-//        //board_size_1 = dialogView.findViewById(R.id.board_size_1);
-//        // board_size_2 = dialogView.findViewById(R.id.board_size_2);
-//        //board_size_3 = dialogView.findViewById(R.id.board_size_3);
-//        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
-//        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-////        signboard1.getText().toString();
-////        board_size_1.getText().toString();
-////        signboard2.getText().toString();
-////        board_size_2.getText().toString();
-////        signboard3.getText().toString();
-////        board_size_3.getText().toString();
-//            }
-//        });
-//        dialog.show();
-//    }
+
 
     public void onMapReady(GoogleMap map) {
         googleMap = map;
@@ -564,7 +537,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 return map;
             }
 
-            @Nullable
+            @NonNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();

@@ -1,13 +1,6 @@
 package com.example.barcode;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -84,17 +83,27 @@ public class AddedOrgsList extends AppCompatActivity {
     }
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
-        for (shops shop : shopsList){
-            if (shop.getName_shop().toLowerCase().contains(text.toLowerCase())){
-                filterList.add(shop);
+        if (shopsList != null) {
+            for (shops shop : shopsList) {
+                if (shop.getName_shop().toLowerCase().startsWith(text.toLowerCase())) {
+                    filterList.add(shop);
+                }
             }
+
+            if (filterList.isEmpty()) {
+                Toast.makeText(this, " لا يوجد منشئة بهذا الاسم", Toast.LENGTH_LONG).show();
+            } else {
+                if (adpter_shops != null) {
+                    adpter_shops.setFlteredList(filterList);
+                } else {
+                    Log.e("Adapter Error", "adpter_shops is null");
+                }
+            }
+        } else {
+            Log.e("List Error", "shopsList is null");
+            Toast.makeText(this, "قائمة المحلات فارغة", Toast.LENGTH_LONG).show();
         }
-        if (filterList.isEmpty()){
-            Toast.makeText(this," لا يوجد منشئة بهاذا الاسم",Toast.LENGTH_LONG).show();
-        }
-        else {
-            adpter_shops.setFlteredList(filterList);
-        }
+
 
     }
 
