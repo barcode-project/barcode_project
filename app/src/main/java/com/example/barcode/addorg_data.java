@@ -62,6 +62,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
+
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -170,7 +172,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         String street_id = "1";
                         address_unit.setText(selectedItem);
 
-
                         for (int i = 0; i < name_street.size(); i++) {
                             if (name_street.get(i).equalsIgnoreCase(selectedItem)) {
                                 // Get the ID of selected Country
@@ -251,7 +252,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                                 shopstype_id = shopsCategory.get(i).get("shopstype_id");
                             }
                         }
-
                         selectedshopstypID = shopstype_id;
                         Toast.makeText(addorg_data.this, selectedshopstypID, Toast.LENGTH_SHORT).show();
                         Log.d("shopstype_id", shopstype_id);
@@ -323,9 +323,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void pickimageftomgallry() {
-
-
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(addorg_data.this, ImageSelectActivity.class);
+        intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);//default is true
+        intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
+        intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
@@ -335,7 +336,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            ImageUri = data.getData();
+            ImageUri = Uri.parse(data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH));
             chooseImageList.add(ImageUri);
             SetAdapter();
             try {
@@ -575,17 +576,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private boolean validate() {
-        if (owner_name.getText().toString().isEmpty()) {
-            owner_name.setError(getString(R.string.this_cannot_be_empty));
-            owner_name.requestFocus();
-            return false;
-        } else if (shop_name.getText().toString().isEmpty()) {
+         if (shop_name.getText().toString().isEmpty()) {
             shop_name.setError(getString(R.string.this_cannot_be_empty));
             shop_name.requestFocus();
-            return false;
-        } else if (phone_no.getText().toString().isEmpty()) {
-            phone_no.setError(getString(R.string.this_cannot_be_empty));
-            phone_no.requestFocus();
             return false;
         } else if (doors_numbers.getText().toString().isEmpty()) {
             doors_numbers.setError(getString(R.string.this_cannot_be_empty));
@@ -598,10 +591,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         } else if (address_unit.getText().toString().isEmpty() || selectedstreetID.isEmpty()) {
             address_unit.setError(getString(R.string.this_cannot_be_empty));
             address_unit.requestFocus();
-            return false;
-        } else if (note.getText().toString().isEmpty()) {
-            note.setError(getString(R.string.this_cannot_be_empty));
-            note.requestFocus();
             return false;
         }
         return true;

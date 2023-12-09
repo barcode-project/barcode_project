@@ -28,8 +28,6 @@ public class adapter_history extends RecyclerView.Adapter<adapter_history.histor
     public void setFlteredList(List<history> filFlteredList) {
         this.historyList = filFlteredList;
         notifyDataSetChanged();
-
-
     }
 
     @NonNull
