@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -36,9 +36,14 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -56,7 +61,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,8 +72,9 @@ import java.util.Map;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
-    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_IMAGE_REQUEST = 123;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int THUMBNAIL_SIZE = 500;
     TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note;
     Button uploadButton;
     ContentLoadingProgressBar progressBar;
@@ -74,13 +82,14 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
+    Uri ImageUri2;
     ArrayAdapter<String> streetAdapter, shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
     List<String> name_street, name_shops_type;
     String selectedstreetID, selectedshopstypID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
     List<HashMap<String, String>> productCategory, shopsCategory;
     private SharedPreferences sharedPreferences;
-    private Bitmap bitmap = null;
+    private Bitmap bitmap ;
     private LatLng currentLatLng;
     private GoogleMap googleMap;
 
@@ -337,15 +346,30 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             ImageUri = Uri.parse(data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH));
+
             chooseImageList.add(ImageUri);
             SetAdapter();
+
+            // تحقق من أن النص (Path) الذي تم استخدامه لإنشاء ملف (File) صحيح
+//            File f = new File(ImageUri.getPath());
+            File f = new File(ImageUri.getPath());
+            Uri test = Uri.fromFile(f);
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), ImageUri);
+                InputStream inputStream = getContentResolver().openInputStream(test);
+
+                // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
+                bitmap = BitmapFactory.decodeStream(inputStream, null, options);
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("bitmap_IMG_ORG", e.toString());
             }
         }
     }
+
+
+
 
     private void SetAdapter() {
 
@@ -388,9 +412,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         if (currentLatLng != null) {
             latitude = currentLatLng.latitude;
             longitude = currentLatLng.longitude;
-            Log.d("ALL_SHOPS_RESPONSE", String.valueOf(currentLatLng));
             String locationText = "Latitude: " + latitude + "\nLongitude: " + longitude;
-//            address_unit.setText(locationText);
+
             // عرض معلومات الموقع في واجهة المستخدم، أو استخدمها في عمليات أخرى
             Toast.makeText(this, "الموقع المحدد: " + latitude + ", " + longitude, Toast.LENGTH_SHORT).show();
         }
@@ -418,6 +441,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             public void onResponse(String response) {
 
                 try {
+
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
                         JSONArray array = new JSONArray(object.getString("data"));
@@ -500,7 +524,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Log.d("ALL_SHOPS_RESPONSE", response);
+
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
@@ -520,8 +544,29 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                error.printStackTrace();
+                String errorMessage = "حدث خطأ غير معروف";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                } else if (error instanceof AuthFailureError) {
+                    errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                } else if (error instanceof ServerError) {
+                    errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                } else if (error instanceof NetworkError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                } else if (error instanceof ParseError) {
+                    errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                } else if (error instanceof ServerError && error.networkResponse != null) {
+                    // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                    int statusCode = error.networkResponse.statusCode;
+                    if (statusCode == 400) {
+                        errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                    } else if (statusCode == 401) {
+                        errorMessage = "غير مصرح.";
+                    } else if (statusCode == 404) {
+                        errorMessage = "المورد غير موجود.";
+                    }
+                    // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
+                }
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
             }
@@ -552,9 +597,13 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 map.put("note", note.getText().toString().trim());
                 map.put("log_x", String.valueOf(latitude));
                 map.put("log_y", String.valueOf(longitude));
-//                map.put("org_image",bitmapToString(bitmap));
+                map.put("org_image",bitmapToString(bitmap));
+
                 return map;
             }
+
+
+
         };
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -569,7 +618,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] array = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(array, Base64.DEFAULT);
+            return Base64.encodeToString(array, Base64.NO_WRAP);
+
         }
 
         return "";
