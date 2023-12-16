@@ -109,6 +109,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         shop_type = findViewById(R.id.shop_type);
         phone_no = findViewById(R.id.phone_no);
         note = findViewById(R.id.note);
+        GPSUtils gpsUtils = new GPSUtils(this);
+        gpsUtils.statusCheck();
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
@@ -359,7 +361,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
+//                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
                 bitmap = BitmapFactory.decodeStream(inputStream, null, options);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -492,9 +494,36 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                error.printStackTrace();
-                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                String errorMessage="??";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle time out error or no connection error
+                } else if (error instanceof AuthFailureError) {
+                    errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                    // handle authentication failure error
+                } else if (error instanceof ServerError) {
+                    errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    // handle server error
+                } else if (error instanceof NetworkError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle network error
+                } else if (error instanceof ParseError) {
+                    errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    // handle JSON parsing error
+                } else if (error instanceof ServerError && error.networkResponse != null) {
+                    // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                    int statusCode = error.networkResponse.statusCode;
+                    if (statusCode == 400) {
+                        errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                    } else if (statusCode == 401) {
+                        errorMessage = "غير مصرح.";
+                    } else if (statusCode == 404) {
+                        errorMessage = "المورد غير موجود.";
+                    }else if (statusCode == 443) {
+                        errorMessage = "خطاء في الشهادة الامان.";
+                    }
+                }
+                Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -529,7 +558,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
                         Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(addorg_data.this, MainActivity.class);
+                        Intent intent = new Intent(addorg_data.this, AddedOrgsList.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -544,15 +573,19 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorMessage = "حدث خطأ غير معروف";
+                String errorMessage="??";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle time out error or no connection error
                 } else if (error instanceof AuthFailureError) {
                     errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                    // handle authentication failure error
                 } else if (error instanceof ServerError) {
                     errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    // handle server error
                 } else if (error instanceof NetworkError) {
                     errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle network error
                 } else if (error instanceof ParseError) {
                     errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
                 } else if (error instanceof ServerError && error.networkResponse != null) {
@@ -564,6 +597,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         errorMessage = "غير مصرح.";
                     } else if (statusCode == 404) {
                         errorMessage = "المورد غير موجود.";
+                    }else if (statusCode == 443) {
+                        errorMessage = "خطاء في الشهادة الامان.";
                     }
                     // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }

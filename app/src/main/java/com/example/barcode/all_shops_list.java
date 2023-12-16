@@ -145,10 +145,15 @@ public class all_shops_list extends AppCompatActivity {
 
                         }
                         shopsList = shops;
-                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-                        adpter_shops = new adpter_shops(all_shops_list.this, shops,1);
-                        ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
-                        ReView.setAdapter(adpter_shops);
+                        if(shopsList.isEmpty()){
+                            liner.setVisibility(View.VISIBLE);
+                            texterror.setText("لا توجد بيانات");
+                        }else {
+                            Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
+                            adpter_shops = new adpter_shops(all_shops_list.this, shops, 1);
+                            ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
+                            ReView.setAdapter(adpter_shops);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -177,11 +182,25 @@ public class all_shops_list extends AppCompatActivity {
                 } else if (error instanceof ParseError) {
                     errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
                     // handle JSON parsing error
+                } else if (error instanceof ServerError && error.networkResponse != null) {
+                    // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                    int statusCode = error.networkResponse.statusCode;
+                    if (statusCode == 400) {
+                        errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                    } else if (statusCode == 401) {
+                        errorMessage = "غير مصرح.";
+                    } else if (statusCode == 404) {
+                        errorMessage = "المورد غير موجود.";
+                    } else if (statusCode == 443) {
+                        errorMessage = "خطاء في الشهادة الامان.";
+                    }
+                    // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }
+
                 Toast.makeText(all_shops_list.this,errorMessage, Toast.LENGTH_SHORT).show();
-             progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                texterror.setText(errorMessage);
+                liner.setVisibility(View.VISIBLE);
             }
 
         }) {
