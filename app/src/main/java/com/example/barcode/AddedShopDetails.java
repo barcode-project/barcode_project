@@ -129,7 +129,7 @@ public class AddedShopDetails extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Vir_Org, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //                Log.d("ALL_SHOPS_RESPONSE", response);
+                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     if (object.getBoolean("success")) {
@@ -159,7 +159,7 @@ public class AddedShopDetails extends AppCompatActivity {
 
                         }
                         Plate = list;
-                        Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
+//                        Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
                     }
 
                 } catch (JSONException e) {
