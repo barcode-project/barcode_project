@@ -19,9 +19,14 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -229,9 +234,24 @@ public class shops_details extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
-                    error.printStackTrace();
-                    Toast.makeText(shops_details.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    String errorMessage="??";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle time out error or no connection error
+                    } else if (error instanceof AuthFailureError) {
+                        errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                        // handle authentication failure error
+                    } else if (error instanceof ServerError) {
+                        errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                        // handle server error
+                    } else if (error instanceof NetworkError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle network error
+                    } else if (error instanceof ParseError) {
+                        errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                        // handle JSON parsing error
+                    }
+                    Toast.makeText(shops_details.this, errorMessage, Toast.LENGTH_SHORT).show();
     //                progressBar.setVisibility(View.GONE);
                 }
 

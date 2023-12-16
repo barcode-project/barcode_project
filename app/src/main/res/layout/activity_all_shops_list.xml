@@ -22,7 +22,7 @@
     <ImageView
         android:id="@+id/rounded_up2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/_40sdp"
         android:src="@drawable/roundedup_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:fontFamily="@font/boldiphone"
         android:text="المنشأت"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintRight_toLeftOf="@+id/all_shops_exit"
         app:layout_constraintTop_toTopOf="parent" />
@@ -108,29 +108,31 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/_150sdp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+
             android:elevation="2dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            tools:targetApi="lollipop" />
-<!--            app:lottie_rawRes="@raw/no_order_available"-->
+            app:lottie_rawRes="@raw/support" />
 
         <TextView
             android:id="@+id/texterror"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:text="sorry_no_orders_available_now_nplease_wait"
             android:textAlignment="center"
             android:textColor="@color/black"

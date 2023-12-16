@@ -16,7 +16,6 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -135,13 +134,18 @@ public class AddedOrgsList extends AppCompatActivity {
 
 
                             shops.add(user);
-
+                            Log.d("ALL_SHOP", String.valueOf(citizen));
                         }
                         shopsList = shops;
-                        Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-                        adpter_shops = new adpter_shops(AddedOrgsList.this, shops,2);
-                        ReView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
-                        ReView.setAdapter(adpter_shops);
+                        if (shopsList.isEmpty()) {
+                            liner.setVisibility(View.VISIBLE);
+                            texterror.setText("لا توجد بيانات");
+                        } else {
+
+                            adpter_shops = new adpter_shops(AddedOrgsList.this, shops, 2);
+                            ReView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
+                            ReView.setAdapter(adpter_shops);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -171,10 +175,10 @@ public class AddedOrgsList extends AppCompatActivity {
                             errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
                             // handle JSON parsing error
                         }
-                        Toast.makeText(AddedOrgsList.this,errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddedOrgsList.this, errorMessage, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-//                texterror.setText(error.getMessage());
-//                liner.setVisibility(View.VISIBLE);
+                        texterror.setText(errorMessage);
+                        liner.setVisibility(View.VISIBLE);
                     }
 
                 }) {

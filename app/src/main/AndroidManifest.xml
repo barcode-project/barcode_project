@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -31,6 +30,9 @@
         android:theme="@style/Theme.Barcode"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".resetpass"
+            android:exported="false" />
         <activity
             android:name=".AddBoard"
             android:exported="false" />
@@ -59,11 +61,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".DeviceListActivity"
             android:exported="false"
@@ -116,6 +118,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBARkX5tfkam81w-FgEibeft1LdWGOFlBM" />

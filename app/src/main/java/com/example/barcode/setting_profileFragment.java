@@ -16,9 +16,14 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -140,9 +145,9 @@ public class setting_profileFragment extends Fragment {
                         requireActivity().finish();
                         Toast.makeText(getActivity(), object.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        Toast.makeText(getActivity(), object.getString("msg"), Toast.LENGTH_SHORT).show();
-                    }
+//                    else {
+//                        Toast.makeText(getActivity(), object.getString("msg"), Toast.LENGTH_SHORT).show();
+//                    }
                 }
 
                 catch (JSONException e) {
@@ -154,7 +159,21 @@ public class setting_profileFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 //                dialog.dismiss();
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                String errorMessage="??";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle time out error or no connection error
+                }  else if (error instanceof ServerError) {
+                    errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    // handle server error
+                } else if (error instanceof NetworkError) {
+                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    // handle network error
+                } else if (error instanceof ParseError) {
+                    errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    // handle JSON parsing error
+                }
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
         }){
