@@ -29,16 +29,18 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_old_pass"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_4sdp"
             android:background="@drawable/rounded_dark"
-            android:hint=" كلمة المرور"
+            android:hint=" كلمة المرور القديمة"
             android:textColorHint="#616161"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/old_pass"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@drawable/rounded_dark"
@@ -61,17 +63,19 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_new_pass"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_4sdp"
             android:background="@drawable/rounded_dark"
-            android:hint="تاكيد كلمة المرور"
+            android:hint=" كلمة المرور الجديدة"
             android:textColorHint="#616161"
             app:endIconMode="password_toggle">
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_pass"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@drawable/rounded_dark"

@@ -20,18 +20,25 @@ public class splash_screen extends AppCompatActivity {
             public void run() {
                 SharedPreferences userPref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
                 boolean isLoggedIn = userPref.getBoolean("isLoggedIn", false);
+                boolean isReset = userPref.getBoolean("isReset", false);
 //                boolean isPlaced = userPref.getBoolean("isPlaced", false);
                 String type = userPref.getString("type", "non");
                 if (isLoggedIn) {
                     switch (type) {
                         case "user":
-                            startActivity(new Intent(splash_screen.this, MainActivity.class));
-                            finish();
+                            if(isReset) {
+                                startActivity(new Intent(splash_screen.this, MainActivity.class));
+                                finish();
+                            }
+                            else {
+                                startActivity(new Intent(splash_screen.this, resetpass.class));
+                                finish();
+                            }
+
                         default:
                             // Do something when no option is selected
                             break;
                     }
-
                 } else {
                     startActivity(new Intent(splash_screen.this, login_page.class));
                     finish();
