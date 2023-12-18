@@ -16,5 +16,6 @@ public class URLs {
     public static final String Insert_Board = HOME+"worker/insert_billboard";
     public static final String Get_Board = HOME+"worker/get_billboard";
     public static final String Get_Vir_Board = HOME+"worker/get_vir_billboard";
+    public static final String Reset_Password = HOME+"worker/reset_password";
 
 }

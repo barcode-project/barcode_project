@@ -58,6 +58,7 @@ public class login_page extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject object = new JSONObject(response);
+                    Log.d("ALL_SHOPS_User", response);
                     if (object.getBoolean("success")){
                         JSONObject user = object.getJSONObject("data");
                         //make shared preference user
@@ -69,8 +70,8 @@ public class login_page extends AppCompatActivity {
 //                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
                         editor.putString("type","user");
-                        Log.d("ALL_SHOPS_RESPONSE", String.valueOf(user));
-                        startActivity(new Intent(login_page.this, MainActivity.class));
+                        Log.d("ALL_SHOPS_User", String.valueOf(user));
+                        startActivity(new Intent(login_page.this, resetpass.class));
                         finish();
                         editor.apply();
                         //if success
