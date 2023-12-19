@@ -57,7 +57,7 @@ public class shops_details extends AppCompatActivity {
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
 
-    String currency="R" ,activitytype, shopname, shop_contact, ownername, shop_address = String.valueOf("الرويشان"), shortText;
+    String currency="R" ,activitytype, shopname, shop_contact, ownername,longitudelength,latitudewidth, shortText;
 
     String insitiution_number = "08967674490", order_time, order_date = "12/12/2000";
     //how many headers or column you need, add here by using ,
@@ -156,18 +156,23 @@ public class shops_details extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double latitude = 37.7749; // خط العرض لموقع العميل
-                double longitude = -122.4194; // خط الطول لموقع العميل
+                try {
+                double latitude = Double.parseDouble(latitudewidth); // خط العرض لموقع العميل
+                double longitude = Double.parseDouble(longitudelength); // خط الطول لموقع العميل
                 String label = "موقع العميل"; // اسم الموقع الذي سيظهر في خرائط جوجل
 
                 String uri = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(" + label + ")";
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 intent.setPackage("com.google.android.apps.maps"); // تحديد تطبيق خرائط جوجل
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
-            }
+            }catch (Exception e)  {
+                    e.printStackTrace();
+                    Toast.makeText(shops_details.this,  "لاتوجد احداثيات" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }}
         });
 
 
@@ -217,6 +222,8 @@ public class shops_details extends AppCompatActivity {
                             phone_no.setText(citizen.getString("owner_phone"));
                             address_unit.setText(citizen.getString("street_name"));
                             activity_type.setText(citizen.getString("org_type_name"));
+                            longitudelength=citizen.getString("log_y");
+                            latitudewidth=citizen.getString("log_x");
 
                         }
                         shopname = String.valueOf(shop_name.getText());

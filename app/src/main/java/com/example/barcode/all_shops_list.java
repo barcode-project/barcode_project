@@ -105,7 +105,7 @@ public class all_shops_list extends AppCompatActivity {
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 test();
-            },  3000);
+            },  2000);
         });
 
         swipeRefreshLayout.setColorSchemeColors(
@@ -120,7 +120,7 @@ public class all_shops_list extends AppCompatActivity {
         List<shops> filterList = new ArrayList<>();
         if (shopsList != null) {
             for (shops shop : shopsList) {
-                if (shop.getName_shop().toLowerCase().startsWith(text.toLowerCase())) {
+                if (shop.getName_shop().toLowerCase().startsWith(text.toLowerCase())|| shop.getOwner_name().toLowerCase().startsWith(text.toLowerCase()) || shop.getStatus().toLowerCase().startsWith(text.toLowerCase())) {
                     filterList.add(shop);
                 }
             }
@@ -182,6 +182,8 @@ public class all_shops_list extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(all_shops_list.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    liner.setVisibility(View.VISIBLE);
+                    texterror.setText(e.getMessage());
                 }
                 progressBar.setVisibility(View.GONE);
 
