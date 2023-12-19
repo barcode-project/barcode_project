@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -50,6 +52,8 @@ public class all_shops_list extends AppCompatActivity {
     private ContentLoadingProgressBar progressBar;
     private LinearLayout liner;
     private TextView texterror;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,8 @@ public class all_shops_list extends AppCompatActivity {
         liner = findViewById(R.id.no_orders_layout);
         texterror=findViewById(R.id.texterror);
         progressBar=findViewById(R.id.a_s_progressBar);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
         test();
@@ -94,6 +100,21 @@ public class all_shops_list extends AppCompatActivity {
 
 
         });
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            new Handler().postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+                test();
+            },  3000);
+        });
+
+        swipeRefreshLayout.setColorSchemeColors(
+                getResources().getColor(android.R.color.holo_blue_bright),
+                getResources().getColor(android.R.color.holo_orange_dark),
+                getResources().getColor(android.R.color.holo_green_dark),
+                getResources().getColor(android.R.color.holo_red_dark)
+        );
+
     }
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
@@ -139,15 +160,18 @@ public class all_shops_list extends AppCompatActivity {
 //                            user.setNo(i+1);
                             user.setId(citizen.getInt("id"));
                             user.setName_shop(citizen.getString("org_name"));
+                            user.setStatus(citizen.getString("license_status"));
+                            user.setOwner_name(citizen.getString("owner_name"));
 
 
                             shops.add(user);
-
+                            Log.d("ALL_SHOPSS", String.valueOf(citizen));
                         }
                         shopsList = shops;
                         if(shopsList.isEmpty()){
                             liner.setVisibility(View.VISIBLE);
                             texterror.setText("لا توجد بيانات");
+
                         }else {
                             Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
                             adpter_shops = new adpter_shops(all_shops_list.this, shops, 1);

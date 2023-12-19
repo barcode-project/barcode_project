@@ -49,6 +49,7 @@
                 android:fontFamily="@font/boldiphone"
                 android:textSize="11sp"
                 android:textDirection="ltr"
+                android:textColor="@color/custom"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/history_item_name"
                 app:layout_constraintTop_toTopOf="parent"
