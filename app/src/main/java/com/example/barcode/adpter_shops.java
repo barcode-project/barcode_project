@@ -32,7 +32,7 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     @Override
     public shopsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.all_shops, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.history_items, parent, false);
         return new shopsViewHolder(view);
     }
 
@@ -40,6 +40,10 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     public void onBindViewHolder(@NonNull shopsViewHolder holder, int position) {
         shops shop =shopsList.get(position);
         holder.name_shops.setText(shop.getName_shop());
+        holder.owner_name.setText(shop.getOwner_name());
+        holder.status.setText(shop.getStatus());
+        holder.id_nu.setText(String.valueOf(shop.getId()));
+
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,12 +68,16 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     }
 
     public class shopsViewHolder extends RecyclerView.ViewHolder {
-        TextView name_shops;
+        TextView name_shops,status, id_nu,owner_name;
         CardView cv;
+
         public shopsViewHolder(@NonNull View itemView) {
             super(itemView);
-            name_shops= itemView.findViewById(R.id.list_item1_title_name2);
-            cv= itemView.findViewById(R.id.shops_root_cardView);
+            name_shops= itemView.findViewById(R.id.history_item_name);
+            status = itemView.findViewById(R.id.notificationtime);
+            owner_name = itemView.findViewById(R.id.history_winer_name);
+            id_nu = itemView.findViewById(R.id.id_number);
+            cv= itemView.findViewById(R.id.list_item1_root_cardView);
 
         }
     }

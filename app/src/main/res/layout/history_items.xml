@@ -50,26 +50,38 @@
                 android:textSize="11sp"
                 android:textDirection="ltr"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/history_item_name"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/history_item_name"
                 android:layout_marginTop="12dp"/>
 
             <TextView
                 android:id="@+id/history_item_name"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/boldiphone"
                 android:textColor="@color/custom"
                 android:textDirection="rtl"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/notificationtime"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/history_item_name"
                 tools:text="الحي السياسي" />
+     <TextView
+                    android:id="@+id/history_winer_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/boldiphone"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_item_name"
+                    tools:text="عبده فارع سعيد" />
 
 
 

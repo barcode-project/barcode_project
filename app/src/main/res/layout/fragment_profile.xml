@@ -102,13 +102,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frist_linearLayout">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/history_shops_cardview"
             android:layout_width="0dp"
             android:layout_height="@dimen/_120sdp"
-            android:layout_weight="1"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/_15sdp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -123,6 +126,7 @@
                     android:textColor="@color/custom"
                     android:textSize="20sp"
                     app:fontFamily="@font/boldiphone" />
+
                 <ImageView
                     android:id="@+id/bus6"
                     android:layout_width="75dp"
@@ -162,7 +166,7 @@
                     android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
-                    app:srcCompat="@drawable/show_shop" />
+                    app:srcCompat="@drawable/home_history" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
