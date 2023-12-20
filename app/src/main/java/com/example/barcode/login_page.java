@@ -65,15 +65,24 @@ public class login_page extends AppCompatActivity {
                         SharedPreferences userPref = getBaseContext().getSharedPreferences("user",MODE_PRIVATE);
                         SharedPreferences.Editor editor = userPref.edit();
                         editor.putString("token",user.getString("api_token"));
+                        editor.putString("token",user.getString("api_token"));
                         editor.putString("phone",user.getString("phone"));
                         editor.putString("fullname",user.getString("fullname"));
 //                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
                         editor.putString("type","user");
-                        Log.d("ALL_SHOPS_User", String.valueOf(user));
-                        startActivity(new Intent(login_page.this, resetpass.class));
-                        finish();
-                        editor.apply();
+//                        Log.d("ALL_SHOPS_User", String.valueOf(user));
+                        if(Passwordtext.getText().toString().trim().equals(usernamekey.getText().toString().trim()) ){
+                            editor.apply();
+                            startActivity(new Intent(login_page.this, resetpass.class));
+                            finish();
+                        }
+                        else {
+                            editor.putBoolean("isReset",true);
+                            editor.apply();
+                            startActivity(new Intent(login_page.this, MainActivity.class));
+                            finish();
+                        }
                         //if success
                         Toast.makeText(getBaseContext(), "تم تسجيل الدخول", Toast.LENGTH_SHORT).show();
                     }

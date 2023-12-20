@@ -437,7 +437,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private void test() {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
         ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
-        progressBar.setVisibility(View.VISIBLE);
+        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
+        progressDialog.show();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -488,7 +489,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
 
             }
         }, new Response.ErrorListener() {
@@ -524,7 +525,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     }
                 }
                 Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
         }) {
@@ -548,7 +549,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
 
     private List<shops> saveData() {
-        progressBar.setVisibility(View.VISIBLE);
+        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
+        progressDialog.show();
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
             @Override
@@ -568,7 +570,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -603,7 +605,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
         }) {

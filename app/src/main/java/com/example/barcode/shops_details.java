@@ -38,6 +38,7 @@ import com.example.barcode.utils.Tools;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +57,7 @@ public class shops_details extends AppCompatActivity {
     AppCompatButton show_billboard;
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
+    private List<PlateData> Plate ;
 
     String currency="R" ,activitytype, shopname, shop_contact, ownername, shop_address = String.valueOf("الرويشان"), shortText;
 
@@ -203,6 +205,7 @@ public class shops_details extends AppCompatActivity {
 
         private List<shops> test() {
             List<shops> shops = new ArrayList<>();
+            List<PlateData> list = new ArrayList<>();
             StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -217,11 +220,32 @@ public class shops_details extends AppCompatActivity {
                             phone_no.setText(citizen.getString("owner_phone"));
                             address_unit.setText(citizen.getString("street_name"));
                             activity_type.setText(citizen.getString("org_type_name"));
+//                            shownote.setText(citizen.getString("note"));
+//                            longitudelength=citizen.getString("log_y");
+//                            latitudewidth=citizen.getString("log_x");
+                            JSONArray array = new JSONArray(citizen.getString("billboard"));
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject billboard = array.getJSONObject(i);
+                                JSONObject type_billboard = billboard.getJSONObject("billboard");
 
+                                PlateData board = new PlateData();
+                                board.setPlateType(type_billboard.getString("name"));
+                                board.setLength(String.valueOf(billboard.getDouble("height")));
+                                board.setWidth(String.valueOf(billboard.getDouble("width")));
+                                board.setQuantity(String.valueOf(billboard.getInt("count")));
+
+                                list.add(board);
+                            }
+
+                            Plate = list;
+                            Log.d("ALL_SHOPS_RESP", String.valueOf(citizen));
                         }
+
                         shopname = String.valueOf(shop_name.getText());
                         ownername = String.valueOf(owner_name.getText());
                         activitytype = String.valueOf(activity_type.getText());
+
+
 
 
                     } catch (JSONException e) {
@@ -282,10 +306,6 @@ public class shops_details extends AppCompatActivity {
         }
 
     private void showListDialog() {
-        List<PlateData> items = new ArrayList<>();
-        items.add(new PlateData("جانبية", "1", "2","4"));
-        items.add(new PlateData("امامية", "1", "1","3"));
-
-        ListDialog.showListDialog(this, "اللوحات", items);
+        ListDialog.showListDialog(this, "اللوحات", Plate);
     }
 }
