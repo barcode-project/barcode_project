@@ -152,7 +152,7 @@ public class AddedOrgsList extends AppCompatActivity {
 //                            user.setNo(i+1);
                             user.setId(citizen.getInt("id"));
                             user.setName_shop(citizen.getString("org_name"));
-                            user.setStatus(citizen.getString("license_status"));
+                            user.setStatus(String.valueOf(citizen.getInt("is_moved")));
                             user.setOwner_name(citizen.getString("owner_name"));
 
                             shops.add(user);

@@ -41,7 +41,16 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
         shops shop =shopsList.get(position);
         holder.name_shops.setText(shop.getName_shop());
         holder.owner_name.setText(shop.getOwner_name());
-        holder.status.setText(shop.getStatus());
+        if(flag == 2) {
+            if (shop.getStatus().equals("0")) {
+                holder.status.setText("لم تنقل");
+            } else {
+                holder.status.setText("تم النقل");
+            }
+        }
+        else if (flag == 1){
+            holder.status.setText(shop.getStatus());
+        }
         holder.id_nu.setText(String.valueOf(shop.getId()));
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
