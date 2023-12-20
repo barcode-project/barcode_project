@@ -59,7 +59,7 @@ public class shops_details extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private List<PlateData> Plate ;
 
-    String currency="R" ,activitytype, shopname, shop_contact, ownername, shop_address = String.valueOf("الرويشان"), shortText;
+    String currency="R" ,activitytype, shopname, shop_contact, ownername,longitudelength,latitudewidth, shortText;
 
     String insitiution_number = "08967674490", order_time, order_date = "12/12/2000";
     //how many headers or column you need, add here by using ,
@@ -225,8 +225,8 @@ public class shops_details extends AppCompatActivity {
                             address_unit.setText(citizen.getString("street_name"));
                             activity_type.setText(citizen.getString("org_type_name"));
 //                            shownote.setText(citizen.getString("note"));
-//                            longitudelength=citizen.getString("log_y");
-//                            latitudewidth=citizen.getString("log_x");
+                            longitudelength=citizen.getString("log_y");
+                            latitudewidth=citizen.getString("log_x");
                             JSONArray array = new JSONArray(citizen.getString("billboard"));
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject billboard = array.getJSONObject(i);
@@ -240,8 +240,6 @@ public class shops_details extends AppCompatActivity {
 
                                 list.add(board);
                             }
-                            longitudelength=citizen.getString("log_y");
-                            latitudewidth=citizen.getString("log_x");
 
                             Plate = list;
                             Log.d("ALL_SHOPS_RESP", String.valueOf(citizen));
