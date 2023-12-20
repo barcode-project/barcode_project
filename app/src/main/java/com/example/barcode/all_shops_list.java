@@ -163,7 +163,6 @@ public class all_shops_list extends AppCompatActivity {
                             user.setStatus(citizen.getString("license_status"));
                             user.setOwner_name(citizen.getString("owner_name"));
 
-
                             shops.add(user);
                             Log.d("ALL_SHOPSS", String.valueOf(citizen));
                         }
