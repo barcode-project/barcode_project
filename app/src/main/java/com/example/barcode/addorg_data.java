@@ -110,7 +110,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         phone_no = findViewById(R.id.phone_no);
         note = findViewById(R.id.note);
         GPSUtils gpsUtils = new GPSUtils(this);
-        gpsUtils.statusCheck();
+        gpsUtils.statusCheck(findViewById(android.R.id.content));
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 

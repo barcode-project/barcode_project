@@ -3,6 +3,7 @@ package com.example.barcode;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -49,6 +51,8 @@ public class AddedOrgsList extends AppCompatActivity {
     private ContentLoadingProgressBar progressBar;
     private LinearLayout liner;
     private TextView texterror;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class AddedOrgsList extends AppCompatActivity {
         liner = findViewById(R.id.no_orders_layout);
         texterror=findViewById(R.id.texterror);
         progressBar=findViewById(R.id.a_s_progressBar);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         test();
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +91,21 @@ public class AddedOrgsList extends AppCompatActivity {
 
 
         });
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            new Handler().postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+                test();
+            },  3000);
+        });
+
+        swipeRefreshLayout.setColorSchemeColors(
+                getResources().getColor(android.R.color.holo_blue_bright),
+                getResources().getColor(android.R.color.holo_orange_dark),
+                getResources().getColor(android.R.color.holo_green_dark),
+                getResources().getColor(android.R.color.holo_red_dark)
+        );
+
     }
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
@@ -131,7 +152,8 @@ public class AddedOrgsList extends AppCompatActivity {
 //                            user.setNo(i+1);
                             user.setId(citizen.getInt("id"));
                             user.setName_shop(citizen.getString("org_name"));
-
+                            user.setStatus(citizen.getString("license_status"));
+                            user.setOwner_name(citizen.getString("owner_name"));
 
                             shops.add(user);
                             Log.d("ALL_SHOP", String.valueOf(citizen));
@@ -174,6 +196,19 @@ public class AddedOrgsList extends AppCompatActivity {
                         } else if (error instanceof ParseError) {
                             errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
                             // handle JSON parsing error
+                        } else if (error instanceof ServerError && error.networkResponse != null) {
+                            // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                            int statusCode = error.networkResponse.statusCode;
+                            if (statusCode == 400) {
+                                errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                            } else if (statusCode == 401) {
+                                errorMessage = "غير مصرح.";
+                            } else if (statusCode == 404) {
+                                errorMessage = "المورد غير موجود.";
+                            } else if (statusCode == 443) {
+                                errorMessage = "خطاء في الشهادة الامان.";
+                            }
+                            // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                         }
                         Toast.makeText(AddedOrgsList.this, errorMessage, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);

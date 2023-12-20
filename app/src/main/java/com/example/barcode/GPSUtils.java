@@ -1,47 +1,41 @@
 package com.example.barcode;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class GPSUtils {
-    Activity activity;
+    private Activity activity;
 
     public GPSUtils(Activity activity) {
         this.activity = activity;
     }
 
-    public void statusCheck() {
-        final LocationManager manager = (LocationManager)
-                activity.getSystemService(Context.LOCATION_SERVICE);
+    public void statusCheck(View view) {
+        final LocationManager manager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
+            showSnackbar(view, " يجب تفعيل خدمة GPS.");
         }
-
-
     }
 
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("Enable the GPS to have seamless experience")
-                .setCancelable(false)
-                .setPositiveButton("Enable GPS", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        activity.startActivity(
-                                new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.cancel();
+    private void showSnackbar(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction("تفعيل GPS", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openLocationSettings();
                     }
                 });
-        final AlertDialog alert = builder.create();
-        alert.show();
+
+        snackbar.show();
+    }
+
+    private void openLocationSettings() {
+        activity.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
 }
