@@ -87,9 +87,14 @@ public class setting_profileFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         user_name = view.findViewById(R.id.user_name);
         user_number = view.findViewById(R.id.user_number);
+        TextView direct_txt = view.findViewById(R.id.nono);
+        TextView office_txt = view.findViewById(R.id.office_name);
+        user_number = view.findViewById(R.id.user_number);
         CardView logout_btn = view.findViewById(R.id.logout_btn);
         user_name.setText(sharedPreferences.getString("fullname", ""));
         user_number.setText(sharedPreferences.getString("phone", ""));
+        direct_txt.setText(sharedPreferences.getString("direct_name", ""));
+        office_txt.setText(sharedPreferences.getString("office_name", ""));
 //        load();
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +110,11 @@ public class setting_profileFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         // Set the dialog title and message
-        builder.setTitle("Log Out")
-                .setMessage("Are you sure you want to log out?");
+        builder.setTitle("تسجيل الخروج")
+                .setMessage("هل تود تسجيل الخروج؟");
 
         // Add buttons and their click listeners
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Perform logout actions here
                 // For example, you can navigate to the login screen
@@ -117,7 +122,7 @@ public class setting_profileFragment extends Fragment {
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User canceled the dialog
                 dialog.dismiss();

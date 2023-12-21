@@ -65,9 +65,10 @@ public class login_page extends AppCompatActivity {
                         SharedPreferences userPref = getBaseContext().getSharedPreferences("user",MODE_PRIVATE);
                         SharedPreferences.Editor editor = userPref.edit();
                         editor.putString("token",user.getString("api_token"));
-                        editor.putString("token",user.getString("api_token"));
                         editor.putString("phone",user.getString("phone"));
                         editor.putString("fullname",user.getString("fullname"));
+                        editor.putString("office_name",user.getString("office_name"));
+                        editor.putString("direct_name",user.getString("direct_name"));
 //                        editor.putInt("id",user.getInt("id"));
                         editor.putBoolean("isLoggedIn",true);
                         editor.putString("type","user");
