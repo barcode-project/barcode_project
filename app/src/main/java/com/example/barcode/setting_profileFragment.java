@@ -102,6 +102,14 @@ public class setting_profileFragment extends Fragment {
                 showLogoutConfirmationDialog();
             }
         });
+        CardView changePass = view.findViewById(R.id.reset_pass);
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), resetpass.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
