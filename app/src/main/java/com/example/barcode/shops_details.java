@@ -189,7 +189,6 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{currency + "2500","رسوم الخدمة"});
         rows.add(new String[]{"..................................", "......................................."});
         rows.add(new String[]{currency + "price","الإجمالي"});
-
         return rows;
     }
     private ArrayList<String[]> gethaderData() {
@@ -203,7 +202,6 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{"اسم المنشأه: "+shopname});
         rows.add(new String[]{"اسم المالك: "+ownername});
         rows.add(new String[]{"رقم التواصل"});
-
         return rows;
     }
 
@@ -231,7 +229,6 @@ public class shops_details extends AppCompatActivity {
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject billboard = array.getJSONObject(i);
                                 JSONObject type_billboard = billboard.getJSONObject("billboard");
-
                                 PlateData board = new PlateData();
                                 board.setPlateType(type_billboard.getString("name"));
                                 board.setLength(String.valueOf(billboard.getDouble("height")));
