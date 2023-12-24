@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_dark"
                 android:fontFamily="@font/boldiphone"
-                android:inputType="number"
+                android:inputType="number|numberDecimal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_dark"
                 android:fontFamily="@font/boldiphone"
-                android:inputType="number"
+                android:inputType="number|numberDecimal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>

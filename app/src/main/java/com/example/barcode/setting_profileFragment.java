@@ -1,5 +1,6 @@
 package com.example.barcode;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -79,6 +80,7 @@ public class setting_profileFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,7 +95,7 @@ public class setting_profileFragment extends Fragment {
         CardView logout_btn = view.findViewById(R.id.logout_btn);
         user_name.setText(sharedPreferences.getString("fullname", ""));
         user_number.setText(sharedPreferences.getString("phone", ""));
-        direct_txt.setText(sharedPreferences.getString("direct_name", ""));
+        direct_txt.setText("مديرية "+ sharedPreferences.getString("direct_name", ""));
         office_txt.setText(sharedPreferences.getString("office_name", ""));
 //        load();
         logout_btn.setOnClickListener(new View.OnClickListener() {
