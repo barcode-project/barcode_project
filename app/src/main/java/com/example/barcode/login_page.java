@@ -50,8 +50,8 @@ public class login_page extends AppCompatActivity {
 
     }
     private void login (){
-//        dialog.setMessage("Logging in");
-//        dialog.show();
+        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
+        progressDialog.show();
 
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Login, new Response.Listener<String>() {
             @Override
@@ -94,14 +94,14 @@ public class login_page extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(login_page.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-//                dialog.dismiss();
+                progressDialog.dismiss();
 
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                dialog.dismiss();
+                progressDialog.dismiss();
                 error.printStackTrace();
                 Toast.makeText(login_page.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 //                String errorMessage = "حدث خطأ أثناء تسجيل الدخول. الرجاء معاودة المحاولة في وقت لاحق.";

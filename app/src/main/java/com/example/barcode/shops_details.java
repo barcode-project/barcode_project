@@ -206,16 +206,18 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
     }
 
         private List<shops> test() {
+            ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
+            progressDialog.show();
             List<shops> shops = new ArrayList<>();
             List<PlateData> list = new ArrayList<>();
             StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-    //                Log.d("ALL_SHOPS_RESPONSE", response);
+                    Log.d("ALL_SHOPS_RESPONSE", response);
                     try {
                         JSONObject object = new JSONObject(response);
                         if (object.getBoolean("success")) {
-                            JSONObject citizen = new JSONObject(object.getString("data"));
+                            JSONObject citizen = object.getJSONObject("data");
                             owner_name.setText(citizen.getString("owner_name"));
                             id_no.setText(String.valueOf(citizen.getInt("id")));
                             shop_name.setText(citizen.getString("org_name"));
@@ -226,7 +228,7 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
                             longitudelength=citizen.getString("log_y");
                             latitudewidth=citizen.getString("log_x");
 
-                            JSONObject array2 = new JSONObject(citizen.getString("data"));
+                            JSONObject array2 = citizen.getJSONObject("clip_board");
                             el_gate = String.valueOf(array2.getInt("el_gate"));//'رسوم البوابة الالكترونية'
                             local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
                             clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
@@ -256,13 +258,11 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
                         activitytype = String.valueOf(activity_type.getText());
 
 
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(shops_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-    //                progressBar.setVisibility(View.GONE);
+                    progressDialog.dismiss();
 
                 }
             }, new Response.ErrorListener() {
