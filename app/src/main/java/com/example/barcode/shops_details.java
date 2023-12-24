@@ -59,7 +59,7 @@ public class shops_details extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private List<PlateData> Plate ;
 
-    String currency="R" ,activitytype, shopname, shop_contact, ownername,longitudelength,latitudewidth, shortText;
+    String currency="R" ,activitytype, shopname, shop_contact, ownername,longitudelength,latitudewidth, shortText,local_fee,clean_pay,total_ad,el_gate;
 
     String insitiution_number = "08967674490", order_time, order_date = "12/12/2000";
     //how many headers or column you need, add here by using ,
@@ -179,16 +179,15 @@ public class shops_details extends AppCompatActivity {
 
 
     }
-
+String price=total_ad+clean_pay+ local_fee+ el_gate;
     private ArrayList<String[]> getOrdersData() {
         ArrayList<String[]> rows = new ArrayList<>();
-        rows.add(new String[]{currency + "shopname", "رسوم محل"});
-        rows.add(new String[]{currency + "40000", "دعاية وإعلان"});
-        rows.add(new String[]{currency + "2000","نظافة"});
-        rows.add(new String[]{currency + "1200","نظافة مهن"});
-        rows.add(new String[]{currency + "2500","رسوم الخدمة"});
+        rows.add(new String[]{currency + el_gate, "رسوم البوابة الالكترونية"});
+        rows.add(new String[]{currency + local_fee, "الرسوم المحلية"});
+        rows.add(new String[]{currency + total_ad,"الدعاية والاعلان"});
+        rows.add(new String[]{currency + clean_pay,"نظافة المهن"});
         rows.add(new String[]{"..................................", "......................................."});
-        rows.add(new String[]{currency + "price","الإجمالي"});
+        rows.add(new String[]{currency + price,"الإجمالي"});
         return rows;
     }
     private ArrayList<String[]> gethaderData() {
@@ -202,6 +201,7 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{"اسم المنشأه: "+shopname});
         rows.add(new String[]{"اسم المالك: "+ownername});
         rows.add(new String[]{"رقم التواصل"});
+
         return rows;
     }
 
@@ -225,10 +225,19 @@ public class shops_details extends AppCompatActivity {
 //                            shownote.setText(citizen.getString("note"));
                             longitudelength=citizen.getString("log_y");
                             latitudewidth=citizen.getString("log_x");
+
+                            JSONObject array2 = new JSONObject(citizen.getString("data"));
+                            el_gate = String.valueOf(array2.getInt("el_gate"));//'رسوم البوابة الالكترونية'
+                            local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
+                            clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
+                            total_ad = String.valueOf(array2.getInt("total_ad"));//اجمالي رسوم الدعاية والاعلان
+//                            String s4= array2.getString("clip_status");
+
                             JSONArray array = new JSONArray(citizen.getString("billboard"));
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject billboard = array.getJSONObject(i);
                                 JSONObject type_billboard = billboard.getJSONObject("billboard");
+
                                 PlateData board = new PlateData();
                                 board.setPlateType(type_billboard.getString("name"));
                                 board.setLength(String.valueOf(billboard.getDouble("height")));

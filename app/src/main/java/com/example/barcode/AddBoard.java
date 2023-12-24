@@ -178,7 +178,7 @@ public class AddBoard extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("height", length.getText().toString().trim());
-                map.put("wideth", width.getText().toString().trim());
+                map.put("width", width.getText().toString().trim());
                 map.put("count", quan.getText().toString().trim());
                 map.put("billboard_id", String.valueOf(index));
                 map.put("vir_org_id", String.valueOf(id));

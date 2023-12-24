@@ -361,7 +361,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
                 BitmapFactory.Options options = new BitmapFactory.Options();
-      //          options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
+//                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
                 bitmap = BitmapFactory.decodeStream(inputStream, null, options);
             } catch (IOException e) {
                 e.printStackTrace();
