@@ -361,7 +361,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
                 BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
+                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
                 bitmap = BitmapFactory.decodeStream(inputStream, null, options);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -627,7 +627,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 map.put("org_name", shop_name.getText().toString().trim());
                 map.put("owner_name", owner_name.getText().toString().trim());
                 map.put("owner_phone", phone_no.getText().toString().trim());
-                map.put("building_type_id", "1");
                 map.put("org_type_id", selectedshopstypID);
                 map.put("street_id", selectedstreetID);
                 map.put("hood_unit_id", selectedstreetID);
