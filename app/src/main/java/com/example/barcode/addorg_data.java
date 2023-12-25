@@ -2,6 +2,7 @@ package com.example.barcode;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -72,6 +73,7 @@ import java.util.Map;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
+    ProgressDialog loading;
     private static final int PICK_IMAGE_REQUEST = 123;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final int THUMBNAIL_SIZE = 500;
@@ -82,7 +84,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     RelativeLayout pickimagebtn;
     ViewPager viewPager;
     Uri ImageUri;
-    Uri ImageUri2;
     ArrayAdapter<String> streetAdapter, shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
     List<String> name_street, name_shops_type;
@@ -437,8 +438,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private void test() {
         ArrayList<HashMap<String, String>> product_category = new ArrayList<>();
         ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
-        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-        progressDialog.show();
+        loading = new ProgressDialog(addorg_data.this);
+        loading.setMessage("انتظر من فضلك. . .");
+        loading.setCancelable(false);
+        loading.show();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -489,7 +492,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
+                loading.dismiss();
 
             }
         }, new Response.ErrorListener() {
@@ -525,7 +528,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     }
                 }
                 Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                loading.dismiss();
             }
 
         }) {
@@ -549,8 +552,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
 
     private List<shops> saveData() {
-        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-        progressDialog.show();
+        loading = new ProgressDialog(addorg_data.this);
+        loading.setMessage("انتظر من فضلك. . .");
+        loading.setCancelable(false);
+        loading.show();
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
             @Override
@@ -570,7 +575,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
+                loading.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -605,7 +610,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }
                 Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                loading.dismiss();
             }
 
         }) {
@@ -684,75 +689,3 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
 }
-
-//    private void sendImage(Uri imageUri) {
-//        // Get the actual file path from the URI
-//
-//        // Replace URL with your server endpoint
-////        String url = "https://yourserver.com/api/upload";
-//
-//        Map<String, String> map = new HashMap<>();
-//        map.put("org_name", shop_name.getText().toString().trim());
-//        map.put("owner_name", owner_name.getText().toString().trim());
-//        map.put("owner_phone", phone_no.getText().toString().trim());
-//        map.put("building_type_id", "1");
-//        map.put("org_type_id", selectedshopstypID);
-//        map.put("street_id", selectedstreetID);
-//        map.put("hood_unit_id", selectedstreetID);
-//        map.put("note", note.getText().toString().trim());
-//        map.put("log_x", String.valueOf(latitude));
-//        map.put("log_y", String.valueOf(longitude));
-//        Log.d("ALL_MAP",map.get("org_name"));
-//        String token = sharedPreferences.getString("token", "");
-//
-//        String imagePath = FileUtils.getPathFromUri(this, imageUri);
-//        File imageFile = new File(imagePath);
-//
-//        progressBar.setVisibility(View.VISIBLE);
-//        MultipartRequest multipartRequest = new MultipartRequest(URLs.Insert_Data, imageFile, map, token,
-//                response -> {
-//                    try {
-//                        JSONObject object = new JSONObject(response);
-//                        if (object.getBoolean("success")) {
-//                            Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(addorg_data.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                        else {
-//                            Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                    progressBar.setVisibility(View.GONE);
-//                },
-//                error -> {
-//                    error.printStackTrace();
-//                    Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    progressBar.setVisibility(View.GONE);
-//                });
-//
-//// Add the request to the RequestQueue
-//        MySingleton.getInstance(this).getRequestQueue().add(multipartRequest);
-//    }
-
-
-//class FileUtils {
-//
-//    public static String getPathFromUri(Context context, Uri uri) {
-//        String filePath = null;
-//        String[] projection = {MediaStore.Images.Media.DATA};
-//        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
-//
-//        if (cursor != null) {
-//            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            cursor.moveToFirst();
-//            filePath = cursor.getString(columnIndex);
-//            cursor.close();
-//        }
-//
-//        return filePath;
-//    }
-//}

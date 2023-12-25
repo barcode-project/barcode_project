@@ -1,5 +1,6 @@
 package com.example.barcode;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,12 +43,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class shops_details extends AppCompatActivity {
+    ProgressDialog loading;
 
     private TemplatePDF templatePDF;
     private ImageView bt_exit;
@@ -57,11 +60,10 @@ public class shops_details extends AppCompatActivity {
     AppCompatButton show_billboard;
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
-    private List<PlateData> Plate ;
+    DecimalFormat f;
+    String currency = "R ", activitytype, shopname, shop_contact, ownername, longitudelength, latitudewidth, shortText, local_fee, clean_pay, total_ad, el_gate, office_txt, direct_txt;
+    double total_price, getlocal_fee, getclean_pay, gettotal_ad, getel_gate;
 
-    String currency="R" ,activitytype, shopname, shop_contact, ownername,longitudelength,latitudewidth, shortText,local_fee,clean_pay,total_ad,el_gate;
-
-    String insitiution_number = "08967674490", order_time, order_date = "12/12/2000";
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
     private String[] header = {"المبلغ", "الرسوم"};
@@ -69,31 +71,33 @@ public class shops_details extends AppCompatActivity {
     Bitmap bm = null;
     private static final int REQUEST_CONNECT = 100;
     private int id;
+    private List<PlateData> Plate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_details);
-        progressBar=findViewById(R.id.all_details_progressBar);
-        bt_exit=findViewById(R.id.shops_exit);
-        id_no=findViewById(R.id.insitiution_no);
-        last_licens=findViewById(R.id.last_license);
-        owner_name=findViewById(R.id.owner_name);
-        shop_name=findViewById(R.id.shop_name);
-        phone_no=findViewById(R.id.phone_no);
-        activity_type=findViewById(R.id.activity_type);
-        neighbor_unit=findViewById(R.id.neighbor_unit);
-        address_unit=findViewById(R.id.address_unit);
+        progressBar = findViewById(R.id.all_details_progressBar);
+        bt_exit = findViewById(R.id.shops_exit);
+        id_no = findViewById(R.id.insitiution_no);
+        last_licens = findViewById(R.id.last_license);
+        owner_name = findViewById(R.id.owner_name);
+        shop_name = findViewById(R.id.shop_name);
+        phone_no = findViewById(R.id.phone_no);
+        activity_type = findViewById(R.id.activity_type);
+        neighbor_unit = findViewById(R.id.neighbor_unit);
+        address_unit = findViewById(R.id.address_unit);
         show_billboard = findViewById(R.id.show_billboard);
-        btnThermalPrinter=findViewById(R.id.printBtn);
-        btnPdfReceipt=findViewById(R.id.save_pdf_Btn);
+        btnThermalPrinter = findViewById(R.id.printBtn);
+        btnPdfReceipt = findViewById(R.id.save_pdf_Btn);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        id = getIntent().getIntExtra("id",0);
+        id = getIntent().getIntExtra("id", 0);
+        direct_txt = String.valueOf("مديرية " + sharedPreferences.getString("direct_name", ""));
+        office_txt = String.valueOf("مكتب " + sharedPreferences.getString("office_name", ""));
         Log.d("id", String.valueOf(id));
+        f = new DecimalFormat("#0,000.00");
 
         test();
-
-        shortText = "Customer Name: Mr/Mrs. " + "customer_name";
 
         longText = new String[]{"نشكركم"};
 
@@ -116,17 +120,22 @@ public class shops_details extends AppCompatActivity {
 
 
         btnPdfReceipt.setOnClickListener(v -> {
-            templatePDF = new TemplatePDF(getApplicationContext());
-            templatePDF.openDocument();
-            //templatePDF.addMetaData("دائرة الخدمات الالكترونية", "تراخيص المهن", "YQR");
-            //templatePDF.addTitle(shopname, shop_address + "\n ايميل" + shop_email + "\nContact: " + shop_contact + "\nInvoice ID:" + insitiution_number, order_time + " " + order_date);
-            // templatePDF.addParagraph(shortText);
-            templatePDF.createHeader(shortTex,gethaderData());
-            templatePDF.createTable(header, getOrdersData());
-            templatePDF.addRightParagraph(longText);
-            templatePDF.addImage(bm);
-            templatePDF.closeDocument();
-            templatePDF.viewPDF();
+            try {
+                templatePDF = new TemplatePDF(getApplicationContext());
+                templatePDF.openDocument();
+                //templatePDF.addMetaData("دائرة الخدمات الالكترونية", "تراخيص المهن", "YQR");
+                //templatePDF.addTitle(shopname, shop_address + "\n ايميل" + shop_email + "\nContact: " + shop_contact + "\nInvoice ID:" + insitiution_number, order_time + " " + order_date);
+                // templatePDF.addParagraph(shortText);
+                templatePDF.createHeader(shortTex, gethaderData());
+                templatePDF.createTable(header, getOrdersData());
+                templatePDF.addRightParagraph(longText);
+                templatePDF.addImage(bm);
+                templatePDF.closeDocument();
+                templatePDF.viewPDF();
+            }catch (Exception e)  {
+                e.printStackTrace();
+                Toast.makeText(shops_details.this,  "لاتوجد حافظة\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
         });
 
@@ -143,6 +152,7 @@ public class shops_details extends AppCompatActivity {
         show_billboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 showListDialog();
             }
         });
@@ -172,42 +182,52 @@ public class shops_details extends AppCompatActivity {
                 }
             }catch (Exception e)  {
                     e.printStackTrace();
-                    Toast.makeText(shops_details.this,  "لاتوجد احداثيات" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }}
+                    Toast.makeText(shops_details.this,  "لاتوجد احداثيات\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
 
-
     }
-String price=total_ad+clean_pay+ local_fee+ el_gate;
+
+
     private ArrayList<String[]> getOrdersData() {
+        gettotal_ad = Double.valueOf(total_ad);
+        getclean_pay = Double.valueOf(clean_pay);
+        getlocal_fee = Double.valueOf(local_fee);
+        getel_gate = Double.valueOf(el_gate);
+        total_price = gettotal_ad + getclean_pay + getlocal_fee + getel_gate;
         ArrayList<String[]> rows = new ArrayList<>();
-        rows.add(new String[]{currency + el_gate, "رسوم البوابة الالكترونية"});
-        rows.add(new String[]{currency + local_fee, "الرسوم المحلية"});
-        rows.add(new String[]{currency + total_ad,"الدعاية والاعلان"});
-        rows.add(new String[]{currency + clean_pay,"نظافة المهن"});
+        rows.add(new String[]{currency + f.format(getel_gate), "رسوم البوابة الالكترونية"});
+        rows.add(new String[]{currency + f.format(getlocal_fee), "الرسوم المحلية"});
+        rows.add(new String[]{currency + f.format(gettotal_ad), "الدعاية والاعلان"});
+        rows.add(new String[]{currency + f.format(getclean_pay), "نظافة المهن"});
         rows.add(new String[]{"..................................", "......................................."});
-        rows.add(new String[]{currency + price,"الإجمالي"});
+        rows.add(new String[]{currency + f.format(total_price), "الإجمالي"});
         return rows;
     }
     private ArrayList<String[]> gethaderData() {
         ArrayList<String[]> rows = new ArrayList<>();
 //        rows.add(new String[]{ shopname});
         rows.add(new String[]{"دائرة الخدمات الالكترونية"});
-        rows.add(new String[]{"مديرية الوحدة"});
-        rows.add(new String[]{"نظافة مهن"});
+        rows.add(new String[]{direct_txt});
+        rows.add(new String[]{office_txt});
         rows.add(new String[]{"الوقت والتاريخ"});
-        rows.add(new String[]{" نوع النشاط: "+activitytype});
-        rows.add(new String[]{"اسم المنشأه: "+shopname});
-        rows.add(new String[]{"اسم المالك: "+ownername});
+        rows.add(new String[]{" نوع النشاط: " + activitytype});
+        rows.add(new String[]{"اسم المنشأه: " + shopname});
+        rows.add(new String[]{"اسم المالك: " + ownername});
         rows.add(new String[]{"رقم التواصل"});
 
         return rows;
     }
 
         private List<shops> test() {
-            ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-            progressDialog.show();
+//            ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
+//            progressDialog.show();
+            loading = new ProgressDialog(shops_details.this);
+            loading.setMessage("انتظر من فضلك. . .");
+            loading.setCancelable(false);
+            loading.show();
             List<shops> shops = new ArrayList<>();
             List<PlateData> list = new ArrayList<>();
             StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Org, new Response.Listener<String>() {
@@ -225,16 +245,8 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
                             address_unit.setText(citizen.getString("street_name"));
                             activity_type.setText(citizen.getString("org_type_name"));
 //                            shownote.setText(citizen.getString("note"));
-                            longitudelength=citizen.getString("log_y");
-                            latitudewidth=citizen.getString("log_x");
-
-                            JSONObject array2 = citizen.getJSONObject("clip_board");
-                            el_gate = String.valueOf(array2.getInt("el_gate"));//'رسوم البوابة الالكترونية'
-                            local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
-                            clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
-                            total_ad = String.valueOf(array2.getInt("total_ad"));//اجمالي رسوم الدعاية والاعلان
-//                            String s4= array2.getString("clip_status");
-
+                            longitudelength = citizen.getString("log_y");
+                            latitudewidth = citizen.getString("log_x");
                             JSONArray array = new JSONArray(citizen.getString("billboard"));
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject billboard = array.getJSONObject(i);
@@ -248,8 +260,15 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
 
                                 list.add(board);
                             }
-
                             Plate = list;
+                            JSONObject array2 = citizen.getJSONObject("clip_board");
+                            el_gate = String.valueOf(array2.getInt("el_gate"));//'رسوم البوابة الالكترونية'
+                            local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
+                            clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
+                            total_ad = String.valueOf(array2.getInt("total_ad"));//اجمالي رسوم الدعاية والاعلان
+//                            String s4= array2.getString("clip_status");
+
+
                             Log.d("ALL_SHOPS_RESP", String.valueOf(citizen));
                         }
 
@@ -262,8 +281,8 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
                         e.printStackTrace();
                         Toast.makeText(shops_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    progressDialog.dismiss();
-
+//                    progressDialog.dismiss();
+                    loading.dismiss();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -316,6 +335,8 @@ String price=total_ad+clean_pay+ local_fee+ el_gate;
         }
 
     private void showListDialog() {
+
         ListDialog.showListDialog(this, "اللوحات", Plate);
+
     }
 }

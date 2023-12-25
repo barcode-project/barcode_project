@@ -1,10 +1,10 @@
 package com.example.barcode;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class resetpass extends AppCompatActivity {
+    ProgressDialog loading;
     TextInputEditText old_pass,new_pass;
     AppCompatButton resetpassbtn;
     TextInputLayout layout_new_pass,layout_old_pass;
@@ -61,8 +62,10 @@ public class resetpass extends AppCompatActivity {
     }
 
     private void reset (){
-        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-        progressDialog.show();
+        loading = new ProgressDialog(resetpass.this);
+        loading.setMessage("انتظر من فضلك. . .");
+        loading.setCancelable(false);
+        loading.show();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Reset_Password, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -86,14 +89,14 @@ public class resetpass extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(resetpass.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
+                loading.dismiss();
 
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                loading.dismiss();
                 error.printStackTrace();
 //                Toast.makeText(resetpass.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 String errorMessage = "حدث خطأ أثناء تسجيل الدخول. الرجاء معاودة المحاولة في وقت لاحق.";

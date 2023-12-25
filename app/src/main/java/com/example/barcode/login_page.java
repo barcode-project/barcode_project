@@ -1,5 +1,6 @@
 package com.example.barcode;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login_page extends AppCompatActivity {
+
+    ProgressDialog loading;
     Button signInBtn;
     private TextInputEditText usernamekey,Passwordtext;
 
@@ -49,9 +52,13 @@ public class login_page extends AppCompatActivity {
         });
 
     }
+    /** @noinspection deprecation*/
     private void login (){
-        ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-        progressDialog.show();
+
+        loading = new ProgressDialog(login_page.this);
+        loading.setMessage("انتظر من فضلك. . .");
+        loading.setCancelable(false);
+        loading.show();
 
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Login, new Response.Listener<String>() {
             @Override
@@ -94,14 +101,14 @@ public class login_page extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(login_page.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
+                loading.dismiss();
 
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                loading.dismiss();
                 error.printStackTrace();
                 Toast.makeText(login_page.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 //                String errorMessage = "حدث خطأ أثناء تسجيل الدخول. الرجاء معاودة المحاولة في وقت لاحق.";

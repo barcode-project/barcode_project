@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ProgressBar;
 
 public class ProgressDialogBuilder {
 
@@ -16,6 +15,7 @@ public class ProgressDialogBuilder {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.progress_dialog_layout, null);
         builder.setView(view);
+//        builder.setMessage("انتظر من فضلك. . .");
         builder.setCancelable(false); // Optional: Set if the dialog can be canceled
 
         dialog = builder.create();

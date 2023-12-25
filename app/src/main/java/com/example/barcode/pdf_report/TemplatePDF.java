@@ -3,6 +3,7 @@ package com.example.barcode.pdf_report;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
 
 import com.itextpdf.text.BaseColor;
@@ -20,7 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class TemplatePDF {
@@ -67,10 +68,11 @@ public class TemplatePDF {
             Rectangle pageSize = new Rectangle(164.41f, 500.41f); //14400 //for 58 mm pos printer
             //document=new Document(PageSize.A4);
             document=new Document(pageSize);
-            document.addLanguage("ar");
-            pdfWriter=PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                pdfWriter=PdfWriter.getInstance(document, Files.newOutputStream(pdfFile.toPath()));
+            }
             pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_NO_BIDI );
-            pdfWriter.setLanguage("ar");
+
             document.open();
         }catch (Exception e)
         {
@@ -248,7 +250,7 @@ public class TemplatePDF {
 
         try {
             paragraph = new Paragraph();
-            paragraph.setFont(fText);
+            paragraph.setFont(fTitle);
             PdfPTable pdfPTable = new PdfPTable(header.length);
             pdfPTable.setWidthPercentage(100);
             pdfPTable.setSpacingBefore(4);

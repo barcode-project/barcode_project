@@ -227,9 +227,6 @@ public class AddedShopDetails extends AppCompatActivity {
     }
 
     private void showListDialog() {
-//        List<PlateData> items = new ArrayList<>();
-//        items.add(new PlateData("جانبية", "1", "2","4"));
-//        items.add(new PlateData("امامية", "1", "1","3"));
 
         ListDialog.showListDialog(this, "اللوحات", Plate);
     }
