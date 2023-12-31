@@ -4,6 +4,7 @@ public class shops {
     private String name_shop;
     private String owner_name;
     private String status;
+    private String Owner_namefullname;
 
     private int id;
 
@@ -11,11 +12,21 @@ public class shops {
 
     }
 
-    public shops(String name_shop, String owner_name, String status, int id) {
+
+    public shops(String name_shop, String owner_name, String status, int id, String Owner_namefullname) {
         this.name_shop = name_shop;
         this.owner_name = owner_name;
         this.status = status;
         this.id = id;
+        this.Owner_namefullname = Owner_namefullname;
+    }
+
+    public String getOwner_namefullname() {
+        return Owner_namefullname;
+    }
+
+    public void setOwner_namefullname(String owner_namefullname) {
+        Owner_namefullname = owner_namefullname;
     }
 
     public String getOwner_name() {
