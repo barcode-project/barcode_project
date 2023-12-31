@@ -111,17 +111,21 @@ public class AddedShopDetails extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double latitude = Double.parseDouble(latitudewidth); // خط العرض لموقع العميل
-                double longitude = Double.parseDouble(longitudelength); // خط الطول لموقع العميل
-                String label = "موقع العميل"; // اسم الموقع الذي سيظهر في خرائط جوجل
+                try {
+                    double latitude = Double.parseDouble(latitudewidth); // خط العرض لموقع العميل
+                    double longitude = Double.parseDouble(longitudelength); // خط الطول لموقع العميل
+                    String label = "موقع العميل"; // اسم الموقع الذي سيظهر في خرائط جوجل
 
+                    String uri = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(" + label + ")";
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps"); // تحديد تطبيق خرائط جوجل
 
-                String uri = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(" + label + ")";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setPackage("com.google.android.apps.maps"); // تحديد تطبيق خرائط جوجل
-
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                }catch (Exception e)  {
+                    e.printStackTrace();
+                    Toast.makeText(AddedShopDetails.this,  "لاتوجد احداثيات\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

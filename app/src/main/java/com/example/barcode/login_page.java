@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -129,7 +129,7 @@ public class login_page extends AppCompatActivity {
 
             // add parameters
 
-            @Nullable
+            @NonNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map = new HashMap<>();
@@ -165,18 +165,6 @@ public class login_page extends AppCompatActivity {
         return true;
     }
 
-    private boolean validate2() {
-        //first getting the values
-        final String mySSn = usernamekey.getText().toString().trim();
-        final String myPassword = Passwordtext.getText().toString().trim();
 
-        //validating inputs
-        if (mySSn == "11" && myPassword == "11" ) {
-            return true;
-        }
-        Toast.makeText(this, "خطأ في اسم المستخدم او كلمة المرور", Toast.LENGTH_SHORT).show();
-            return false;
-
-    }
 
 }

@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_4sdp"
                     android:layout_marginVertical="@dimen/_10sdp"
-                    android:hint="أخر ترخيص"
+                    android:hint="حالة الترخيص"
                     android:textColorHint="#616161">
 
                     <com.google.android.material.textfield.TextInputEditText

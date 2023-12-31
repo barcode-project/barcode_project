@@ -23,7 +23,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/list_item1_root_cardView"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="@color/white"
@@ -43,33 +43,45 @@
             android:layout_marginEnd="24dp">
 
             <TextView
-                android:id="@+id/notificationtime"
+                android:id="@+id/history_winer_nam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:fontFamily="@font/boldiphone"
+                android:textColor="#A81015"
+                android:textDirection="ltr"
+                android:textSize="11sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/notificationtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:fontFamily="@font/boldiphone"
                 android:text="قبل 5 ساعات"
                 android:textColor="#A81015"
                 android:textDirection="ltr"
                 android:textSize="11sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/history_item_name"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/history_item_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/history_winer_nam" />
 
             <TextView
                 android:id="@+id/history_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="16dp"
+
                 android:fontFamily="@font/boldiphone"
                 android:textColor="@color/custom"
                 android:textDirection="rtl"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/notificationtime"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/history_item_name"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@+id/notificationtime"
+                app:layout_constraintTop_toBottomOf="@id/history_winer_nam"
                 tools:text="الحي السياسي" />
 
             <TextView
@@ -80,11 +92,12 @@
                 android:fontFamily="@font/boldiphone"
                 android:textDirection="rtl"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/history_item_name"
                 tools:text="عبده فارع سعيد" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

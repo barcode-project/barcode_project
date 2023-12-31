@@ -54,7 +54,7 @@ public class shops_details extends AppCompatActivity {
 
     private TemplatePDF templatePDF;
     private ImageView bt_exit;
-    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit;
+    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit,last_license;
     TextView front_signboard, side_signboard, elec_signboard, supetficail_signboard, stuck_signboard, mural_signborard, totl_price;
     Button btnPdfReceipt, btnThermalPrinter;
     AppCompatButton show_billboard;
@@ -90,12 +90,13 @@ public class shops_details extends AppCompatActivity {
         show_billboard = findViewById(R.id.show_billboard);
         btnThermalPrinter = findViewById(R.id.printBtn);
         btnPdfReceipt = findViewById(R.id.save_pdf_Btn);
+        last_license=findViewById(R.id.last_license);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id", 0);
         direct_txt = String.valueOf("مديرية " + sharedPreferences.getString("direct_name", ""));
         office_txt = String.valueOf("مكتب " + sharedPreferences.getString("office_name", ""));
         Log.d("id", String.valueOf(id));
-        f = new DecimalFormat("#0,000.00");
+        f = new DecimalFormat("#0");
 
         test();
 
@@ -244,6 +245,7 @@ public class shops_details extends AppCompatActivity {
                             phone_no.setText(citizen.getString("owner_phone"));
                             address_unit.setText(citizen.getString("street_name"));
                             activity_type.setText(citizen.getString("org_type_name"));
+                            last_license.setText(citizen.getString("license_status"));
 //                            shownote.setText(citizen.getString("note"));
                             longitudelength = citizen.getString("log_y");
                             latitudewidth = citizen.getString("log_x");
@@ -306,6 +308,7 @@ public class shops_details extends AppCompatActivity {
                     }
                     Toast.makeText(shops_details.this, errorMessage, Toast.LENGTH_SHORT).show();
     //                progressBar.setVisibility(View.GONE);
+                    loading.dismiss();
                 }
 
             }) {

@@ -36,11 +36,12 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
         return new shopsViewHolder(view);
     }
 
-    @Override
+       @Override
     public void onBindViewHolder(@NonNull shopsViewHolder holder, int position) {
         shops shop =shopsList.get(position);
         holder.name_shops.setText(shop.getName_shop());
         holder.owner_name.setText(shop.getOwner_name());
+        holder.namefullname.setText( shop.getOwner_namefullname());
         if(flag == 2) {
             if (shop.getStatus().equals("0")) {
                 holder.status.setText("لم تنقل");
@@ -77,16 +78,17 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
     }
 
     public class shopsViewHolder extends RecyclerView.ViewHolder {
-        TextView name_shops,status, id_nu,owner_name;
+        TextView name_shops, status, id_nu, owner_name, namefullname;
         CardView cv;
 
         public shopsViewHolder(@NonNull View itemView) {
             super(itemView);
-            name_shops= itemView.findViewById(R.id.history_item_name);
+            name_shops = itemView.findViewById(R.id.history_item_name);
             status = itemView.findViewById(R.id.notificationtime);
             owner_name = itemView.findViewById(R.id.history_winer_name);
             id_nu = itemView.findViewById(R.id.id_number);
-            cv= itemView.findViewById(R.id.list_item1_root_cardView);
+            namefullname = itemView.findViewById(R.id.history_winer_nam);
+            cv = itemView.findViewById(R.id.list_item1_root_cardView);
 
         }
     }
