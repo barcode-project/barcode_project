@@ -129,7 +129,7 @@ public class AddBoard extends AppCompatActivity {
         return true;
     }
 
-    private List<shops> saveData() {
+    private void saveData() {
         progressBar.setVisibility(View.VISIBLE);
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Board, new Response.Listener<String>() {
@@ -192,6 +192,5 @@ public class AddBoard extends AppCompatActivity {
         queue.add(request);
 //        MySingleton.getInstance(this).getRequestQueue().add(request);
 
-        return shops;
     }
 }

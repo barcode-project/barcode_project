@@ -152,7 +152,7 @@ public class AddedShopDetails extends AppCompatActivity {
     }
 
 
-    private List<shops> test() {
+    private void test() {
         List<shops> shops = new ArrayList<>();
         List<PlateData> list = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Get_Vir_Org, new Response.Listener<String>() {
@@ -247,7 +247,6 @@ public class AddedShopDetails extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
 
-        return shops;
     }
 
     private void showListDialog() {

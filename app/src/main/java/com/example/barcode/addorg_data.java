@@ -64,6 +64,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -82,18 +83,23 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     Button uploadButton;
     ContentLoadingProgressBar progressBar;
     double latitude, longitude;
-    RelativeLayout pickimagebtn;
+    RelativeLayout pickimagebtn,pickimagebtn2,pickimagebtn3;
     ViewPager viewPager;
+    ImageView imageView,imageView2,imageView3;
     Uri ImageUri;
     ArrayAdapter<String> streetAdapter, shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
+//    ArrayList<Bitmap> bitmapList = new ArrayList<>();
     List<String> name_street, name_shops_type;
     String selectedstreetID, selectedshopstypID, DoorsNumbers, OwnerName, ShopName, PhoneNo, ShopType, Note, NameStreet;
     List<HashMap<String, String>> productCategory, shopsCategory;
     private SharedPreferences sharedPreferences;
-    private Bitmap bitmap ;
+    private Bitmap bitmap,bitmap2,bitmap3 = null;
     private LatLng currentLatLng;
     private GoogleMap googleMap;
+    private static final int PICK_IMAGE_REQUEST_1 = 1;
+    private static final int PICK_IMAGE_REQUEST_2 = 2;
+    private static final int PICK_IMAGE_REQUEST_3 = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_addorg_data);
         progressBar = findViewById(R.id.add_org_progressBar);
         pickimagebtn = findViewById(R.id.chooseImage);
+        pickimagebtn2 = findViewById(R.id.chooseImage2);
+        pickimagebtn3 = findViewById(R.id.chooseImage3);
         viewPager = findViewById(R.id.viewPager);
         ImageView add_shops_exit = findViewById(R.id.add_shops_exit);
         uploadButton = findViewById(R.id.upload_bt);
@@ -111,6 +119,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         shop_type = findViewById(R.id.shop_type);
         phone_no = findViewById(R.id.phone_no);
         note = findViewById(R.id.note);
+        imageView = findViewById(R.id.imageView);
+        imageView2 = findViewById(R.id.imageView2);
+        imageView3 = findViewById(R.id.imageView3);
         GPSUtils gpsUtils = new GPSUtils(this);
         gpsUtils.statusCheck(findViewById(android.R.id.content));
 
@@ -278,7 +289,23 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                Checkpermission();
+                Checkpermission(PICK_IMAGE_REQUEST_1);
+
+            }
+        });
+        pickimagebtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Checkpermission(PICK_IMAGE_REQUEST_2);
+
+            }
+        });
+        pickimagebtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Checkpermission(PICK_IMAGE_REQUEST_3);
 
             }
         });
@@ -316,7 +343,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void Checkpermission() {
+    private void Checkpermission(int requestCode) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(addorg_data.this,
@@ -325,62 +352,119 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PICK_IMAGE_REQUEST);
             } else {
 
-                pickimageftomgallry();
+                pickimageftomgallry(requestCode);
 
             }
         } else {
 
-            pickimageftomgallry();
+            pickimageftomgallry(requestCode);
 
         }
     }
 
-    private void pickimageftomgallry() {
+    private void pickimageftomgallry(int requestCode) {
         Intent intent = new Intent(addorg_data.this, ImageSelectActivity.class);
         intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);//default is true
         intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
         intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, requestCode);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            ImageUri = Uri.parse(data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH));
-
-            chooseImageList.add(ImageUri);
-            SetAdapter();
-
-            // تحقق من أن النص (Path) الذي تم استخدامه لإنشاء ملف (File) صحيح
-//            File f = new File(ImageUri.getPath());
-            File f = new File(ImageUri.getPath());
-            Uri test = Uri.fromFile(f);
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(test);
-
-                // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
-                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
-                bitmap = BitmapFactory.decodeStream(inputStream, null, options);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("bitmap_IMG_ORG", e.toString());
+        if (resultCode == RESULT_OK && data != null) {
+        String imagePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
+        ImageUri = Uri.parse(imagePath);
+            switch (requestCode) {
+                case PICK_IMAGE_REQUEST_1:
+                    imageView.setImageURI(ImageUri);
+                    try {
+                        // Use the imageUri to open an InputStream and decode it into a Bitmap
+//                        File f = new File(ImageUri.getPath());
+//                        Uri test = Uri.fromFile(f);
+//                        InputStream inputStream = getContentResolver().openInputStream(ImageUri);
+                        bitmap = BitmapFactory.decodeFile(imagePath);
+//                        bitmap = BitmapFactory.decodeStream(inputStream);
+//                        inputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("bitmap_IMG_ORG", e.toString());
+                    }
+                    break;
+                case PICK_IMAGE_REQUEST_2:
+                    imageView2.setImageURI(ImageUri);
+                    try {
+                        // Use the imageUri to open an InputStream and decode it into a Bitmap
+//                        File f = new File(ImageUri.getPath());
+//                        Uri test = Uri.fromFile(f);
+//                        InputStream inputStream = getContentResolver().openInputStream(ImageUri);
+//                        bitmap2 = BitmapFactory.decodeStream(inputStream);
+                        bitmap2 = BitmapFactory.decodeFile(imagePath);
+//                        inputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("bitmap_IMG_ORG", e.toString());
+                    }
+                    break;
+                case PICK_IMAGE_REQUEST_3:
+                    imageView3.setImageURI(ImageUri);
+                    try {
+                        // Use the imageUri to open an InputStream and decode it into a Bitmap
+//                        File f = new File(ImageUri.getPath());
+//                        Uri test = Uri.fromFile(f);
+//                        InputStream inputStream = getContentResolver().openInputStream(ImageUri);
+//                        bitmap3 = BitmapFactory.decodeStream(inputStream);
+                        bitmap3 = BitmapFactory.decodeFile(imagePath);
+//                        inputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("bitmap_IMG_ORG", e.toString());
+                    }
+                    break;
             }
+
+
+////            chooseImageList.add(ImageUri);
+////            SetAdapter();
+////            ImageUri = Uri.parse(data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH));
+////            imageView.setImageURI(ImageUri);
+//
+//            // تحقق من أن النص (Path) الذي تم استخدامه لإنشاء ملف (File) صحيح
+//            File f = new File(ImageUri.getPath());
+//            Uri test = Uri.fromFile(f);
+//            try {
+//                InputStream inputStream = getContentResolver().openInputStream(test);
+//
+//                // تحسين طريقة تحويل Uri إلى Bitmap باستخدام BitmapFactory.Options
+////                BitmapFactory.Options options = new BitmapFactory.Options();
+////                options.inSampleSize = 4; // قلل حجم الصورة إلى الربع
+////                bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+//                bitmap = BitmapFactory.decodeStream(inputStream);
+////                bitmapList.add(bitmap);
+////                String s = bitmapToString(bitmap);
+////                Log.d("BITMAP",s);
+//                inputStream.close();
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Log.d("bitmap_IMG_ORG", e.toString());
+//            }
         }
     }
 
 
 
 
-    private void SetAdapter() {
-
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, chooseImageList);
-        viewPager.setAdapter(adapter);
-
-    }
+//    private void SetAdapter() {
+//
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(this, chooseImageList);
+//        viewPager.setAdapter(adapter);
+//
+//    }
 
     private void requestLocationUpdates() {
         if (googleMap != null) {
@@ -551,7 +635,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-    private List<shops> saveData() {
+    private void saveData() {
         loading = new ProgressDialog(addorg_data.this);
         loading.setMessage("انتظر من فضلك. . .");
         loading.setCancelable(false);
@@ -642,6 +726,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 map.put("log_x", String.valueOf(latitude));
                 map.put("log_y", String.valueOf(longitude));
                 map.put("org_image",bitmapToString(bitmap));
+//                map.put("org_image2",bitmapToString(bitmap2));
+//                map.put("org_image3",bitmapToString(bitmap3));
 
                 return map;
             }
@@ -654,7 +740,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         queue.add(request);
 //        MySingleton.getInstance(this).getRequestQueue().add(request);
 
-        return shops;
     }
 
     private String bitmapToString(Bitmap bitmap) {

@@ -142,7 +142,7 @@ public class all_shops_list extends AppCompatActivity {
     }
 
 
-    private List<shops> test() {
+    private void test() {
         liner.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         ReView.setVisibility(View.VISIBLE);
@@ -241,8 +241,5 @@ public class all_shops_list extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
-
-
-        return shops;
     }
 }

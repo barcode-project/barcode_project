@@ -272,7 +272,7 @@
                     android:fontFamily="@font/boldiphone"
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_marginHorizontal="@dimen/_30sdp"
-                    android:text="عرض اللوحات "
+                    android:text="عرض المرفقات "
                     android:textColor="@color/white"
                     android:textSize="17sp" />
             </LinearLayout>

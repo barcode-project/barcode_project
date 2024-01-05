@@ -220,7 +220,7 @@ public class shops_details extends AppCompatActivity {
         return rows;
     }
 
-        private List<shops> test() {
+        private void test() {
             loading = new ProgressDialog(shops_details.this);
             loading.setMessage("انتظر من فضلك. . .");
             loading.setCancelable(false);
@@ -330,7 +330,6 @@ public class shops_details extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(request);
-            return shops;
         }
 
     private void showListDialog() {
