@@ -1,6 +1,5 @@
-package com.example.barcode;
+package com.example.barcode.Adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.barcode.R;
+import com.example.barcode.Items.history;
+import com.example.barcode.org_details;
 
 import java.util.List;
 

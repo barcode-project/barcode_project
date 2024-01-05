@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.Items;
 
 public class history {
     private String time;

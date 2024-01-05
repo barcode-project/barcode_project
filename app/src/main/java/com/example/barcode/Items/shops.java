@@ -1,4 +1,4 @@
-package com.example.barcode;
+package com.example.barcode.Items;
 
 public class shops {
     private String name_shop;

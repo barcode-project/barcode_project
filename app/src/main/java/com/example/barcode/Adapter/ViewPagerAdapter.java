@@ -1,4 +1,4 @@
-package com.example.barcode.utils;
+package com.example.barcode.Adapter;
 
 import android.content.Context;
 import android.net.Uri;

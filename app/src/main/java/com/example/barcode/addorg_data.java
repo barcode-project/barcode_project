@@ -48,8 +48,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
-import com.example.barcode.utils.ViewPagerAdapter;
+import com.example.barcode.Adapter.ViewPagerAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -457,7 +458,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                             HashMap<String, String> map = new HashMap<String, String>();
                             map.put("street_id", String.valueOf(citizen.getInt("id")));
                             map.put("name_street", citizen.getString("name"));
-                            Log.d("ALL_SHOPS_RESPONSE", response);
                             product_category.add(map);
                             Log.d("ALL_SHOPS_RESPONSE", String.valueOf(citizen));
                         }
@@ -498,7 +498,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorMessage="??";
+                String errorMessage = "خطأ غير معروف";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
                     // handle time out error or no connection error
@@ -560,9 +560,11 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.d("RESPONSE_jk", response);
                 try {
                     JSONObject object = new JSONObject(response);
+
+
                     if (object.getBoolean("success")) {
                         Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(addorg_data.this, AddedOrgsList.class);
@@ -580,7 +582,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorMessage="??";
+                String errorMessage="خطاء غير معروف";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
                     // handle time out error or no connection error
@@ -609,7 +611,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     }
                     // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }
-                Toast.makeText(addorg_data.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
                 loading.dismiss();
             }
 

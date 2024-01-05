@@ -1,5 +1,6 @@
 package com.example.barcode;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -30,6 +32,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.barcode.Adapter.ViewPagerAdapter;
+import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -46,7 +50,7 @@ import java.util.Map;
 public class AddedShopDetails extends AppCompatActivity {
     private ImageView bt_exit;
     TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, shownote, address_unit,type,quan;
-    AppCompatButton show_billboard,add_btn;
+    AppCompatButton show_billboard,add_btn,show_image;
     ContentLoadingProgressBar progressBar;
     Button upload_billboard_bt;
     private SharedPreferences sharedPreferences;
@@ -55,6 +59,8 @@ public class AddedShopDetails extends AppCompatActivity {
     String selectedshopstypID,longitudelength,latitudewidth;
     List<HashMap<String, String>> shopsCategory;
     List<String> name_shops_type;
+    ArrayList<String> ImageList;
+
     Spinner spinner;
     String selectedItem;
     private List<PlateData> Plate ;
@@ -76,10 +82,11 @@ public class AddedShopDetails extends AppCompatActivity {
         address_unit=findViewById(R.id.address_unit);
         show_billboard = findViewById(R.id.show_billboard);
         add_btn = findViewById(R.id.add_btn);
+        show_image = findViewById(R.id.show_image);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id",0);
         Log.d("ALL_ID", String.valueOf(id));
-
+        ImageList = new ArrayList<>();
         test();
 
         show_billboard.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +134,19 @@ public class AddedShopDetails extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(AddedShopDetails.this,  "لاتوجد احداثيات\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        show_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(AddedShopDetails.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.viewpagerimage, null);
+                dialog.setView(dialogView);
+                ViewPager dialog_viewPager = dialogView.findViewById(R.id.viewPager);
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
+
+
             }
         });
     }
@@ -182,7 +202,7 @@ public class AddedShopDetails extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String errorMessage="??";
+                String errorMessage="خطأ غير معروف";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
                     // handle time out error or no connection error

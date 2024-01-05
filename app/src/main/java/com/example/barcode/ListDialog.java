@@ -3,7 +3,8 @@ package com.example.barcode;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.widget.ArrayAdapter;
+
+import com.example.barcode.Adapter.CustomListAdapter;
 
 import java.util.List;
 

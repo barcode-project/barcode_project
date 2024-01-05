@@ -31,6 +31,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.barcode.Adapter.adpter_shops;
+import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
 
 import org.json.JSONArray;
@@ -44,7 +46,7 @@ import java.util.Map;
 
 public class all_shops_list extends AppCompatActivity {
     private RecyclerView ReView;
-    private adpter_shops adpter_shops;
+    private com.example.barcode.Adapter.adpter_shops adpter_shops;
     private List<shops> shopsList;
     private ImageView all_shops_exit;
     private SearchView searchView;
@@ -100,13 +102,11 @@ public class all_shops_list extends AppCompatActivity {
 
 
         });
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            swipeRefreshLayout.setRefreshing(true);
-            new Handler().postDelayed(() -> {
+        swipeRefreshLayout.setOnRefreshListener(() ->  new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
                 test();
-            },  2000);
-        });
+            },  3000));
+
 
         swipeRefreshLayout.setColorSchemeColors(
                 getResources().getColor(android.R.color.holo_blue_bright),
@@ -143,7 +143,9 @@ public class all_shops_list extends AppCompatActivity {
 
 
     private List<shops> test() {
+        liner.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        ReView.setVisibility(View.VISIBLE);
         List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Orgs, new Response.Listener<String>() {
             @Override
@@ -191,39 +193,33 @@ public class all_shops_list extends AppCompatActivity {
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorMessage="??";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    // handle time out error or no connection error
-                } else if (error instanceof AuthFailureError) {
-                    errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
-                    // handle authentication failure error
-                } else if (error instanceof ServerError) {
-                    errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                    // handle server error
-                } else if (error instanceof NetworkError) {
-                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    // handle network error
-                } else if (error instanceof ParseError) {
-                    errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                    // handle JSON parsing error
-                } else if (error instanceof ServerError && error.networkResponse != null) {
-                    // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
-                    int statusCode = error.networkResponse.statusCode;
-                    if (statusCode == 400) {
-                        errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
-                    } else if (statusCode == 401) {
-                        errorMessage = "غير مصرح.";
-                    } else if (statusCode == 404) {
-                        errorMessage = "المورد غير موجود.";
-                    } else if (statusCode == 443) {
-                        errorMessage = "خطاء في الشهادة الامان.";
+                    String errorMessage = "خطأ غير معروف";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    } else if (error instanceof AuthFailureError) {
+                        errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                    } else if (error instanceof ServerError) {
+                        errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    } else if (error instanceof NetworkError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                    } else if (error instanceof ParseError) {
+                        errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    } else if (error instanceof ServerError && error.networkResponse != null) {
+                        int statusCode = error.networkResponse.statusCode;
+                        if (statusCode == 400) {
+                            errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                        } else if (statusCode == 401) {
+                            errorMessage = "غير مصرح.";
+                        } else if (statusCode == 404) {
+                            errorMessage = "المورد غير موجود.";
+                        } else if (statusCode == 443) {
+                            errorMessage = "خطاء في الشهادة الامان.";
+                        }
                     }
-                    // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
-                }
 
                 Toast.makeText(all_shops_list.this,errorMessage, Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
+                ReView.setVisibility(View.GONE);
                 texterror.setText(errorMessage);
                 liner.setVisibility(View.VISIBLE);
             }

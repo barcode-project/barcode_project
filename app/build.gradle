@@ -52,14 +52,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.1.0'
     implementation project(':lib-zxing')
     implementation project(':library-release')
-//   implementation 'com.google.zxing:core:3.5.2'
-//    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-
-    implementation 'com.itextpdf:itextg:5.5.10'
+   implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
-
-//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'com.github.maayyaannkk:ImagePicker:1.0.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

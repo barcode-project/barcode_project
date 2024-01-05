@@ -31,6 +31,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
 import com.example.barcode.pdf_report.BarCodeEncoder;
 import com.example.barcode.pdf_report.TemplatePDF;
@@ -55,8 +56,7 @@ public class shops_details extends AppCompatActivity {
     private TemplatePDF templatePDF;
     private ImageView bt_exit;
     TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit,last_license;
-    TextView front_signboard, side_signboard, elec_signboard, supetficail_signboard, stuck_signboard, mural_signborard, totl_price;
-    Button btnPdfReceipt, btnThermalPrinter;
+       Button btnPdfReceipt, btnThermalPrinter;
     AppCompatButton show_billboard;
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
@@ -190,8 +190,6 @@ public class shops_details extends AppCompatActivity {
 
 
     }
-
-
     private ArrayList<String[]> getOrdersData() {
         gettotal_ad = Double.valueOf(total_ad);
         getclean_pay = Double.valueOf(clean_pay);
@@ -223,8 +221,6 @@ public class shops_details extends AppCompatActivity {
     }
 
         private List<shops> test() {
-//            ProgressDialogBuilder progressDialog = new ProgressDialogBuilder(this);
-//            progressDialog.show();
             loading = new ProgressDialog(shops_details.this);
             loading.setMessage("انتظر من فضلك. . .");
             loading.setCancelable(false);
@@ -289,7 +285,7 @@ public class shops_details extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String errorMessage="??";
+                    String errorMessage = "خطأ غير معروف";
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                         errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
                         // handle time out error or no connection error

@@ -11,11 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.barcode.Adapter.adapter_history;
+import com.example.barcode.Items.history;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class qr_history extends AppCompatActivity {
-    private adapter_history adapter_history;
+    private com.example.barcode.Adapter.adapter_history adapter_history;
     private List<history> historyList;
     EditText historysearch;
 

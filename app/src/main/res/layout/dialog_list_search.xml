@@ -22,7 +22,7 @@
             android:text="عنوان الشارع"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/boldiphone"/>
 
     </LinearLayout>
 
@@ -70,13 +70,14 @@
         <Button
             android:id="@+id/dialog_button"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="match_parent"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_17ssp"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:background="@color/custom" />
+            android:background="@drawable/round_back_primary"
+            android:fontFamily="@font/boldiphone" />
 
     </LinearLayout>
 

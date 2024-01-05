@@ -4,10 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="hellow">hellow</string>
-
-    <string name="admob_application_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_interstitial_ads_id" translatable="false">"ca-app-pub-3940256099942544/1033173712"</string>
-
     <string name="connect_fail">خطأ في توصيل الطابعة</string>
     <string name="connect_lost">انقطع الاتصال</string>
     <string name="not_connected">لم يتم تأسيس الاتصال</string>
