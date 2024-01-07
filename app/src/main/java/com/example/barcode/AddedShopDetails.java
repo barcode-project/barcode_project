@@ -52,17 +52,10 @@ public class AddedShopDetails extends AppCompatActivity {
     TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, shownote, address_unit,type,quan;
     AppCompatButton show_billboard,add_btn,show_image;
     ContentLoadingProgressBar progressBar;
-    Button upload_billboard_bt;
     private SharedPreferences sharedPreferences;
     private int id;
-    ArrayAdapter<String> shopstypeAdapter;
-    String selectedshopstypID,longitudelength,latitudewidth;
-    List<HashMap<String, String>> shopsCategory;
-    List<String> name_shops_type;
-    ArrayList<String> ImageList;
-
-    Spinner spinner;
-    String selectedItem;
+    String longitudelength,latitudewidth;
+   
     private List<PlateData> Plate ;
 
 
@@ -86,7 +79,7 @@ public class AddedShopDetails extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id",0);
         Log.d("ALL_ID", String.valueOf(id));
-        ImageList = new ArrayList<>();
+        
         test();
 
         show_billboard.setOnClickListener(new View.OnClickListener() {
@@ -254,65 +247,4 @@ public class AddedShopDetails extends AppCompatActivity {
         ListDialog.showListDialog(this, "اللوحات", Plate);
     }
 
-//    private void openInputActivity() {
-//        // Create an AlertDialog.Builder instance
-//        AlertDialog.Builder builder = new AlertDialog.Builder(AddedShopDetails.this);
-//        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
-//        builder.setView(dialogView);
-//
-//
-//// Create the AlertDialog
-//        AlertDialog alertDialog2 = builder.create();
-//
-//// Show the AlertDialog
-//        spinner = findViewById(R.id.board_type);
-//        length = dialogView.findViewById(R.id.board_length);
-//        width = dialogView.findViewById(R.id.board_length);
-//        quan = dialogView.findViewById(R.id.board_quan);
-//        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
-//
-//
-//        // Create a list of items for the Spinner
-////        List<String> spinnerItems = new ArrayList<>();
-////        spinnerItems.add("Item 1");
-////        spinnerItems.add("Item 2");
-////        spinnerItems.add("Item 3");
-////
-////        // Create an ArrayAdapter using the string array and a default Spinner layout
-////        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
-////
-////        // Specify the layout to use when the list of choices appears
-////        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-////        // Apply the adapter to the Spinner
-////        spinner.setAdapter(adapter);
-////
-////        // Set a listener to handle Spinner item selection
-////        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-////            @Override
-////            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-////                // Get the selected item text
-////                selectedItem = spinnerItems.get(position);
-////
-////                // Do something with the selected item text (e.g., display in a Toast)
-////                Toast.makeText(AddedShopDetails.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
-////            }
-////
-////            @Override
-////            public void onNothingSelected(AdapterView<?> parentView) {
-////                // Do nothing here
-////            }
-////        });
-//        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                type.getText().toString();
-//                length.getText().toString();
-//                width.getText().toString();
-//                quan.getText().toString();
-//                alertDialog2.dismiss();
-//            }
-//        });
-//
-//        alertDialog2.show();
-//        }
 }
