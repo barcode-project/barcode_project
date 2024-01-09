@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -55,13 +54,13 @@ public class shops_details extends AppCompatActivity {
 
     private TemplatePDF templatePDF;
     private ImageView bt_exit;
-    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit,last_license;
-       Button btnPdfReceipt, btnThermalPrinter;
+    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, neighbor_unit, address_unit, last_license;
+    Button btnPdfReceipt, btnThermalPrinter;
     AppCompatButton show_billboard;
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     DecimalFormat f;
-    String currency = "R ", activitytype, shopname, shop_contact, ownername, longitudelength, latitudewidth, shortText, local_fee, clean_pay, total_ad, el_gate, office_txt, direct_txt;
+    String currency = "R ", activitytype, shopname, shop_contact, ownername, longitudelength, latitudewidth, shortText, local_fee, clean_pay, total_ad, el_gate, office_txt, direct_txt, s4;
     double total_price, getlocal_fee, getclean_pay, gettotal_ad, getel_gate;
 
     //how many headers or column you need, add here by using ,
@@ -195,6 +194,7 @@ public class shops_details extends AppCompatActivity {
         getclean_pay = Double.valueOf(clean_pay);
         getlocal_fee = Double.valueOf(local_fee);
         getel_gate = Double.valueOf(el_gate);
+//        total_price = Double.valueOf(s4);
         total_price = gettotal_ad + getclean_pay + getlocal_fee + getel_gate;
         ArrayList<String[]> rows = new ArrayList<>();
         rows.add(new String[]{currency + f.format(getel_gate), "رسوم البوابة الالكترونية"});
@@ -264,7 +264,7 @@ public class shops_details extends AppCompatActivity {
                             local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
                             clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
                             total_ad = String.valueOf(array2.getInt("total_ad"));//اجمالي رسوم الدعاية والاعلان
-//                            String s4= array2.getString("clip_status");
+                            s4 = array2.getString("clip_status");
 
 
                             Log.d("ALL_SHOPS_RESP", String.valueOf(citizen));
