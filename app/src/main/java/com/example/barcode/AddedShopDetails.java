@@ -161,15 +161,15 @@ public class AddedShopDetails extends AppCompatActivity {
 //
 //            }
 //        });
-//        add_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(AddedShopDetails.this,Add_Iamge.class);
-//                intent.putExtra("id",id);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        add_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddedShopDetails.this,Add_Iamge.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 

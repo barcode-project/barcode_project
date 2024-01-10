@@ -32,7 +32,8 @@
         tools:targetApi="m">
         <activity
             android:name=".Add_Iamge"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".resetpass"
             android:exported="false"
