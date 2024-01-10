@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,16 +62,17 @@ public class AddedShopDetails extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private int id;
     ArrayAdapter<String> shopstypeAdapter;
-    String selectedshopstypID,longitudelength,latitudewidth;
+    String selectedshopstypID,longitudelength,latitudewidth,fullImageUrl;
     List<HashMap<String, String>> shopsCategory;
     List<String> name_shops_type;
     ArrayList<String> ImageList;
-    ArrayList<String> chooseImageList;
+
     Spinner spinner;
     String selectedItem;
     private List<PlateData> Plate ;
-    ImageView imageView;
+    ImageView imageView,dialogImageView;
     ProgressDialog loading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,22 +147,38 @@ public class AddedShopDetails extends AppCompatActivity {
                 }
             }
         });
-//        show_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddedShopDetails.this);
-//                View dialogView = getLayoutInflater().inflate(R.layout.viewpagerimage, null);
-//                dialogBuilder.setView(dialogView);
-//
-//                ViewPager dialogViewPager = dialogView.findViewById(R.id.viewPager);
-//                ViewPagerAdapter2 adapter = new ViewPagerAdapter2(AddedShopDetails.this, chooseImageList);
-//                dialogViewPager.setAdapter(adapter);
-//
-//                AlertDialog alertDialog = dialogBuilder.create();
-//                alertDialog.show();
-//
-//            }
-//        });
+        show_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String imageUrl = fullImageUrl;
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddedShopDetails.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.viewpagerimage, null);
+                dialogBuilder.setView(dialogView);
+
+                ViewPager dialogViewPager = dialogView.findViewById(R.id.viewPager);
+                dialogImageView = dialogView.findViewById(R.id.imageView1); // استخدم dialogView هنا
+
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
+                try {
+                // استخدم Picasso لتحميل وعرض الصورة في dialogImageView
+                Picasso.get().load(imageUrl).into(dialogImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // يمكنك إضافة أي عمليات إضافية بعد نجاح تحميل الصورة هنا
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        dialogImageView.setImageResource(android.R.drawable.ic_menu_gallery);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            }
+        });
+
         add_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -356,29 +374,29 @@ public class AddedShopDetails extends AppCompatActivity {
                 shownote.setText(citizen.optString("note"));
                 longitudelength = citizen.optString("log_y");
                 latitudewidth = citizen.optString("log_x");
-                String fullImageUrl = "https://demo.qryemen.com/" + citizen.optString("org_image");
+                fullImageUrl = "https://demo.qryemen.com/" + citizen.optString("org_image");
 
                 // Use Picasso to load and display the image
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Picasso.get().load(fullImageUrl).into(imageView, new Callback() {
-                                @Override
-                                public void onSuccess() {
-
-                                }
-
-                                @Override
-                                public void onError(Exception e) {
-                                    imageView.setImageResource(android.R.drawable.ic_menu_gallery);
-                                }
-                            });
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Picasso.get().load(fullImageUrl).into(imageView, new Callback() {
+//                                @Override
+//                                public void onSuccess() {
+//
+//                                }
+//
+//                                @Override
+//                                public void onError(Exception e) {
+//                                    imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+//                                }
+//                            });
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         });
     }

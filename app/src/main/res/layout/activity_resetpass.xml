@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".resetpass">
 
     <ImageView
@@ -42,7 +41,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/old_pass"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_dark"
                 android:inputType="textPassword"
                 android:layoutDirection="rtl"
@@ -77,7 +76,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/new_pass"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_dark"
                 android:inputType="textPassword"
                 android:layoutDirection="rtl"

@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -34,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
@@ -50,7 +52,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
-import com.example.barcode.Adapter.ViewPagerAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -63,10 +64,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +74,7 @@ import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 public class addorg_data extends AppCompatActivity implements OnMapReadyCallback {
     ProgressDialog loading;
     private static final int PICK_IMAGE_REQUEST = 123;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 0;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final int THUMBNAIL_SIZE = 500;
     TextInputEditText address_unit, doors_numbers, owner_name, shop_name, phone_no, shop_type, note;
@@ -100,6 +98,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private static final int PICK_IMAGE_REQUEST_1 = 1;
     private static final int PICK_IMAGE_REQUEST_2 = 2;
     private static final int PICK_IMAGE_REQUEST_3 = 3;
+    private DataRepository dataRepository;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +138,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         test();
 
+
         address_unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,8 +155,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
                 ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
 
-
-//                dialog_title.setText("");
+                dialog_title.setText("الشارع");
                 dialog_list.setVerticalScrollBarEnabled(true);
                 dialog_list.setAdapter(streetAdapter);
 
@@ -174,7 +174,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     }
                 });
 
-
                 final AlertDialog alertDialog = dialog.create();
 
                 dialog_button.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +188,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         alertDialog.dismiss();
                         final String selectedItem = streetAdapter.getItem(position);
 
@@ -204,12 +202,24 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         }
 
                         selectedstreetID = street_id;
+//
+//                        // حفظ المتغير في SharedPreferences باستخدام DataRepository
+//                        DataRepository dataRepository = new DataRepository(addorg_data.this);
+//                        List<String> savedStreetIDs = dataRepository.loadStreetIDs();
+//
+//                        if (savedStreetIDs == null) {
+//                            savedStreetIDs = new ArrayList<>();
+//                        }
+//
+//                        savedStreetIDs.add(selectedstreetID);
+//                        dataRepository.saveStreetIDs(savedStreetIDs);
+
                         Log.d("street_id", street_id);
                     }
                 });
             }
-
         });
+
         shop_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,11 +235,16 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
                 TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
                 ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
-
+                SwipeRefreshLayout swipeRefreshLayout = dialogView.findViewById(R.id.swipe);
 
                 dialog_title.setText("نوع النشاط");
                 dialog_list.setVerticalScrollBarEnabled(true);
                 dialog_list.setAdapter(shopstypeAdapter);
+
+                swipeRefreshLayout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    test();
+                }, 1000));
 
                 dialog_input.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -246,7 +261,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     }
                 });
 
-
                 final AlertDialog alertDialog = dialog.create();
 
                 dialog_button.setOnClickListener(new View.OnClickListener() {
@@ -258,17 +272,14 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                 alertDialog.show();
 
-
                 dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         alertDialog.dismiss();
                         final String selectedItem = shopstypeAdapter.getItem(position);
 
                         String shopstype_id = "1";
                         shop_type.setText(selectedItem);
-
 
                         for (int i = 0; i < name_shops_type.size(); i++) {
                             if (name_shops_type.get(i).equalsIgnoreCase(selectedItem)) {
@@ -276,19 +287,16 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                                 shopstype_id = shopsCategory.get(i).get("shopstype_id");
                             }
                         }
-                        selectedshopstypID = shopstype_id;
                         Toast.makeText(addorg_data.this, selectedshopstypID, Toast.LENGTH_SHORT).show();
                         Log.d("shopstype_id", shopstype_id);
                     }
                 });
             }
-
         });
 
         pickimagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Checkpermission(PICK_IMAGE_REQUEST_1);
 
             }
@@ -338,7 +346,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             requestLocationUpdates();
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.CAMERA},
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
@@ -347,9 +356,10 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(addorg_data.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.READ_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(addorg_data.this, new
-                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PICK_IMAGE_REQUEST);
+                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.CAMERA}, PICK_IMAGE_REQUEST);
             } else {
 
                 pickimageftomgallry(requestCode);
@@ -468,7 +478,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
     private void requestLocationUpdates() {
         if (googleMap != null) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
@@ -515,7 +526,16 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 // Permission granted, request location updates
                 if (googleMap != null) {
                     requestLocationUpdates();
+                }else {
+                    Toast.makeText(this, "لايمكن الوصول الى احداثيات الموقع", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }
+        if (requestCode == PICK_IMAGE_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickimageftomgallry(requestCode);
+            } else {
+                Toast.makeText(this, "Camera permission required", Toast.LENGTH_SHORT).show();
             }
         }
     }
