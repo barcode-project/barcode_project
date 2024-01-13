@@ -39,13 +39,14 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             tools:srcCompat="@tools:sample/avatars" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_300sdp"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 </LinearLayout>

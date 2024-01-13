@@ -60,8 +60,8 @@ public class shops_details extends AppCompatActivity {
     ContentLoadingProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     DecimalFormat f;
-    String currency = "R ", activitytype, shopname, shop_contact, ownername, longitudelength, latitudewidth, shortText, local_fee, clean_pay, total_ad, el_gate, office_txt, direct_txt, s4;
-    double total_price, getlocal_fee, getclean_pay, gettotal_ad, getel_gate;
+    String currency = "R ", activitytype, shopname, shop_contact, ownername, longitudelength, latitudewidth, shortText, local_fee, clean_pay,clean, total_ad, el_gate, office_txt, direct_txt, s4;
+    double total_price, getlocal_fee, getclean_pay, gettotal_ad, getel_gate,clean_price;
 
     //how many headers or column you need, add here by using ,
     //headers and get clients para meter must be equal
@@ -99,7 +99,7 @@ public class shops_details extends AppCompatActivity {
 
         test();
 
-        longText = new String[]{"نشكركم"};
+//        longText = new String[]{s4};
 
 
 //            try {
@@ -194,12 +194,13 @@ public class shops_details extends AppCompatActivity {
         getclean_pay = Double.valueOf(clean_pay);
         getlocal_fee = Double.valueOf(local_fee);
         getel_gate = Double.valueOf(el_gate);
-//        total_price = Double.valueOf(s4);
-        total_price = gettotal_ad + getclean_pay + getlocal_fee + getel_gate;
+        clean_price = Double.valueOf(clean);
+        total_price = gettotal_ad + getclean_pay + getlocal_fee + getel_gate+clean_price;
         ArrayList<String[]> rows = new ArrayList<>();
         rows.add(new String[]{currency + f.format(getel_gate), "رسوم البوابة الالكترونية"});
         rows.add(new String[]{currency + f.format(getlocal_fee), "الرسوم المحلية"});
         rows.add(new String[]{currency + f.format(gettotal_ad), "الدعاية والاعلان"});
+        rows.add(new String[]{currency + f.format(clean_price), "نظافة"});
         rows.add(new String[]{currency + f.format(getclean_pay), "نظافة المهن"});
         rows.add(new String[]{"..................................", "......................................."});
         rows.add(new String[]{currency + f.format(total_price), "الإجمالي"});
@@ -263,6 +264,7 @@ public class shops_details extends AppCompatActivity {
                             el_gate = String.valueOf(array2.getInt("el_gate"));//'رسوم البوابة الالكترونية'
                             local_fee = String.valueOf(array2.getInt("local_fee"));//('اجمالي الرسوم المحلية
                             clean_pay = String.valueOf(array2.getInt("clean_pay"));//اجمالي ؤسوم نظافة المهن
+                            clean = String.valueOf(array2.getInt("clean"));//اجمالي ؤسوم نظافة
                             total_ad = String.valueOf(array2.getInt("total_ad"));//اجمالي رسوم الدعاية والاعلان
                             s4 = array2.getString("clip_status");
 
