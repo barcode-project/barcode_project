@@ -2,6 +2,7 @@ package com.example.barcode.Adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class ViewPagerAdapter2 extends PagerAdapter {
         this.context = context;
         this.imageUrls = imageUrls;
         this.layoutInflater = LayoutInflater.from(context);
+        Log.d("fullImageUrl",this.imageUrls.toString());
     }
 
     @Override
@@ -39,12 +41,14 @@ public class ViewPagerAdapter2 extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.showimageslayout, container, false);
         ImageView imageView = view.findViewById(R.id.ImageUpload);
 
+
+
         // Prepend base URL to the image URL
-        String fullImageUrl = "https://demo.qryemen.com/" + imageUrls.get(position);
+//        String fullImageUrl = "https://demo.qryemen.com/" + imageUrls.get(position);
 
         // Use Picasso to load and display the image
         try {
-            Picasso.get().load(fullImageUrl).into(imageView, new Callback() {
+            Picasso.get().load(imageUrls.get(position)).into(imageView, new Callback() {
                 @Override
                 public void onSuccess() {
                     // Image loaded successfully

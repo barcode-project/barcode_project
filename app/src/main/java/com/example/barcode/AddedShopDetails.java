@@ -150,32 +150,34 @@ public class AddedShopDetails extends AppCompatActivity {
         show_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String imageUrl = fullImageUrl;
+                Log.d("ImageList",ImageList.toString());
+//                String imageUrl = fullImageUrl;
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddedShopDetails.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.viewpagerimage, null);
                 dialogBuilder.setView(dialogView);
 
                 ViewPager dialogViewPager = dialogView.findViewById(R.id.viewPager);
+                ViewPagerAdapter2 adapter2 = new ViewPagerAdapter2(AddedShopDetails.this,ImageList);
                 dialogImageView = dialogView.findViewById(R.id.imageView1); // استخدم dialogView هنا
-
+                dialogViewPager.setAdapter(adapter2);
                 AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.show();
-                try {
-                // استخدم Picasso لتحميل وعرض الصورة في dialogImageView
-                Picasso.get().load(imageUrl).into(dialogImageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        // يمكنك إضافة أي عمليات إضافية بعد نجاح تحميل الصورة هنا
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        dialogImageView.setImageResource(android.R.drawable.ic_menu_gallery);
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//                try {
+//                // استخدم Picasso لتحميل وعرض الصورة في dialogImageView
+//                Picasso.get().load(imageUrl).into(dialogImageView, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//                        // يمكنك إضافة أي عمليات إضافية بعد نجاح تحميل الصورة هنا
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        dialogImageView.setImageResource(android.R.drawable.ic_menu_gallery);
+//                    }
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             }
         });
 
@@ -334,21 +336,52 @@ public class AddedShopDetails extends AppCompatActivity {
     private void handleApiResponse(String response, List<PlateData> plateList) {
         try {
             JSONObject object = new JSONObject(response);
+            Log.d("Respnse",response);
             if (object.getBoolean("success")) {
                 JSONObject citizen = object.getJSONObject("data");
 
                 updateUIFromCitizenData(citizen);
 
 //                if (citizen.has("org_image") && citizen.getString("org_image").length() > 1) {
-//                    chooseImageList.add(citizen.getString("org_image"));
+//                    ImageList.add(citizen.getString("org_image"));
 //                }
 
-//                if (citizen.has("org_image")) {
-//                    String orgImage = citizen.optString("org_image");
-//                    if (orgImage != null && orgImage.length() > 1) {
-//                        chooseImageList.add(orgImage);
+                if (citizen.has("org_image")) {
+                    String orgImage = citizen.optString("org_image");
+                    if (orgImage != null && orgImage.length() > 1) {
+                        ImageList.add("https://demo.qryemen.com/" + orgImage);
+                    }
+                }
+//                if (citizen.has("personal_card")) {
+//                    String perImage = citizen.optString("personal_card");
+//                    if (perImage != null && perImage.length() > 1) {
+//                        ImageList.add("https://demo.qryemen.com/" + perImage);
 //                    }
 //                }
+//                if (citizen.has("previous_license")) {
+//                    String licenseImage = citizen.optString("previous_license");
+//                    if (licenseImage != null && licenseImage.length() > 1) {
+//                        ImageList.add("https://demo.qryemen.com/" + licenseImage);
+//                    }
+//                }
+                if (citizen.has("rent_contract")) {
+                    String rentImage = citizen.optString("rent_contract");
+                    if (rentImage != null && rentImage.length() > 1) {
+                        ImageList.add("https://demo.qryemen.com/" + rentImage);
+                    }
+                }
+//                if (citizen.has("comm_record")) {
+//                    String commImage = citizen.optString("comm_record");
+//                    if (commImage != null && commImage.length() > 1) {
+//                        ImageList.add("https://demo.qryemen.com/" + commImage);
+//                    }
+//                }
+                if (citizen.has("outher")) {
+                    String otherImage = citizen.optString("outher");
+                    if (otherImage != null && otherImage.length() > 1) {
+                        ImageList.add("https://demo.qryemen.com/" + otherImage);
+                    }
+                }
 
                 JSONArray array = citizen.getJSONArray("billboard");
                 plateList.addAll(parseBillboardArray(array));

@@ -189,7 +189,7 @@ public class Add_Iamge extends AppCompatActivity {
         loading.setMessage("انتظر من فضلك. . .");
         loading.setCancelable(false);
         loading.show();
-        List<shops> shops = new ArrayList<>();
+//        List<shops> shops = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Image, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
