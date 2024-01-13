@@ -20,9 +20,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -61,6 +64,9 @@ public class Add_Iamge extends AppCompatActivity {
     Bitmap bitmap;
     ProgressDialog loading;
     Button upload_bt;
+    Spinner image_type;
+    private int index;
+    private String selectedValue;
     private SharedPreferences sharedPreferences;
     private static final int PICK_IMAGE_REQUEST = 123;
     @Override
@@ -70,6 +76,9 @@ public class Add_Iamge extends AppCompatActivity {
         pickimagebtn = findViewById(R.id.chooseImage);
         imageView = findViewById(R.id.imageView);
         note = findViewById(R.id.note);
+        image_type = findViewById(R.id.image_type);
+        upload_bt = findViewById(R.id.upload_bt);
+
         id = getIntent().getIntExtra("id",0);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         pickimagebtn.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +89,42 @@ public class Add_Iamge extends AppCompatActivity {
 
             }
         });
+
+        List<String> spinnerItems = new ArrayList<>();
+        spinnerItems.add("صورة اللوحة");
+        spinnerItems.add("صورة البطاقة الشخصية");
+        spinnerItems.add("صورة الرخصة السابقة");
+        spinnerItems.add("صورة عقد الايجار او فاتورة الكهرباء");
+        spinnerItems.add("السجل التجاري");
+        spinnerItems.add("موافقة الجهة المختصة");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the Spinner
+        image_type.setAdapter(adapter);
+
+        // Set a listener to handle Spinner item selection
+        image_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item text
+                selectedValue = parentView.getItemAtPosition(position).toString();
+                index = position+1;
+                Log.d("ALL_ID", String.valueOf(index));
+
+                // Do something with the selected item text (e.g., display in a Toast)
+                Toast.makeText(Add_Iamge.this, "Selected: " + selectedValue, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing here
+            }
+        });
+
     }
     private void Checkpermission() {
 
@@ -129,15 +174,23 @@ public class Add_Iamge extends AppCompatActivity {
             }
 
             }
+        upload_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();
+            }
+        });
     }
+
+
 
     private void saveData() {
         loading = new ProgressDialog(Add_Iamge.this);
         loading.setMessage("انتظر من فضلك. . .");
         loading.setCancelable(false);
         loading.show();
-        List<shops> shops = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
+//        List<shops> shops = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Image, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("RESPONSE_jk", response);
@@ -147,8 +200,6 @@ public class Add_Iamge extends AppCompatActivity {
 
                     if (object.getBoolean("success")) {
                         Toast.makeText(Add_Iamge.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Add_Iamge.this, AddedOrgsList.class);
-                        startActivity(intent);
                         finish();
                     } else {
                         Toast.makeText(Add_Iamge.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -213,6 +264,7 @@ public class Add_Iamge extends AppCompatActivity {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("org_image",bitmapToString(bitmap));
                 map.put("vir_org_id", String.valueOf(id));
+                map.put("image_type", String.valueOf(index));
 
                 return map;
             }
