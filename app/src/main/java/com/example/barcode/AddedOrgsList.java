@@ -78,7 +78,7 @@ public class AddedOrgsList extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
             swipeRefreshLayout.setRefreshing(false);
             fetchData();
-        }, 3000));
+        }, 2000));
 
         swipeRefreshLayout.setColorSchemeColors(
                 getResources().getColor(android.R.color.holo_blue_bright),

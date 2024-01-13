@@ -672,8 +672,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                     if (object.getBoolean("success")) {
                         Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(addorg_data.this, AddedOrgsList.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        finish();
                     } else {
                         Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
