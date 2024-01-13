@@ -346,42 +346,36 @@ public class AddedShopDetails extends AppCompatActivity {
 //                    ImageList.add(citizen.getString("org_image"));
 //                }
 
-                if (citizen.has("org_image")) {
                     String orgImage = citizen.optString("org_image");
-                    if (orgImage != null && orgImage.length() > 1) {
+                    if (orgImage != null && orgImage != "null") {
                         ImageList.add("https://demo.qryemen.com/" + orgImage);
                     }
-                }
-//                if (citizen.has("personal_card")) {
-//                    String perImage = citizen.optString("personal_card");
-//                    if (perImage != null && perImage.length() > 1) {
-//                        ImageList.add("https://demo.qryemen.com/" + perImage);
-//                    }
-//                }
-//                if (citizen.has("previous_license")) {
-//                    String licenseImage = citizen.optString("previous_license");
-//                    if (licenseImage != null && licenseImage.length() > 1) {
-//                        ImageList.add("https://demo.qryemen.com/" + licenseImage);
-//                    }
-//                }
-                if (citizen.has("rent_contract")) {
+
+                    String perImage = citizen.optString("personal_card");
+                    if (perImage != null && perImage != "null") {
+                        ImageList.add("https://demo.qryemen.com/" + perImage);
+                    }
+
+                    String licenseImage = citizen.optString("previous_license");
+                    if (licenseImage != null && licenseImage != "null") {
+                        ImageList.add("https://demo.qryemen.com/" + licenseImage);
+                    }
+
                     String rentImage = citizen.optString("rent_contract");
-                    if (rentImage != null && rentImage.length() > 1) {
+                    if (rentImage != null && rentImage != "null") {
                         ImageList.add("https://demo.qryemen.com/" + rentImage);
                     }
-                }
-//                if (citizen.has("comm_record")) {
-//                    String commImage = citizen.optString("comm_record");
-//                    if (commImage != null && commImage.length() > 1) {
-//                        ImageList.add("https://demo.qryemen.com/" + commImage);
-//                    }
-//                }
-                if (citizen.has("outher")) {
-                    String otherImage = citizen.optString("outher");
-                    if (otherImage != null && otherImage.length() > 1) {
+
+                    String commImage = citizen.getString("comm_record");
+                    if (commImage != null && commImage != "null") {
+                        ImageList.add("https://demo.qryemen.com/" + citizen.getString("comm_record"));
+                    }
+
+                    String otherImage = citizen.getString("outher");
+                    if (otherImage != null && otherImage != "null") {
                         ImageList.add("https://demo.qryemen.com/" + otherImage);
                     }
-                }
+
 
                 JSONArray array = citizen.getJSONArray("billboard");
                 plateList.addAll(parseBillboardArray(array));
