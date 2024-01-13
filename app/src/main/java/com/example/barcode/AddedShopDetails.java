@@ -55,22 +55,22 @@ import java.util.Map;
 
 public class AddedShopDetails extends AppCompatActivity {
     private ImageView bt_exit;
-    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, shownote, address_unit, type, quan;
-    AppCompatButton show_billboard, add_btn, show_image, add_image;
+    TextInputEditText id_no, last_licens, owner_name, shop_name, phone_no, activity_type, shownote, address_unit,type,quan;
+    AppCompatButton show_billboard,add_btn,show_image,add_image;
     ContentLoadingProgressBar progressBar;
     Button upload_billboard_bt;
     private SharedPreferences sharedPreferences;
     private int id;
     ArrayAdapter<String> shopstypeAdapter;
-    String selectedshopstypID, longitudelength, latitudewidth, fullImageUrl;
+    String selectedshopstypID,longitudelength,latitudewidth,fullImageUrl;
     List<HashMap<String, String>> shopsCategory;
     List<String> name_shops_type;
     ArrayList<String> ImageList;
 
     Spinner spinner;
     String selectedItem;
-    private List<PlateData> Plate;
-    ImageView imageView, dialogImageView;
+    private List<PlateData> Plate ;
+    ImageView imageView,dialogImageView;
     ProgressDialog loading;
 
 
@@ -78,23 +78,23 @@ public class AddedShopDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_shop_details);
-        progressBar = findViewById(R.id.all_details_progressBar);
-        bt_exit = findViewById(R.id.shops_exit);
-        id_no = findViewById(R.id.insitiution_no);
-        last_licens = findViewById(R.id.last_license);
-        owner_name = findViewById(R.id.owner_name);
-        shop_name = findViewById(R.id.shop_name);
-        phone_no = findViewById(R.id.phone_no);
-        activity_type = findViewById(R.id.activity_type);
-        shownote = findViewById(R.id.noteshow);
-        address_unit = findViewById(R.id.address_unit);
+        progressBar=findViewById(R.id.all_details_progressBar);
+        bt_exit=findViewById(R.id.shops_exit);
+        id_no=findViewById(R.id.insitiution_no);
+        last_licens=findViewById(R.id.last_license);
+        owner_name=findViewById(R.id.owner_name);
+        shop_name=findViewById(R.id.shop_name);
+        phone_no=findViewById(R.id.phone_no);
+        activity_type=findViewById(R.id.activity_type);
+        shownote=findViewById(R.id.noteshow);
+        address_unit=findViewById(R.id.address_unit);
         show_billboard = findViewById(R.id.show_billboard);
         add_btn = findViewById(R.id.add_btn);
         show_image = findViewById(R.id.show_image);
         add_image = findViewById(R.id.add_image);
         imageView = findViewById(R.id.imageView);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        id = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra("id",0);
         Log.d("ALL_ID", String.valueOf(id));
         ImageList = new ArrayList<>();
 //        test();
@@ -119,13 +119,13 @@ public class AddedShopDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                openInputActivity();
-                Intent intent = new Intent(AddedShopDetails.this, AddBoard.class);
-                intent.putExtra("id", id);
+                Intent intent = new Intent(AddedShopDetails.this,AddBoard.class);
+                intent.putExtra("id",id);
                 startActivity(intent);
                 finish();
             }
         });
-        FloatingActionButton button = findViewById(R.id.fab1);
+        FloatingActionButton button=findViewById(R.id.fab1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,23 +141,23 @@ public class AddedShopDetails extends AppCompatActivity {
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     }
-                } catch (Exception e) {
+                }catch (Exception e)  {
                     e.printStackTrace();
-                    Toast.makeText(AddedShopDetails.this, "لاتوجد احداثيات\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddedShopDetails.this,  "لاتوجد احداثيات\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
         show_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ImageList", ImageList.toString());
+                Log.d("ImageList",ImageList.toString());
 //                String imageUrl = fullImageUrl;
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddedShopDetails.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.viewpagerimage, null);
                 dialogBuilder.setView(dialogView);
 
                 ViewPager dialogViewPager = dialogView.findViewById(R.id.viewPager);
-                ViewPagerAdapter2 adapter2 = new ViewPagerAdapter2(AddedShopDetails.this, ImageList);
+                ViewPagerAdapter2 adapter2 = new ViewPagerAdapter2(AddedShopDetails.this,ImageList);
                 dialogImageView = dialogView.findViewById(R.id.imageView1); // استخدم dialogView هنا
                 dialogViewPager.setAdapter(adapter2);
                 AlertDialog alertDialog = dialogBuilder.create();
@@ -184,8 +184,8 @@ public class AddedShopDetails extends AppCompatActivity {
         add_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddedShopDetails.this, Add_Iamge.class);
-                intent.putExtra("id", id);
+                Intent intent = new Intent(AddedShopDetails.this,Add_Iamge.class);
+                intent.putExtra("id",id);
                 startActivity(intent);
                 finish();
             }
@@ -336,7 +336,7 @@ public class AddedShopDetails extends AppCompatActivity {
     private void handleApiResponse(String response, List<PlateData> plateList) {
         try {
             JSONObject object = new JSONObject(response);
-            Log.d("Respnse", response);
+            Log.d("Respnse",response);
             if (object.getBoolean("success")) {
                 JSONObject citizen = object.getJSONObject("data");
 
@@ -382,8 +382,10 @@ public class AddedShopDetails extends AppCompatActivity {
                         ImageList.add("https://demo.qryemen.com/" + otherImage);
                     }
                 }
+
                 JSONArray array = citizen.getJSONArray("billboard");
                 plateList.addAll(parseBillboardArray(array));
+
                 Plate = plateList;
                 Log.d("ALL_SHOPS_RESP", String.valueOf(citizen));
             }
@@ -501,4 +503,66 @@ public class AddedShopDetails extends AppCompatActivity {
         ListDialog.showListDialog(this, "اللوحات", Plate);
     }
 
+
+//    private void openInputActivity() {
+//        // Create an AlertDialog.Builder instance
+//        AlertDialog.Builder builder = new AlertDialog.Builder(AddedShopDetails.this);
+//        View dialogView = getLayoutInflater().inflate(R.layout.inpot_billboard, null);
+//        builder.setView(dialogView);
+//
+//
+//// Create the AlertDialog
+//        AlertDialog alertDialog2 = builder.create();
+//
+//// Show the AlertDialog
+//        spinner = findViewById(R.id.board_type);
+//        length = dialogView.findViewById(R.id.board_length);
+//        width = dialogView.findViewById(R.id.board_length);
+//        quan = dialogView.findViewById(R.id.board_quan);
+//        upload_billboard_bt = dialogView.findViewById(R.id.upload_billboard_bt);
+//
+//
+//        // Create a list of items for the Spinner
+////        List<String> spinnerItems = new ArrayList<>();
+////        spinnerItems.add("Item 1");
+////        spinnerItems.add("Item 2");
+////        spinnerItems.add("Item 3");
+////
+////        // Create an ArrayAdapter using the string array and a default Spinner layout
+////        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
+////
+////        // Specify the layout to use when the list of choices appears
+////        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+////        // Apply the adapter to the Spinner
+////        spinner.setAdapter(adapter);
+////
+////        // Set a listener to handle Spinner item selection
+////        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+////            @Override
+////            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+////                // Get the selected item text
+////                selectedItem = spinnerItems.get(position);
+////
+////                // Do something with the selected item text (e.g., display in a Toast)
+////                Toast.makeText(AddedShopDetails.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
+////            }
+////
+////            @Override
+////            public void onNothingSelected(AdapterView<?> parentView) {
+////                // Do nothing here
+////            }
+////        });
+//        upload_billboard_bt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                type.getText().toString();
+//                length.getText().toString();
+//                width.getText().toString();
+//                quan.getText().toString();
+//                alertDialog2.dismiss();
+//            }
+//        });
+//
+//        alertDialog2.show();
+//        }
 }
