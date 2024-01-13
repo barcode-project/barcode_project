@@ -304,74 +304,7 @@
 
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="@dimen/_6sdp">
 
-                    <RelativeLayout
-                        android:id="@+id/chooseImage2"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:background="@color/light_custom">
-
-                        <View
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/ic_baseline_camera_alt_24"
-                            android:layout_centerInParent="true"/>
-                    </RelativeLayout>
-
-<!--                    <androidx.viewpager.widget.ViewPager-->
-<!--                        android:id="@+id/viewPager"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="120dp"-->
-<!--                        tools:ignore="SpeakableTextPresentCheck" />-->
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:scaleType="centerCrop"/>
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="@dimen/_6sdp">
-
-                    <RelativeLayout
-                        android:id="@+id/chooseImage3"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:background="@color/light_custom">
-
-                        <View
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/ic_baseline_camera_alt_24"
-                            android:layout_centerInParent="true"/>
-                    </RelativeLayout>
-
-<!--                    <androidx.viewpager.widget.ViewPager-->
-<!--                        android:id="@+id/viewPager"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="120dp"-->
-<!--                        tools:ignore="SpeakableTextPresentCheck" />-->
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:scaleType="centerCrop"/>
-
-
-                </LinearLayout>
 
             </LinearLayout>
 
