@@ -33,6 +33,10 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
         this.shopsList=filFlteredList;
         notifyDataSetChanged();
     }
+    public void addData(List<shops> newData) {
+        this.shopsList.addAll(newData);
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public shopsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

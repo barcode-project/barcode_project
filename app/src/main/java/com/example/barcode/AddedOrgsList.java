@@ -54,6 +54,11 @@ public class AddedOrgsList extends AppCompatActivity {
     private LinearLayout noOrdersLayout;
     private TextView textError;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int currentPage = 1;
+    private int itemsPerPage = 10;
+
+    // Variable to track loading state
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,8 @@ public class AddedOrgsList extends AppCompatActivity {
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        initializeUI();
+//        initializeUI();
+        fetchData(currentPage, itemsPerPage);
         allShopsExit.setOnClickListener(view -> finish());
 
         searchView = findViewById(R.id.txt_search);
@@ -77,7 +83,7 @@ public class AddedOrgsList extends AppCompatActivity {
 
         swipeRefreshLayout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            fetchData();
+//            fetchData();
         }, 2000));
 
         swipeRefreshLayout.setColorSchemeColors(
@@ -86,11 +92,33 @@ public class AddedOrgsList extends AppCompatActivity {
                 getResources().getColor(android.R.color.holo_green_dark),
                 getResources().getColor(android.R.color.holo_red_dark)
         );
+
+
+
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+
+                // Check if the end has been reached and load more data
+                if (!isLoading && totalItemCount <= (lastVisibleItem + 5)) {
+                    fetchNextPage();
+                    isLoading = true;
+                }
+            }
+        };
+
+        recyclerView.addOnScrollListener(onScrollListener);
     }
 
-    private void initializeUI() {
-        fetchData();
-    }
+//    private void initializeUI() {
+////        fetchData();
+//    }
 
     private void setupSearchListener() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -133,17 +161,21 @@ public class AddedOrgsList extends AppCompatActivity {
         }
     }
 
-    private void fetchData() {
+
+    private void fetchData(int page, int perPage) {
+        String url = URLs.GET_VIR_ORGSV2 + "?page=" + page + "&per_page=" + perPage;
+
         noOrdersLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
 
-        StringRequest request = new StringRequest(Request.Method.GET, URLs.GET_VIR_ORGS,
+        StringRequest request = new StringRequest(Request.Method.GET, url,
                 this::handleSuccessResponse,
                 this::handleErrorResponse
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+//                String token = getSharedPreferences("your_prefs_name", MODE_PRIVATE).getString("token", "");
                 String token = sharedPreferences.getString("token", "");
                 HashMap<String, String> map = new HashMap<>();
                 map.put("auth-token", token);
@@ -159,8 +191,10 @@ public class AddedOrgsList extends AppCompatActivity {
         List<shops> shops = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(response);
+
             if (object.getBoolean("success")) {
-                JSONArray array = new JSONArray(object.getString("data"));
+                JSONObject arr = object.getJSONObject("data");
+                JSONArray array = new JSONArray(arr.getString("data"));
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject citizen = array.getJSONObject(i);
                     shops shop = new shops();
@@ -171,7 +205,6 @@ public class AddedOrgsList extends AppCompatActivity {
                     shop.setOwner_namefullname(citizen.getString("user_name"));
 
                     shops.add(shop);
-                    Log.d("ALL_SHOP", String.valueOf(citizen));
                 }
                 shopsList = shops;
                 updateUI(shops);
@@ -184,45 +217,34 @@ public class AddedOrgsList extends AppCompatActivity {
     }
 
     private void handleErrorResponse(VolleyError error) {
-        String errorMessage = "خطأ غير معروف";
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-        } else if (error instanceof AuthFailureError) {
-            errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
-        } else if (error instanceof ServerError) {
-            errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
-        } else if (error instanceof NetworkError) {
-            errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-        } else if (error instanceof ParseError) {
-            errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
-        } else if (error instanceof ServerError && error.networkResponse != null) {
-            int statusCode = error.networkResponse.statusCode;
-            if (statusCode == 400) {
-                errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
-            } else if (statusCode == 401) {
-                errorMessage = "غير مصرح.";
-            } else if (statusCode == 404) {
-                errorMessage = "المورد غير موجود.";
-            } else if (statusCode == 443) {
-                errorMessage = "خطاء في الشهادة الامان.";
-            }
-        }
-        Toast.makeText(AddedOrgsList.this, errorMessage, Toast.LENGTH_SHORT).show();
-        textError.setText(errorMessage);
-        noOrdersLayout.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-
+        // Error handling code
     }
 
     private void updateUI(List<shops> shops) {
-        if (shops.isEmpty()) {
-            noOrdersLayout.setVisibility(View.VISIBLE);
-            textError.setText("لا توجد بيانات");
+        if (adpterShops == null) {
+            if (shops.isEmpty()) {
+                noOrdersLayout.setVisibility(View.VISIBLE);
+                textError.setText("لا توجد بيانات");
+            } else {
+                adpterShops = new adpter_shops(AddedOrgsList.this, shops, 2);
+                recyclerView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
+                recyclerView.setAdapter(adpterShops);
+            }
         } else {
-            adpterShops = new adpter_shops(AddedOrgsList.this, shops, 2);
-            recyclerView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
-            recyclerView.setAdapter(adpterShops);
+            adpterShops.addData(shops);
+        }
+        isLoading = false;
+    }
+
+    private void fetchNextPage() {
+        currentPage++;
+        fetchData(currentPage, itemsPerPage);
+    }
+
+    private void fetchPreviousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchData(currentPage, itemsPerPage);
         }
     }
 }
