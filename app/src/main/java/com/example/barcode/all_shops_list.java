@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.widget.ContentLoadingProgressBar;
@@ -55,6 +56,11 @@ public class all_shops_list extends AppCompatActivity {
     private LinearLayout liner;
     private TextView texterror;
     SwipeRefreshLayout swipeRefreshLayout;
+//    private int currentPage = 1;
+//    private int itemsPerPage = 10;
+//    private boolean isLoading = false;
+    private int currentPage = 1; // initial page
+    private boolean isLoading = false;
 
 
     @Override
@@ -70,7 +76,40 @@ public class all_shops_list extends AppCompatActivity {
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        test();
+//        test();
+
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        ReView.setLayoutManager(layoutManager);
+//
+//        adpter_shops = new adpter_shops(this, shopsList, 1);
+//        ReView.setAdapter(adpter_shops);
+
+//        fetchData();
+
+        ReView.setLayoutManager(new LinearLayoutManager(this));
+        shopsList = new ArrayList<>();
+        adpter_shops = new adpter_shops(this, shopsList, 1);
+        ReView.setAdapter(adpter_shops);
+
+        ReView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0) {
+                    // Load more data
+                    fetchData();
+                }
+            }
+        });
+
+        fetchData();
 
         all_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +143,8 @@ public class all_shops_list extends AppCompatActivity {
         });
         swipeRefreshLayout.setOnRefreshListener(() ->  new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
-                test();
+//                test();
+//            fetchData();
             },  3000));
 
 
@@ -142,104 +182,100 @@ public class all_shops_list extends AppCompatActivity {
     }
 
 
-    private void test() {
-        liner.setVisibility(View.GONE);
+    private void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
-        ReView.setVisibility(View.VISIBLE);
-        List<shops> shops = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Orgs, new Response.Listener<String>() {
+        liner.setVisibility(View.GONE);
+
+        String apiUrl = URLs.Get_Orgs_V2 + "?page=" + currentPage;
+
+        StringRequest request = new StringRequest(Request.Method.GET, apiUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Log.d("ALL_SHOPS_RESPONSE", response);
                 try {
                     JSONObject object = new JSONObject(response);
+                    Log.d("SGDHH",response);
                     if (object.getBoolean("success")) {
-                        JSONArray array = new JSONArray(object.getString("data"));
+                        JSONObject arr = object.getJSONObject("data");
+                        JSONArray array = new JSONArray(arr.getString("data"));
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject citizen = array.getJSONObject(i);
 
                             shops user = new shops();
-//                            user.setNo(i+1);
                             user.setId(citizen.getInt("id"));
                             user.setName_shop(citizen.getString("org_name"));
                             user.setStatus(citizen.getString("license_status"));
                             user.setOwner_name(citizen.getString("owner_name"));
 
-                            shops.add(user);
+                            shopsList.add(user);
                             Log.d("ALL_SHOPSS", String.valueOf(citizen));
                         }
-                        shopsList = shops;
-                        if(shopsList.isEmpty()){
-                            liner.setVisibility(View.VISIBLE);
-                            texterror.setText("لا توجد بيانات");
 
-                        }else {
-                            Log.d("ALL_SHOPS", shopsList.get(0).getName_shop());
-                            adpter_shops = new adpter_shops(all_shops_list.this, shops, 1);
-                            ReView.setLayoutManager(new LinearLayoutManager(all_shops_list.this));
-                            ReView.setAdapter(adpter_shops);
-                        }
+                        adpter_shops.notifyDataSetChanged(); // Notify adapter about data changes
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(all_shops_list.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     liner.setVisibility(View.VISIBLE);
                     texterror.setText(e.getMessage());
+                } finally {
+                    progressBar.setVisibility(View.GONE);
+                    isLoading = false;
                 }
-                progressBar.setVisibility(View.GONE);
-
             }
-        },
-                new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                    String errorMessage = "خطأ غير معروف";
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    } else if (error instanceof AuthFailureError) {
-                        errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
-                    } else if (error instanceof ServerError) {
-                        errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                    } else if (error instanceof NetworkError) {
-                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    } else if (error instanceof ParseError) {
-                        errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                    } else if (error instanceof ServerError && error.networkResponse != null) {
-                        int statusCode = error.networkResponse.statusCode;
-                        if (statusCode == 400) {
-                            errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
-                        } else if (statusCode == 401) {
-                            errorMessage = "غير مصرح.";
-                        } else if (statusCode == 404) {
-                            errorMessage = "المورد غير موجود.";
-                        } else if (statusCode == 443) {
-                            errorMessage = "خطاء في الشهادة الامان.";
-                        }
-                    }
-
-                Toast.makeText(all_shops_list.this,errorMessage, Toast.LENGTH_SHORT).show();
+                handleVolleyError(error);
                 progressBar.setVisibility(View.GONE);
-                ReView.setVisibility(View.GONE);
-                texterror.setText(errorMessage);
                 liner.setVisibility(View.VISIBLE);
+                isLoading = false;
             }
-
         }) {
-
             // provide token in header
-
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 String token = sharedPreferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-//                map.put("Authorization","Bearer "+token);
-                map.put("auth-token", token);
-                return map;
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("auth-token", token);
+                return headers;
             }
-
         };
 
+        // Add the request to the queue
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
+
+        // Increment the current page for the next request
+        currentPage++;
+    }
+
+    private void handleVolleyError(VolleyError error) {
+        String errorMessage = "خطأ غير معروف";
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+        } else if (error instanceof AuthFailureError) {
+            errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+        } else if (error instanceof ServerError) {
+            errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+        } else if (error instanceof NetworkError) {
+            errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+        } else if (error instanceof ParseError) {
+            errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+        } else if (error instanceof ServerError && error.networkResponse != null) {
+            int statusCode = error.networkResponse.statusCode;
+            if (statusCode == 400) {
+                errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+            } else if (statusCode == 401) {
+                errorMessage = "غير مصرح.";
+            } else if (statusCode == 404) {
+                errorMessage = "المورد غير موجود.";
+            } else if (statusCode == 443) {
+                errorMessage = "خطاء في الشهادة الامان.";
+            }
+        }
+
+        Toast.makeText(all_shops_list.this, errorMessage, Toast.LENGTH_SHORT).show();
+        texterror.setText(errorMessage);
     }
 }

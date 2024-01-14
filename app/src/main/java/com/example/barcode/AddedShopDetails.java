@@ -368,7 +368,7 @@ public class AddedShopDetails extends AppCompatActivity {
 
                     String commImage = citizen.getString("comm_record");
                     if (commImage != null && commImage != "null") {
-                        ImageList.add("https://demo.qryemen.com/" + citizen.getString("comm_record"));
+                        ImageList.add("https://demo.qryemen.com/" + commImage);
                     }
 
                     String otherImage = citizen.getString("outher");
@@ -401,7 +401,7 @@ public class AddedShopDetails extends AppCompatActivity {
                 shownote.setText(citizen.optString("note"));
                 longitudelength = citizen.optString("log_y");
                 latitudewidth = citizen.optString("log_x");
-                fullImageUrl = "https://demo.qryemen.com/" + citizen.optString("org_image");
+//                fullImageUrl = "https://demo.qryemen.com/" + citizen.optString("org_image");
 
                 // Use Picasso to load and display the image
 //                try {
