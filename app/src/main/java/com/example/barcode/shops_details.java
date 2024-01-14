@@ -77,7 +77,7 @@ public class shops_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_details);
         progressBar = findViewById(R.id.all_details_progressBar);
-        bt_exit = findViewById(R.id.shops_exit);
+        bt_exit = findViewById(R.id.shops_exit1);
         id_no = findViewById(R.id.insitiution_no);
         last_licens = findViewById(R.id.last_license);
         owner_name = findViewById(R.id.owner_name);
