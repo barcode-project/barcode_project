@@ -22,7 +22,7 @@
     <ImageView
         android:id="@+id/rounded_up"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/_40sdp"
         android:src="@drawable/roundedup_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:fontFamily="@font/boldiphone"
         android:text="تفاصيل المحل"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintRight_toLeftOf="@+id/shops_exit"
         app:layout_constraintTop_toTopOf="parent" />
@@ -159,7 +159,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

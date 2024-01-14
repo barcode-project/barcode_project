@@ -81,9 +81,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     Button uploadButton;
     ContentLoadingProgressBar progressBar;
     double latitude, longitude;
-    RelativeLayout pickimagebtn,pickimagebtn2,pickimagebtn3;
+    RelativeLayout pickimagebtn;
     ViewPager viewPager;
-    ImageView imageView,imageView2,imageView3;
+    ImageView imageView;
     Uri ImageUri;
     ArrayAdapter<String> streetAdapter, shopstypeAdapter;
     ArrayList<Uri> chooseImageList;
@@ -96,8 +96,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private LatLng currentLatLng;
     private GoogleMap googleMap;
     private static final int PICK_IMAGE_REQUEST_1 = 1;
-    private static final int PICK_IMAGE_REQUEST_2 = 2;
-    private static final int PICK_IMAGE_REQUEST_3 = 3;
     private DataRepository dataRepository;
 
 
@@ -107,8 +105,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_addorg_data);
         progressBar = findViewById(R.id.add_org_progressBar);
         pickimagebtn = findViewById(R.id.chooseImage);
-        pickimagebtn2 = findViewById(R.id.chooseImage2);
-        pickimagebtn3 = findViewById(R.id.chooseImage3);
         viewPager = findViewById(R.id.viewPager);
         ImageView add_shops_exit = findViewById(R.id.add_shops_exit);
         uploadButton = findViewById(R.id.upload_bt);
@@ -120,8 +116,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         phone_no = findViewById(R.id.phone_no);
         note = findViewById(R.id.note);
         imageView = findViewById(R.id.imageView);
-        imageView2 = findViewById(R.id.imageView2);
-        imageView3 = findViewById(R.id.imageView3);
         GPSUtils gpsUtils = new GPSUtils(this);
         gpsUtils.statusCheck(findViewById(android.R.id.content));
 
@@ -301,22 +295,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
             }
         });
-        pickimagebtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Checkpermission(PICK_IMAGE_REQUEST_2);
-
-            }
-        });
-        pickimagebtn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Checkpermission(PICK_IMAGE_REQUEST_3);
-
-            }
-        });
         add_shops_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -403,36 +382,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         Log.d("bitmap_IMG_ORG", e.toString());
                     }
                     break;
-                case PICK_IMAGE_REQUEST_2:
-                    imageView2.setImageURI(ImageUri);
-                    try {
-                        // Use the imageUri to open an InputStream and decode it into a Bitmap
-//                        File f = new File(ImageUri.getPath());
-//                        Uri test = Uri.fromFile(f);
-//                        InputStream inputStream = getContentResolver().openInputStream(ImageUri);
-//                        bitmap2 = BitmapFactory.decodeStream(inputStream);
-                        bitmap2 = BitmapFactory.decodeFile(imagePath);
-//                        inputStream.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("bitmap_IMG_ORG", e.toString());
-                    }
-                    break;
-                case PICK_IMAGE_REQUEST_3:
-                    imageView3.setImageURI(ImageUri);
-                    try {
-                        // Use the imageUri to open an InputStream and decode it into a Bitmap
-//                        File f = new File(ImageUri.getPath());
-//                        Uri test = Uri.fromFile(f);
-//                        InputStream inputStream = getContentResolver().openInputStream(ImageUri);
-//                        bitmap3 = BitmapFactory.decodeStream(inputStream);
-                        bitmap3 = BitmapFactory.decodeFile(imagePath);
-//                        inputStream.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("bitmap_IMG_ORG", e.toString());
-                    }
-                    break;
+
             }
 
 
