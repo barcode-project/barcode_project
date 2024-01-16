@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,25 +22,16 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.barcode.Adapter.ViewPagerAdapter;
 import com.example.barcode.Adapter.ViewPagerAdapter2;
-import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,7 +112,6 @@ public class AddedShopDetails extends AppCompatActivity {
                 Intent intent = new Intent(AddedShopDetails.this,AddBoard.class);
                 intent.putExtra("id",id);
                 startActivity(intent);
-                finish();
             }
         });
         FloatingActionButton button=findViewById(R.id.fab1);
@@ -187,7 +176,6 @@ public class AddedShopDetails extends AppCompatActivity {
                 Intent intent = new Intent(AddedShopDetails.this,Add_Iamge.class);
                 intent.putExtra("id",id);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -493,8 +481,12 @@ public class AddedShopDetails extends AppCompatActivity {
 
 
     private void showListDialog() {
-
-        ListDialog.showListDialog(this, "اللوحات", Plate);
+        try {
+            ListDialog.showListDialog(this, "اللوحات", Plate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(AddedShopDetails.this, "اللوحات \n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 

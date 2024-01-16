@@ -196,6 +196,8 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                         }
 
                         selectedstreetID = street_id;
+                        Toast.makeText(addorg_data.this, selectedstreetID, Toast.LENGTH_SHORT).show();
+
 //
 //                        // حفظ المتغير في SharedPreferences باستخدام DataRepository
 //                        DataRepository dataRepository = new DataRepository(addorg_data.this);
@@ -281,6 +283,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                                 shopstype_id = shopsCategory.get(i).get("shopstype_id");
                             }
                         }
+                        selectedshopstypID = shopstype_id;
                         Toast.makeText(addorg_data.this, selectedshopstypID, Toast.LENGTH_SHORT).show();
                         Log.d("shopstype_id", shopstype_id);
                     }
@@ -604,7 +607,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         queue.add(request);
     }
 
-
     private void saveData() {
         loading = new ProgressDialog(addorg_data.this);
         loading.setMessage("انتظر من فضلك. . .");
@@ -715,7 +717,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
     private String bitmapToString(Bitmap bitmap) {
         if (bitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
             byte[] array = byteArrayOutputStream.toByteArray();
             return Base64.encodeToString(array, Base64.NO_WRAP);
 

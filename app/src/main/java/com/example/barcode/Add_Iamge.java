@@ -1,11 +1,5 @@
 package com.example.barcode;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,6 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -40,7 +40,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.barcode.Items.shops;
 import com.example.barcode.Server.URLs;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -75,7 +74,6 @@ public class Add_Iamge extends AppCompatActivity {
         setContentView(R.layout.activity_add_iamge);
         pickimagebtn = findViewById(R.id.chooseImage);
         imageView = findViewById(R.id.imageView);
-        note = findViewById(R.id.note);
         image_type = findViewById(R.id.image_type);
         upload_bt = findViewById(R.id.upload_bt);
 
@@ -240,7 +238,6 @@ public class Add_Iamge extends AppCompatActivity {
                     }else if (statusCode == 443) {
                         errorMessage = "خطاء في الشهادة الامان.";
                     }
-                    // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                 }
                 Toast.makeText(Add_Iamge.this, errorMessage, Toast.LENGTH_SHORT).show();
                 loading.dismiss();

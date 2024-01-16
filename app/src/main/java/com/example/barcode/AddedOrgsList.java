@@ -50,8 +50,7 @@ public class AddedOrgsList extends AppCompatActivity {
     private ImageView allShopsExit;
     private SearchView searchView;
     private SharedPreferences sharedPreferences;
-    private ContentLoadingProgressBar progressBar;
-    private LinearLayout noOrdersLayout;
+    private LinearLayout noOrdersLayout,progressBar;
     private TextView textError;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int currentPage = 1;
@@ -69,7 +68,7 @@ public class AddedOrgsList extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview55);
         noOrdersLayout = findViewById(R.id.no_orders_layout);
         textError = findViewById(R.id.texterror);
-        progressBar = findViewById(R.id.a_s_progressBar);
+        progressBar = findViewById(R.id.org_progressBar);
         swipeRefreshLayout = findViewById(R.id.swipe);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -212,15 +211,43 @@ public class AddedOrgsList extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
             handleErrorResponse(new VolleyError(e.getMessage()));
+            progressBar.setVisibility(View.GONE);
+            noOrdersLayout.setVisibility(View.VISIBLE);
         }
         progressBar.setVisibility(View.GONE);
     }
 
     private void handleErrorResponse(VolleyError error) {
-        // Error handling code
-    }
+            String errorMessage = "خطأ غير معروف";
+            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+            } else if (error instanceof AuthFailureError) {
+                errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+            } else if (error instanceof ServerError) {
+                errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+            } else if (error instanceof NetworkError) {
+                errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+            } else if (error instanceof ParseError) {
+                errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+            } else if (error instanceof ServerError && error.networkResponse != null) {
+                int statusCode = error.networkResponse.statusCode;
+                if (statusCode == 400) {
+                    errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                } else if (statusCode == 401) {
+                    errorMessage = "غير مصرح.";
+                } else if (statusCode == 404) {
+                    errorMessage = "المورد غير موجود.";
+                } else if (statusCode == 443) {
+                    errorMessage = "خطاء في الشهادة الامان.";
+                }
+            }
 
-    private void updateUI(List<shops> shops) {
+            Toast.makeText(AddedOrgsList.this, errorMessage, Toast.LENGTH_SHORT).show();
+        textError.setText(errorMessage);
+        }
+
+
+        private void updateUI(List<shops> shops) {
         if (adpterShops == null) {
             if (shops.isEmpty()) {
                 noOrdersLayout.setVisibility(View.VISIBLE);

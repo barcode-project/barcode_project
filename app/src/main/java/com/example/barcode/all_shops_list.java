@@ -52,8 +52,7 @@ public class all_shops_list extends AppCompatActivity {
     private ImageView all_shops_exit;
     private SearchView searchView;
     private SharedPreferences sharedPreferences;
-    private ContentLoadingProgressBar progressBar;
-    private LinearLayout liner;
+    private LinearLayout liner,progressBar;
     private TextView texterror;
     SwipeRefreshLayout swipeRefreshLayout;
 //    private int currentPage = 1;
@@ -144,8 +143,8 @@ public class all_shops_list extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(() ->  new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
 //                test();
-//            fetchData();
-            },  3000));
+            fetchData();
+            },  2000));
 
 
         swipeRefreshLayout.setColorSchemeColors(
