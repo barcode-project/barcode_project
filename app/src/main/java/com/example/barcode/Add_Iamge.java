@@ -29,7 +29,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -72,14 +71,13 @@ public class Add_Iamge extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_iamge);
-        pickimagebtn = findViewById(R.id.chooseImage);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.image_product);
         image_type = findViewById(R.id.image_type);
         upload_bt = findViewById(R.id.upload_bt);
 
         id = getIntent().getIntExtra("id",0);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        pickimagebtn.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -221,12 +219,9 @@ public class Add_Iamge extends AppCompatActivity {
                 } else if (error instanceof ServerError) {
                     errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
                     // handle server error
-                } else if (error instanceof NetworkError) {
-                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    // handle network error
                 } else if (error instanceof ParseError) {
                     errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                } else if (error instanceof ServerError && error.networkResponse != null) {
+                } else if (error.networkResponse != null) {
                     // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
                     int statusCode = error.networkResponse.statusCode;
                     if (statusCode == 400) {
@@ -236,6 +231,8 @@ public class Add_Iamge extends AppCompatActivity {
                     } else if (statusCode == 404) {
                         errorMessage = "المورد غير موجود.";
                     }else if (statusCode == 443) {
+                        errorMessage = "خطاء في الشهادة الامان.";
+                    }else {
                         errorMessage = "خطاء في الشهادة الامان.";
                     }
                 }

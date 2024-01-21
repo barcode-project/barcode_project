@@ -138,6 +138,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 streetAdapter = new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
                 streetAdapter.addAll(name_street);
+                if (streetAdapter.isEmpty()){
+                    test();
+                }
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
@@ -221,7 +224,9 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 shopstypeAdapter = new ArrayAdapter<String>(addorg_data.this, android.R.layout.simple_list_item_1);
                 shopstypeAdapter.addAll(name_shops_type);
-
+                if (shopstypeAdapter.isEmpty()){
+                    test();
+                }
                 AlertDialog.Builder dialog = new AlertDialog.Builder(addorg_data.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_list_search, null);
                 dialog.setView(dialogView);
@@ -498,7 +503,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         ArrayList<HashMap<String, String>> shops_category = new ArrayList<>();
         loading = new ProgressDialog(addorg_data.this);
         loading.setMessage("انتظر من فضلك. . .");
-        loading.setCancelable(false);
+//        loading.setCancelable(false);
         loading.show();
         StringRequest request = new StringRequest(Request.Method.GET, URLs.Get_Streets, new Response.Listener<String>() {
             @Override
@@ -548,6 +553,7 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
                 }
                 loading.dismiss();
 

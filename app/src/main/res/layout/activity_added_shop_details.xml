@@ -273,9 +273,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/round_back_primary"
                     android:fontFamily="@font/boldiphone"
-                    android:text="عرض المرفقات "
+                    android:text=" عرض المرفقات "
                     android:textColor="@color/white"
-                    android:textSize="17sp" />
+                    android:textSize="@dimen/_14ssp"
+                    />
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/add_image"
                     app:layout_constraintTop_toTopOf="@+id/conLayout1"
@@ -284,9 +285,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/round_back_primary"
                     android:fontFamily="@font/boldiphone"
-                    android:text="اضافة المرفقات "
+                    android:text=" اضافة المرفقات "
                     android:textColor="@color/white"
-                    android:textSize="17sp" />
+                    android:textSize="@dimen/_14ssp"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -297,28 +299,30 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/show_billboard"
-                    android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_44sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="@+id/conLayout2"
                     app:layout_constraintRight_toRightOf="parent"
                     android:background="@drawable/round_back_primary"
                     android:fontFamily="@font/boldiphone"
-                    android:text="عرض اللوحات "
+                    android:text=" عرض اللوحات "
                     android:textColor="@color/white"
-                    android:textSize="17sp" />
+                    android:textSize="@dimen/_14ssp"
+                    />
 
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/add_btn"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/conLayout2"
-                    android:layout_width="@dimen/_75sdp"
-                    android:layout_height="@dimen/_44sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/round_back_primary"
                     android:fontFamily="@font/boldiphone"
-                    android:text="اضافة لوحة"
+                    android:text=" اضافة لوحة "
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/_14ssp"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
