@@ -41,7 +41,7 @@
             android:hint="@string/search_here"
             android:inputType="textNoSuggestions"
             android:imeOptions="actionSearch"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_14ssp"
             android:textColor="@color/textColorSecondaryLight"
             android:textColorHint="@color/textColorPrimaryDark"
             android:drawableStart="@drawable/ic_search2"

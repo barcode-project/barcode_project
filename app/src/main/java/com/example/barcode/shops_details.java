@@ -212,11 +212,11 @@ public class shops_details extends AppCompatActivity {
         rows.add(new String[]{"دائرة الخدمات الالكترونية"});
         rows.add(new String[]{direct_txt});
         rows.add(new String[]{office_txt});
-        rows.add(new String[]{"الوقت والتاريخ"});
+//        rows.add(new String[]{"الوقت والتاريخ"});
         rows.add(new String[]{" نوع النشاط: " + activitytype});
         rows.add(new String[]{"اسم المنشأه: " + shopname});
         rows.add(new String[]{"اسم المالك: " + ownername});
-        rows.add(new String[]{"رقم التواصل"});
+//        rows.add(new String[]{"رقم التواصل"});
 
         return rows;
     }
@@ -335,8 +335,11 @@ public class shops_details extends AppCompatActivity {
         }
 
     private void showListDialog() {
-
-        ListDialog.showListDialog(this, "اللوحات", Plate);
-
+        try {
+            ListDialog.showListDialog(this, "اللوحات", Plate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(shops_details.this, "اللوحات \n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
