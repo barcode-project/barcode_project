@@ -1,16 +1,19 @@
 package com.example.barcode;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.widget.ContentLoadingProgressBar;
@@ -18,12 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -53,6 +58,8 @@ public class AddedOrgsList extends AppCompatActivity {
     private LinearLayout noOrdersLayout,progressBar;
     private TextView textError;
     private SwipeRefreshLayout swipeRefreshLayout;
+    ProgressDialog loading;
+    private Button btnSearch;
     private int currentPage = 1;
     private int itemsPerPage = 10;
 
@@ -70,6 +77,7 @@ public class AddedOrgsList extends AppCompatActivity {
         textError = findViewById(R.id.texterror);
         progressBar = findViewById(R.id.org_progressBar);
         swipeRefreshLayout = findViewById(R.id.swipe);
+        btnSearch = findViewById(R.id.btnSearch);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
@@ -113,11 +121,122 @@ public class AddedOrgsList extends AppCompatActivity {
         };
 
         recyclerView.addOnScrollListener(onScrollListener);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(valid()){
+                    search();
+                }
+            }
+        });
+
+    }
+
+    private void search() {
+            loading = new ProgressDialog(AddedOrgsList.this);
+            loading.setMessage("انتظر من فضلك. . .");
+            loading.setCancelable(false);
+            loading.show();
+            StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Image, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("RESPONSE_jk", response);
+                    try {
+                        JSONObject object = new JSONObject(response);
+
+
+                        if (object.getBoolean("success")) {
+                            Toast.makeText(AddedOrgsList.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(AddedOrgsList.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(AddedOrgsList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    loading.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String errorMessage="خطاء غير معروف";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle time out error or no connection error
+                    } else if (error instanceof AuthFailureError) {
+                        errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                        // handle authentication failure error
+                    } else if (error instanceof ServerError) {
+                        errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                        // handle server error
+                    } else if (error instanceof NetworkError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle network error
+                    } else if (error instanceof ParseError) {
+                        errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    } else if (error instanceof ServerError && error.networkResponse != null) {
+                        // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                        int statusCode = error.networkResponse.statusCode;
+                        if (statusCode == 400) {
+                            errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                        } else if (statusCode == 401) {
+                            errorMessage = "غير مصرح.";
+                        } else if (statusCode == 404) {
+                            errorMessage = "المورد غير موجود.";
+                        }else if (statusCode == 443) {
+                            errorMessage = "خطاء في الشهادة الامان.";
+                        }
+                    }
+                    Toast.makeText(AddedOrgsList.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
+                }
+
+            }) {
+
+                // provide token in header
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String token = sharedPreferences.getString("token", "");
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("auth-token", token);
+                    return map;
+                }
+
+                @NonNull
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("image_type", String.valueOf("index"));
+
+                    return map;
+                }
+
+
+
+            };
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
+//        MySingleton.getInstance(this).getRequestQueue().add(request);
+
+        }
+
+
+    private boolean valid() {
+        if(searchView.getQuery().toString().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
 //    private void initializeUI() {
 ////        fetchData();
 //    }
+
+
 
     private void setupSearchListener() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -274,4 +393,6 @@ public class AddedOrgsList extends AppCompatActivity {
             fetchData(currentPage, itemsPerPage);
         }
     }
+
+
 }
