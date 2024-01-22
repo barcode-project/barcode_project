@@ -8,11 +8,13 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barcode.Adapter.adpter_shops;
 import com.example.barcode.Items.shops;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class SearchOrgFragment extends Fragment {
     private RecyclerView recyclerView;
-    private adpter_shops adpterShops;
+    private com.example.barcode.Adapter.adpter_shops adpter_shops;
     private List<shops> shopsList;
     private ImageView searchExit;
     private SearchView searchView;
@@ -59,7 +61,20 @@ public class SearchOrgFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_org, container, false);
+        View view= inflater.inflate(R.layout.fragment_search_org, container, false);
+        recyclerView= view.findViewById(R.id.recycle_search);
+        searchView= view.findViewById(R.id.etxt_search_org);
+        shopsList=generateDummy();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adpter_shops=new adpter_shops(getContext(),shopsList,1);
+        recyclerView.setAdapter(adpter_shops);
+        return view;
+    }
+    private List<shops> generateDummy() {
+        List<shops> shoplist =new ArrayList<>();
+        shoplist.add(new shops("hhh","1","xx",1,"khjk"));
+
+        return shoplist;
     }
 }
