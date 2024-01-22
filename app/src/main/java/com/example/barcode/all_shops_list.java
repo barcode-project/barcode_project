@@ -15,7 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -124,21 +125,27 @@ public class all_shops_list extends AppCompatActivity {
             // الآن يمكنك استخدام qrcodeData كمعلومات إضافية في النشاط الثاني، على سبيل المثال، قد تربطها بحقل نص أو تعرضها في مكان مناسب
             searchView.setQuery(qrcodeData, false);
         }
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // يمكنك تنفيذ إجراءات عند الضغط على زر البحث
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                filterListener(newText);
+//
+//                return true;
+//            }
+//
+//
+//        });
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                // يمكنك تنفيذ إجراءات عند الضغط على زر البحث
-                return false;
+            public void onClick(View v) {
+                loadSearchFragment();
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterListener(newText);
-
-                return true;
-            }
-
-
         });
         swipeRefreshLayout.setOnRefreshListener(() ->  new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
@@ -154,6 +161,16 @@ public class all_shops_list extends AppCompatActivity {
                 getResources().getColor(android.R.color.holo_red_dark)
         );
 
+    }
+    private void loadSearchFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // قم بتحميل الفراغمنت الجديد
+        SearchOrgFragment searchFragment = new SearchOrgFragment();
+        fragmentTransaction.replace(android.R.id.content, searchFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
