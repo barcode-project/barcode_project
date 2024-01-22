@@ -126,32 +126,41 @@ public class AddedOrgsList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(valid()){
-                    search();
+                    search("");
                 }
             }
         });
 
     }
 
-    private void search() {
-            loading = new ProgressDialog(AddedOrgsList.this);
-            loading.setMessage("انتظر من فضلك. . .");
-            loading.setCancelable(false);
-            loading.show();
-            StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Image, new Response.Listener<String>() {
+    private void search(String query) {
+        List<shops> shops = new ArrayList<>();
+        loading = new ProgressDialog(AddedOrgsList.this);
+        loading.setMessage("انتظر من فضلك. . .");
+        loading.setCancelable(false);
+        loading.show();
+            StringRequest request = new StringRequest(Request.Method.POST, URLs.Search_vir_orgs, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.d("RESPONSE_jk", response);
                     try {
                         JSONObject object = new JSONObject(response);
-
-
                         if (object.getBoolean("success")) {
-                            Toast.makeText(AddedOrgsList.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(AddedOrgsList.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                            JSONArray array = new JSONArray(object.getString("data"));
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject citizen = array.getJSONObject(i);
+                                shops shop = new shops();
+                                shop.setId(citizen.getInt("id"));
+                                shop.setName_shop(citizen.getString("org_name"));
+                                shop.setStatus(String.valueOf(citizen.getInt("is_moved")));
+                                shop.setOwner_name(citizen.getString("owner_name"));
+                                shop.setOwner_namefullname(citizen.getString("user_name"));
+
+                                shops.add(shop);
+                            }
+
                         }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(AddedOrgsList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -209,7 +218,7 @@ public class AddedOrgsList extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> map = new HashMap<>();
-                    map.put("image_type", String.valueOf("index"));
+                    map.put("search_value",query);
 
                     return map;
                 }
@@ -242,13 +251,14 @@ public class AddedOrgsList extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                filterResults(query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterResults(newText);
-                return true;
+//                filterResults(newText);
+                return false;
             }
         });
     }
@@ -324,7 +334,12 @@ public class AddedOrgsList extends AppCompatActivity {
 
                     shops.add(shop);
                 }
+                if(shopsList == null){
                 shopsList = shops;
+                }
+                else {
+                    shopsList.addAll(shops);
+                }
                 updateUI(shops);
             }
         } catch (JSONException e) {

@@ -20,5 +20,7 @@ public class URLs {
     public static final String Get_Vir_Board = HOME+"worker/get_vir_billboard";
     public static final String Reset_Password = HOME+"worker/reset_password";
     public static final String Insert_Image = HOME+"worker/insert_image";
+    public static final String Search_vir_orgs = HOME+"worker/search_vir_orgs";
+    public static final String Search_orgs = HOME+"worker/search_orgs";
 
 }
