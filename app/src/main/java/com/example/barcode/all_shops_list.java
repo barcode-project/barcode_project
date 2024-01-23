@@ -166,12 +166,19 @@ public class all_shops_list extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        // قم بتحميل الفراغمنت الجديد
-        SearchOrgFragment searchFragment = new SearchOrgFragment();
+        // Create a new instance of the SearchOrgFragment and pass the int parameter
+        SearchOrgFragment searchFragment = SearchOrgFragment.newInstance(1);
+
+        // Replace the current content with the new fragment
         fragmentTransaction.replace(android.R.id.content, searchFragment);
+
+        // Add the transaction to the back stack, allowing the user to navigate back
         fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction to apply the changes
         fragmentTransaction.commit();
     }
+
     private void filterListener(String text) {
         List<shops> filterList = new ArrayList<>();
         if (shopsList != null) {
