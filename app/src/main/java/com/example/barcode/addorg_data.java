@@ -612,112 +612,118 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
-
+private boolean isDataUpLoding=false;
     private void saveData() {
-        loading = new ProgressDialog(addorg_data.this);
-        loading.setMessage("انتظر من فضلك. . .");
-        loading.setCancelable(false);
-        loading.show();
-        List<shops> shops = new ArrayList<>();
-        StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("RESPONSE_jk", response);
-                try {
-                    JSONObject object = new JSONObject(response);
+        if (!isDataUpLoding) {
+            loading = new ProgressDialog(addorg_data.this);
+            loading.setMessage("انتظر من فضلك. . .");
+            loading.setCancelable(false);
+            loading.show();
+            isDataUpLoding=true;
+            List<shops> shops = new ArrayList<>();
+            StringRequest request = new StringRequest(Request.Method.POST, URLs.Insert_Data, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
+                    isDataUpLoding=false;
+                    Log.d("RESPONSE_jk", response);
+                    try {
+                        JSONObject object = new JSONObject(response);
 
-                    if (object.getBoolean("success")) {
-                        Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(addorg_data.this, AddedOrgsList.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                        if (object.getBoolean("success")) {
+                            Toast.makeText(addorg_data.this, "تمت الاضافة", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(addorg_data.this, AddedOrgsList.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(addorg_data.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(addorg_data.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
                 }
-                loading.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                String errorMessage="خطاء غير معروف";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    // handle time out error or no connection error
-                } else if (error instanceof AuthFailureError) {
-                    errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
-                    // handle authentication failure error
-                } else if (error instanceof ServerError) {
-                    errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                    // handle server error
-                } else if (error instanceof NetworkError) {
-                    errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
-                    // handle network error
-                } else if (error instanceof ParseError) {
-                    errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
-                } else if (error instanceof ServerError && error.networkResponse != null) {
-                    // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
-                    int statusCode = error.networkResponse.statusCode;
-                    if (statusCode == 400) {
-                        errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
-                    } else if (statusCode == 401) {
-                        errorMessage = "غير مصرح.";
-                    } else if (statusCode == 404) {
-                        errorMessage = "المورد غير موجود.";
-                    }else if (statusCode == 443) {
-                        errorMessage = "خطاء في الشهادة الامان.";
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    isDataUpLoding=false;
+                    String errorMessage = "خطاء غير معروف";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle time out error or no connection error
+                    } else if (error instanceof AuthFailureError) {
+                        errorMessage = "فشل التحقق من الهوية. يرجى إعادة تسجيل الدخول.";
+                        // handle authentication failure error
+                    } else if (error instanceof ServerError) {
+                        errorMessage = "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                        // handle server error
+                    } else if (error instanceof NetworkError) {
+                        errorMessage = "فشل الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+                        // handle network error
+                    } else if (error instanceof ParseError) {
+                        errorMessage = "حدث خطأ أثناء معالجة البيانات. يرجى المحاولة مرة أخرى في وقت لاحق.";
+                    } else if (error instanceof ServerError && error.networkResponse != null) {
+                        // يمكنك محاولة استخدام رمز الحالة الخاص بالخطأ من الاستجابة هنا
+                        int statusCode = error.networkResponse.statusCode;
+                        if (statusCode == 400) {
+                            errorMessage = "خطأ في الطلب: تحقق من البيانات المرسلة.";
+                        } else if (statusCode == 401) {
+                            errorMessage = "غير مصرح.";
+                        } else if (statusCode == 404) {
+                            errorMessage = "المورد غير موجود.";
+                        } else if (statusCode == 443) {
+                            errorMessage = "خطاء في الشهادة الامان.";
+                        }
+                        // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
                     }
-                    // يمكنك إضافة المزيد من الحالات حسب احتياجاتك
+                    Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
                 }
-                Toast.makeText(addorg_data.this, errorMessage, Toast.LENGTH_SHORT).show();
-                loading.dismiss();
-            }
 
-        }) {
+            }) {
 
-            // provide token in header
+                // provide token in header
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = sharedPreferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-                map.put("auth-token", token);
-                return map;
-            }
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String token = sharedPreferences.getString("token", "");
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("auth-token", token);
+                    return map;
+                }
 
-            @NonNull
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("org_name", shop_name.getText().toString().trim());
-                map.put("owner_name", owner_name.getText().toString().trim());
-                map.put("owner_phone", phone_no.getText().toString().trim());
-                map.put("building_type_id", "1");
-                map.put("org_type_id", selectedshopstypID);
-                map.put("street_id", selectedstreetID);
-                map.put("hood_unit_id", selectedstreetID);
-                map.put("note", note.getText().toString().trim());
-                map.put("log_x", String.valueOf(latitude));
-                map.put("log_y", String.valueOf(longitude));
-                map.put("org_image",bitmapToString(bitmap));
+                @NonNull
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("org_name", shop_name.getText().toString().trim());
+                    map.put("owner_name", owner_name.getText().toString().trim());
+                    map.put("owner_phone", phone_no.getText().toString().trim());
+                    map.put("building_type_id", "1");
+                    map.put("org_type_id", selectedshopstypID);
+                    map.put("street_id", selectedstreetID);
+                    map.put("hood_unit_id", selectedstreetID);
+                    map.put("note", note.getText().toString().trim());
+                    map.put("log_x", String.valueOf(latitude));
+                    map.put("log_y", String.valueOf(longitude));
+                    map.put("org_image", bitmapToString(bitmap));
 //                map.put("org_image2",bitmapToString(bitmap2));
 //                map.put("org_image3",bitmapToString(bitmap3));
 
-                return map;
-            }
+                    return map;
+                }
 
 
+            };
 
-        };
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(request);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
 //        MySingleton.getInstance(this).getRequestQueue().add(request);
+        }else {
+            Toast.makeText(addorg_data.this, "...جاري رفع البيانات،يرجى الانتظار", Toast.LENGTH_SHORT).show();
 
+        }
     }
 
     private String bitmapToString(Bitmap bitmap) {

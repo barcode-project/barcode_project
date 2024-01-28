@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ public class all_shops_list extends AppCompatActivity {
     private com.example.barcode.Adapter.adpter_shops adpter_shops;
     private List<shops> shopsList;
     private ImageView all_shops_exit;
-    private SearchView searchView;
+    private EditText searchView;
     private SharedPreferences sharedPreferences;
     private LinearLayout liner,progressBar;
     private TextView texterror;
@@ -76,15 +77,6 @@ public class all_shops_list extends AppCompatActivity {
 
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-//        test();
-
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        ReView.setLayoutManager(layoutManager);
-//
-//        adpter_shops = new adpter_shops(this, shopsList, 1);
-//        ReView.setAdapter(adpter_shops);
-
-//        fetchData();
 
         ReView.setLayoutManager(new LinearLayoutManager(this));
         shopsList = new ArrayList<>();
@@ -123,7 +115,7 @@ public class all_shops_list extends AppCompatActivity {
             String qrcodeData = intent.getStringExtra("qrcode");
 
             // الآن يمكنك استخدام qrcodeData كمعلومات إضافية في النشاط الثاني، على سبيل المثال، قد تربطها بحقل نص أو تعرضها في مكان مناسب
-            searchView.setQuery(qrcodeData, false);
+//            searchView.setQuery(qrcodeData, false);
         }
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override

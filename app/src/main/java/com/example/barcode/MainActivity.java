@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,17 +41,32 @@ public class MainActivity extends AppCompatActivity {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
 
                     // إنشاء Intent للانتقال إلى النشاط الجديد
-                    Intent intent = new Intent(this, all_shops_list.class);
+//                    Intent intent = new Intent(this, all_shops_list.class);
+//
+//                    // وضع البيانات في Intent
+//                    intent.putExtra("qrcode", result);
+//
+//                    // بدء النشاط الجديد
+//                    startActivity(intent);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    // وضع البيانات في Intent
-                    intent.putExtra("qrcode", result);
+                    // Create a new instance of the SearchOrgFragment and pass the int parameter
+                    SearchOrgFragment searchFragment = SearchOrgFragment.newInstance(1);
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putString("qrcode", result);
+                    searchFragment.setArguments(bundle2);
+                    // Replace the current content with the new fragment
+                    fragmentTransaction.replace(android.R.id.content, searchFragment);
 
-                    // بدء النشاط الجديد
-                    startActivity(intent);
+                    // Add the transaction to the back stack, allowing the user to navigate back
+                    fragmentTransaction.addToBackStack(null);
 
+                    // Commit the transaction to apply the changes
+                    fragmentTransaction.commit();
 
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-
+                } else {
+                    bundle.getInt(CodeUtils.RESULT_TYPE);
                 }
             }
         }

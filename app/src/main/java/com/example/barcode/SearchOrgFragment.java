@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +59,8 @@ public class SearchOrgFragment extends Fragment {
     ProgressDialog loading;
     private SharedPreferences sharedPreferences;
     private int myIntParameter;
+    private String data;
+    private Button btnSearch;
     public SearchOrgFragment() {
         // Required empty public constructor
     }
@@ -77,10 +82,11 @@ public class SearchOrgFragment extends Fragment {
 //        return fragment;
 //    }
 
-    public static SearchOrgFragment newInstance(int myIntParameter) {
+    public static SearchOrgFragment newInstance(int myIntParameter ) {
         SearchOrgFragment fragment = new SearchOrgFragment();
         Bundle args = new Bundle();
         args.putInt("myIntParameter", myIntParameter);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,7 +96,8 @@ public class SearchOrgFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             myIntParameter = getArguments().getInt("myIntParameter", 0);
-        }
+            data = getArguments().getString("qrcode","");
+       }
     }
 
     @Override
@@ -99,9 +106,10 @@ public class SearchOrgFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_search_org, container, false);
         recyclerView= view.findViewById(R.id.recycle_search);
         searchView= view.findViewById(R.id.etxt_search_org);
+        btnSearch= view.findViewById(R.id.btnSearch);
+        searchExit= view.findViewById(R.id.SearchExit);
         sharedPreferences = requireActivity().getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        shopsList=generateDummy();
-
+        searchView.setQuery(data,false);
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,17 +123,40 @@ public class SearchOrgFragment extends Fragment {
                 }
             }
         });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(valid()){
+                    if(myIntParameter == 1){
+                        search(searchView.getQuery().toString());
+                    }
+                    else if(myIntParameter == 2){
+                        search2(searchView.getQuery().toString());
+                    }
+                }
+            }
+        });
+        searchExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = requireFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(SearchOrgFragment.this);
+                fragmentTransaction.commit();
 
+            }
+        });
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        adpter_shops=new adpter_shops(requireContext(),shopsList,1);
 //        recyclerView.setAdapter(adpter_shops);
         return view;
     }
-    private List<shops> generateDummy() {
-        List<shops> shoplist =new ArrayList<>();
-        shoplist.add(new shops("hhh","1","xx",1,"khjk"));
-        return shoplist;
+
+    public void onResume() {
+        super.onResume();
+        searchView.requestFocus();
     }
+
 
     private void search(String query) {
         List<shops> shops = new ArrayList<>();

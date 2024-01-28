@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/all_shops_exit"
+        android:id="@+id/SearchExit"
         android:layout_width="@dimen/_12sdp"
         android:layout_height="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_14sdp"
@@ -37,13 +37,14 @@
         android:textColor="#FFFFFF"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@+id/all_shops_exit"
+        app:layout_constraintRight_toLeftOf="@+id/SearchExit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,18 +53,27 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/etxt_search_org"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:layout_margin="1dp"
             android:background="@drawable/search_view_bg"
             android:fontFamily="@font/boldiphone"
+            android:layoutDirection="ltr"
             android:padding="10dp"
             android:textSize="@dimen/_12ssp"
             app:defaultQueryHint="@string/search_here"
             app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="1"
+            android:text="بحث"
+            android:layout_margin="1dp"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

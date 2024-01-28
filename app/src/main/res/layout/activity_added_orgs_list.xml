@@ -50,27 +50,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rounded_up2">
 
-        <androidx.appcompat.widget.SearchView
+        <EditText
             android:id="@+id/txt_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
             android:layout_margin="6dp"
-            android:layout_weight="3"
-            android:background="@drawable/search_view_bg"
-            android:fontFamily="@font/boldiphone"
-            android:padding="10dp"
-            android:textSize="@dimen/_12ssp"
-            app:defaultQueryHint="@string/search_here"
-            app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="بحث" />
+            android:background="@drawable/search_view_bg"
+            android:drawableStart="@drawable/ic_search2"
+            android:drawablePadding="5dp"
+            android:hint="@string/search_here"
+            android:focusable="false"
+            android:padding="5dp"
+            android:textColorHint="@color/textColorPrimaryDark"
+            android:textSize="@dimen/_14ssp" />
+
 
     </LinearLayout>
 
