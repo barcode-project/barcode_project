@@ -58,7 +58,7 @@ public class AddedShopDetails extends AppCompatActivity {
     ArrayList<String> ImageList;
 
     Spinner spinner;
-    String selectedItem;
+    String selectedItem,userfull,shereduserfull;
     private List<PlateData> Plate ;
     ImageView imageView,dialogImageView;
     ProgressDialog loading;
@@ -85,11 +85,20 @@ public class AddedShopDetails extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         id = getIntent().getIntExtra("id",0);
-        Log.d("ALL_ID", String.valueOf(id));
-        ImageList = new ArrayList<>();
-//        test();
-        fetchDataFromServer();
+        userfull = getIntent().getStringExtra("userfull");
+        shereduserfull=sharedPreferences.getString("fullname", "");
+        Log.d("ALL_ID", String.valueOf(shereduserfull));
+        Log.d("ALL_ID", String.valueOf(userfull));
 
+        if (userfull.trim().equals(shereduserfull.trim())){
+            add_image.setVisibility(View.VISIBLE);
+            add_btn.setVisibility(View.VISIBLE);
+        }else {
+            add_image.setVisibility(View.GONE);
+            add_btn.setVisibility(View.GONE);
+        }
+        fetchDataFromServer();
+        ImageList = new ArrayList<>();
         show_billboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,22 +160,6 @@ public class AddedShopDetails extends AppCompatActivity {
                 dialogViewPager.setAdapter(adapter2);
                 AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.show();
-//                try {
-//                // استخدم Picasso لتحميل وعرض الصورة في dialogImageView
-//                Picasso.get().load(imageUrl).into(dialogImageView, new Callback() {
-//                    @Override
-//                    public void onSuccess() {
-//                        // يمكنك إضافة أي عمليات إضافية بعد نجاح تحميل الصورة هنا
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        dialogImageView.setImageResource(android.R.drawable.ic_menu_gallery);
-//                    }
-//                });
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
             }
         });
 

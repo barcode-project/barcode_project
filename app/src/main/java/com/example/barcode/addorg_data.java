@@ -200,19 +200,6 @@ public class addorg_data extends AppCompatActivity implements OnMapReadyCallback
 
                         selectedstreetID = street_id;
                         Toast.makeText(addorg_data.this, selectedstreetID, Toast.LENGTH_SHORT).show();
-
-//
-//                        // حفظ المتغير في SharedPreferences باستخدام DataRepository
-//                        DataRepository dataRepository = new DataRepository(addorg_data.this);
-//                        List<String> savedStreetIDs = dataRepository.loadStreetIDs();
-//
-//                        if (savedStreetIDs == null) {
-//                            savedStreetIDs = new ArrayList<>();
-//                        }
-//
-//                        savedStreetIDs.add(selectedstreetID);
-//                        dataRepository.saveStreetIDs(savedStreetIDs);
-
                         Log.d("street_id", street_id);
                     }
                 });

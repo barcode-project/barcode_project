@@ -74,6 +74,7 @@ public class adpter_shops extends RecyclerView.Adapter<adpter_shops.shopsViewHol
                     intent = new Intent(context, AddedShopDetails.class);
                 }
                 intent.putExtra("id", shop.getId());
+                intent.putExtra("userfull", shop.getOwner_namefullname());
                 context.startActivity(intent);
             }
         });
