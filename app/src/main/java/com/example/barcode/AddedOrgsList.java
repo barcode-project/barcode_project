@@ -49,12 +49,11 @@ import java.util.Map;
 
 public class AddedOrgsList extends AppCompatActivity {
 
-    private final int itemsPerPage = 10;
     private RecyclerView recyclerView;
     private adpter_shops adpterShops;
     private List<shops> shopsList;
     private ImageView allShopsExit;
-    ProgressDialog loading;
+
     private SharedPreferences sharedPreferences;
     private EditText searchView;
     private TextView textError;
@@ -81,7 +80,7 @@ public class AddedOrgsList extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
 //        initializeUI();
-        fetchData(currentPage, itemsPerPage);
+
         allShopsExit.setOnClickListener(view -> finish());
 
         searchView = findViewById(R.id.txt_search);
@@ -92,26 +91,31 @@ public class AddedOrgsList extends AppCompatActivity {
         }, 2000));
 
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_blue_bright), getResources().getColor(android.R.color.holo_orange_dark), getResources().getColor(android.R.color.holo_green_dark), getResources().getColor(android.R.color.holo_red_dark));
+        shopsList= new ArrayList<>();
+        adpterShops = new adpter_shops(AddedOrgsList.this, shopsList, 2);
+        recyclerView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
+        recyclerView.setAdapter(adpterShops);
 
-
-        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int visibleItemCount = layoutManager.getChildCount();
                 int totalItemCount = layoutManager.getItemCount();
-                int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
-                // Check if the end has been reached and load more data
-                if (!isLoading && totalItemCount <= (lastVisibleItem + 5)) {
-                    fetchNextPage();
-                    isLoading = true;
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0) {
+                    // Load more data
+                    fetchData();
+
                 }
             }
-        };
+        });
 
-        recyclerView.addOnScrollListener(onScrollListener);
+        fetchData();
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,33 +145,9 @@ public class AddedOrgsList extends AppCompatActivity {
 
 
 
-    private void filterResults(String text) {
-        List<shops> filteredList = new ArrayList<>();
-        if (shopsList != null) {
-            for (shops shop : shopsList) {
-                if (shop.getName_shop().toLowerCase().startsWith(text.toLowerCase()) || shop.getOwner_name().toLowerCase().startsWith(text.toLowerCase()) || shop.getStatus().toLowerCase().startsWith(text.toLowerCase())) {
-                    filteredList.add(shop);
-                }
-            }
 
-            if (filteredList.isEmpty()) {
-                Toast.makeText(this, " لا يوجد منشئة بهذا الاسم", Toast.LENGTH_LONG).show();
-            } else {
-                if (adpterShops != null) {
-                    adpterShops.setFlteredList(filteredList);
-                } else {
-                    Log.e("Adapter Error", "adpterShops is null");
-                }
-            }
-        } else {
-            Log.e("List Error", "shopsList is null");
-            Toast.makeText(this, "قائمة المحلات فارغة", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    private void fetchData(int page, int perPage) {
-        String url = URLs.GET_VIR_ORGSV2 + "?page=" + page + "&per_page=" + perPage;
+    private void fetchData() {
+        String url = URLs.GET_VIR_ORGSV2 + "?page=" + currentPage;
         noOrdersLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
@@ -185,6 +165,7 @@ public class AddedOrgsList extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
+        currentPage++;
     }
 
     private void handleSuccessResponse(String response) {
@@ -205,14 +186,9 @@ public class AddedOrgsList extends AppCompatActivity {
                     shop.setOwner_name(citizen.getString("owner_name"));
                     shop.setOwner_namefullname(citizen.getString("user_name"));
 
-                    shops.add(shop);
+                    shopsList.add(shop);
                 }
-                if (shopsList == null) {
-                    shopsList = shops;
-                } else {
-                    shopsList.addAll(shops);
-                }
-                updateUI(shops);
+                adpterShops.notifyDataSetChanged(); // Notify adapter about data changes
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -257,33 +233,9 @@ public class AddedOrgsList extends AppCompatActivity {
     }
 
 
-    private void updateUI(List<shops> shops) {
-        if (adpterShops == null) {
-            if (shops.isEmpty()) {
-                noOrdersLayout.setVisibility(View.VISIBLE);
-                textError.setText("لا توجد بيانات");
-            } else {
-                adpterShops = new adpter_shops(AddedOrgsList.this, shops, 2);
-                recyclerView.setLayoutManager(new LinearLayoutManager(AddedOrgsList.this));
-                recyclerView.setAdapter(adpterShops);
-            }
-        } else {
-            adpterShops.addData(shops);
-        }
-        isLoading = false;
-    }
 
-    private void fetchNextPage() {
-        currentPage++;
-        fetchData(currentPage, itemsPerPage);
-    }
 
-    private void fetchPreviousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            fetchData(currentPage, itemsPerPage);
-        }
-    }
+
 
 
 }
